@@ -1,0 +1,84 @@
+\documentclass{MSthesis} 
+% subclass of the document class report.
+\pgfplotsset{compat=1.16}
+
+\begin{document}
+
+% Formatting titles and spaces 
+
+% Originally its
+% Chapter 1:
+% Name of chapter one
+\titleformat{\chapter}[hang] 
+{\normalfont\huge\bfseries}{\thechapter}{1em}{}  
+
+% left margin, vertical space,  space to section, 
+\titlespacing*{\chapter}{0cm}{0cm}{0cm}
+\titlespacing*{\section}{0cm}{0cm}{0cm}
+\titlespacing*{\subsection}{0cm}{0cm}{0cm}
+\titlespacing*{\subsubsection}{0cm}{0cm}{0cm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% USING THE TWOSIDED OPTION left = inner , and right = outer
+\myfrontpage
+\mycopyright
+
+%\newpage\null\thispagestyle{empty}\newpage
+
+% Abstract should have first page nr,
+\pagenumbering{roman}
+\input{abstract.tex}
+
+\input{acknowledgement.tex}
+
+\tableofcontents
+
+% Clear double page --> New chapters or listings begin on odd numbered pages.
+\cleardoublepage
+
+\listoffigures
+\addcontentsline{toc}{chapter}{\listfigurename}
+\cleardoublepage
+
+% List of tables 
+\listoftables
+\addcontentsline{toc}{chapter}{\listtablename} % add list of tables to contents line
+\cleardoublepage
+
+% List of acronyms
+\input{acronyms.tex}
+\cleardoublepage
+
+\pagenumbering{arabic} % page numbering to arabic
+\input{Chapter1_Intro/Introduction}
+%\cleardoublepage
+
+\input{Chapter2_Theory/Theory}
+\cleardoublepage
+
+\input{Chapter3_Theory_ocean_hetReact/Theory_ocean_hetReact}
+\cleardoublepage
+
+\input{Chapter4_CTM3/CTM3}
+
+\input{Chapter5_CTM3setup/CTM3setup}
+\cleardoublepage
+
+\input{Chapter6_Results/Results}
+\cleardoublepage
+
+\input{Chapter7_Conclusions/Conclusions}
+\cleardoublepage
+
+\input{Chapter8_Discussion/discussion}
+\cleardoublepage
+
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\input{./Appendix/Appendix}
+\cleardoublepage
+
+\printbibliography
+\cleardoublepage
+
+\end{document}

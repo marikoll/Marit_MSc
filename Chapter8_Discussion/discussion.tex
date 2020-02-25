@@ -1,0 +1,15 @@
+\setcounter{chapter}{7}
+\chapter{Discussion}
+
+
+\section{Future work}
+
+The acidity of the reaction surface for the heterogeneous reactions are not considered, although it is highly dependent on pH. 
+
+\medskip
+Sea salt debromination increase from pre-industrial times to today due to enhanced particle acidity from present day emmissions are not considered here (\cite{Parella})
+
+\medskip
+The implementation in Section \ref{sec:oceanic_emissions} does not take into consideration antropogenic emissions of organic halocarbons, seasonality in emissions or the difference in lifetime for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$. The implementation is a latitudinal fixed parameterization, and cannot thus not interchange with extisting inventories in the model. It would have been better to use an NetCDF-based emission field. 
+\medskip
+In the implementation of the heterogeneous reactions over snow and ice (Section \ref{sec:tropchem_oslo}), the existence of sea ice is the only variable determining the occurrence of the reaction. To improve this, the age of the ice (multiyear ice or newly formed ice), snow cover and ph should be considered (e.g. \cite{Peterson2019}).

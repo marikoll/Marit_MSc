@@ -1,0 +1,108 @@
+\setcounter{chapter}{3}
+\chapter{Oslo CTM3}\label{chapt:OsloCTM3}
+
+The Oslo CTM3 (chemical transport model) is a three-dimensional global chemical transport model. The model was developed at the Department of Geosciences at the University of Oslo and later at the CICERO Denter for International Climate Research (\cite{SovdeManual}). It operates offline driven by historical weather data from the European Centre for Medium Range Weather Forecasts (ECMWF) open Integrated Forecast System (openIFS) model. The meteorological data is updated (offline) and stored every 3rd hour. The model spin-up time is 12h starting from an analysis at noon the day before (\cite{Sovde2012}). 
+
+\medskip
+
+The tropospheric chemistry in the CTM3 is a stand-alone module, while the stratosphere module requires the troposphere. Thus, there is a possibility of turning off the stratosphere to better isolate chemical processes occurring in the troposphere. In that case, the tropospheric species that are advected throughout the stratosphere are allowed to do so, but are not affected by any real chemistry. The species that are photolyzed in the stratosphere are instead set to decay at fixed rates, and species that have stratospheric origin (such as ozone and $\chem{NO_x}$) are set to model climatological values (climatological values produced by the CTM3 with stratosphere).  (\cite{Sovde2012}).
+
+\medskip
+
+The advection scheme in Oslo CTM3 is the UCI CTM transport core documented by \cite{Prather2008}. This is a 3D isotropic (same second order moment (SOM) in all directions) advection scheme, where the zonal (U) and meridional (V) metereological fields are used to calculate the vertical field (W). An important feature of the advection scheme is the handling of the transport at the poles. Each polar-"pie" box is combined with it's adjacent lower-latitude box (which conserves all moments) before [U] and [V] transport and restored to individual boxes afterwards, assuming unchanged polar pie air mass (\cite{Sovde2012}). 
+
+\medskip
+
+scanvenging -- Falk 2019
+
+
+\medskip
+
+The photodissocation rates (J-values) in $[s^{-1}]$ are calculated online using the fast-JX method, version 6.7c (\cite{FastJX}, \cite{SovdeManual}). The method calculates the photolysis rates (\texttt{J}-values) in the troposphere and the stratosphere from the surface to 60 km (\cite{Sovde2012}). The reactions are listed in \texttt{ratj\_oc.d}. 
+
+\section{Solutions of chemical ordinary differential equations}
+
+Modelling of the chemical processes in the atmosphere includes solving chemical ordinary differential equations (ODEs). The method must have the ability to solve a system of equations with large variations in time constants, i.e. the lifetimes of species. A system such as this is known as a stiff system, and the difference in time constants leads to time-step limitations (\cite{AtmModFund}). In the Oslo CTM3, two approaches has been combined to solve these problems, which are the Quasi-steady-state approximation (QSSA) and the Family solution, which are in the following subsections. 
+
+\subsection{QSSA-integrator}\label{sec:QSSA}
+
+The quasi-steady-state approximation (QSSA) is a method that has the ability to solve a stiff system. It is mathematically quite simple, but has error bounds that are hard to estimate. However, in a global model like the CTM3, the use of a simple approach is necessary as it is computationally cheap, and efficient (\cite{Hesstvedt1978}). 
+
+\medskip
+
+The QSSA method is described by \cite{Hesstvedt1978} as follows: 
+
+\medskip
+
+The time development of the concentration is given by the continuity equation:
+
+\begin{equation}
+    \frac{dC}{dt} = P - LC
+    \label{eq:conteqn}
+\end{equation}
+
+In which $P$ and $LC$ are the photochemical production and loss terms, respectively. Assuming that $P$ and $L$ are constants over a time interval $\Delta t$, which is taken to be the step length in the numerical integration. Then, Equation \ref{eq:conteqn} has the analytical solution: 
+
+\begin{equation}
+    C_{t + \Delta t} = C_{E} + (C_{t} - C_{e})e^{-L\Delta t}
+    \label{eq:analyt_soltn}
+\end{equation}
+
+In which $C_{e} = P/L$ is the photochemical equilibrium concentration. The characteristic time of variation (or photochemical lifetime) is defined as $\tau = 1/L$. According to $\tau$, the components in the system may be defined in the following three categories: 
+
+\begin{enumerate}[label=(\roman*)]
+    \item If $\tau < \Delta t/10$, the species' lifetime is considered short, and it's concentration is calculated with the steady-state equation (assuming instant equilibrium with any other species):
+    \begin{equation}
+        C_{t + \Delta t} = \frac{P_{t + \Delta t}}{L_{t + \Delta t}}
+        \label{eq:a}
+    \end{equation}
+    \item If $\Delta t \leq \tau \leq 100\Delta t$, the species' lifetime is considered moderate, and it's concentration is calculated according to Equation \ref{eq:analyt_soltn}
+    \item If $\tau \gg \Delta t$, the species' lifetime is considered long, and it's concentration is calculated according to the simple Euler formula: 
+    \begin{equation}
+        C_{t + \Delta t} = C_t + (P_t - L_tC_t)\Delta t
+        \label{eq:b}
+    \end{equation}
+\end{enumerate}
+
+To obtain satisfactory accuracy with the QSSA method, it is important to use the correct category. Photochemical equilibrium can only be assumed when the lifetime of a given compound is much shorter than the time step (category (i)). If this is not the case, an exponential expression must be applied (category (ii)) (\cite{Hesstvedt1978}). The QSSA scheme is useful and accurate enough for applications in which calculations has to be repeated many times, but can only  be considered mass-conserving for long-lived species (\cite{AtmModFund}). 
+
+\subsection{Family solution to ODEs}\label{sec:families}
+
+Some groups of gases (families) exist that has atoms transferring quickly among them, but are only slowly lost from the actual family. To obtain a numerically stable solution, it is more beneficial to integrate a family of components as the family is more stable than the members of it. An example of a family is the odd oxygen family which includes: 
+
+\begin{equation*}
+    [\chem{O_T}] = [\chem{O}] + [\chem{O(^1D}] + [\chem{O_3}] + [\chem{NO_2}]
+\end{equation*}
+
+Oxygen atoms in the odd-oxygen family are cycled rapidly between the species atomic oxygen, excited atomic oxygen and ozone, but oxygen atoms are only slowly lost out of the family (\cite{AtmModFund}). The individual rates of production- and loss terms for the members in the family are calculated and summed up across the family. Then, the family concentration is integrated using the QSSA method. Finally, the individual members are scaled with the ratio of the individually integrated family and the sum of the individually integrated members of the family (\cite{SovdeManual}).
+
+\medskip
+
+The Oslo CTM3 uses the following family in the troposphere (\cite{SovdeManual}): 
+
+\begin{equation*}
+    \chem{NO_x} = \chem{NO} + \chem{NO_2} + \chem{NO_3} + 2\chem{N_2O_5} \chem{HO_2NO_2} + \chem{PAN}    
+\end{equation*}
+
+And the following families (among others) in the stratosphere:
+
+\begin{align*}
+    \chem{O_x} = \chem{SO} & = \chem{O_3} + \chem{O(^1D)} + \chem{O(^3P)} - \chem{NO} - \chem{CL} - \chem{Br} \\
+    \chem{Br_y} & = \chem{Br} + \chem{BrO} + \chem{BrONO_2} + \chem{HOBr} + \chem{HBr} + 2\chem{Br_2} + \chem{BrCl} \\
+    \chem{Cl_x} & = \chem{Cl} + \chem{ClO} + \chem{OHCl} + \chem{ClONO_2} + 2\chem{Cl_2} + \chem{OClO} + \chem{BrCl} + \chem{ClOO} + 2\chem{Cl_2O_2} \\
+    \chem{Cl_y} & = \chem{Cl_x} + \chem{HCl}
+\end{align*}
+
+The advantage of using families is that is a fast method, and reasonably accurate for moderate- to low stiffness systems. However, the families needs to be carefully designed and validated and the accuracy of the method decreases with increased stiffness (\cite{AtmModFund}).
+
+
+\subsection{O3-NO variable}\label{sec:O3-NO}
+
+The strong coupling between the Reactions \ref{rqn:ozone}, \ref{rqn:o3no} and \ref{rqn:no2hv} cause numerical instability problems when choosing time steps that are too long (\cite{Hesstvedt1978}). To avoid these instabilities, a new variable is defined: 
+
+\begin{equation}
+    x = [\chem{O_3}] - [\chem{NO}]
+\end{equation}
+
+The Euler expansion formula is then applied to calculate $x$. Next, the concentration of $\chem{O_3}$ or \chem{NO} may be calculated, depending on which is smaller, according to \textbf{i)}, \textbf{ii)} or \textbf{iii)}. 
+
