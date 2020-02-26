@@ -3,8 +3,7 @@
 
 Some of the processes that are implemented in the Oslo CTM3 requires some further explanation. Here, I will cover the theory behind the implementation of emissions of organic halogen species and the heterogeneous reaction surfaces.
 
-\section{Oceanic emissions of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$}
-\label{sec:oceanic_emissions}
+\section{Oceanic emissions of halocarbons}\label{sec:oceanic_emissions}
 
 
 The ocean is a natural source of gaseous halocarbons, and is therefore used here as a source needed for the bromine explosion to occur. Methyl halides ($\chem{CH_3X}$) and polyhagenated species ($\chem{CHBr_3}$, $\chem{CH_2Br_2}$) are released from the ocean, but methyl halides (particularly $\chem{CH_3Br}$) may also be emitted by biomass burning (\cite{SeinfeldSpyros}). 
@@ -16,7 +15,7 @@ Bromoform ($\chem{CHBr_3}$) and dibromomethane ($\chem{CH_2Br_2}$) are used as t
 
 \medskip
 
-Bromoform, $\chem{CH_3Br}$, is added as a source from the ocean based on the emission scenario suggested by \cite{Liang2010} (scenario A, Figure \ref{fig:Liang2010}). This scenario was chosen as it has latitudinal-dependent emission field covering the whole globe. The global emissions estimated by \cite{Liang2010}, scenario A, were $425 Gg \chem{CHBr_3}yr^{-1}$ and $57 Gg \chem{CH_2Br_2}yr^{-1}$, respectively.
+Bromoform, $\chem{CH_3Br}$, is added as a source from the ocean based on the emission scenario suggested by \cite{Liang2010} (scenario A, Figure \ref{fig:Liang2010}). This scenario was chosen as it has latitudinal-dependent emission field covering the whole globe. The global emissions estimated by \cite{Liang2010}, scenario A, were 425 Gg $\chem{CHBr_3}$yr$^{-1}$ and 57 Gg $\chem{CH_2Br_2}$yr$^{-1}$, respectively.
 
 \medskip
 
@@ -24,7 +23,7 @@ The thought behind the implementation (the variable \texttt{POLL\_CHBr3}) is tha
 
 \medskip
 
-The scaling factor was calculated by finding the yield of bromine from both $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ based on reactions \ref{R10} and \ref{R:11}, and expressing this in terms of $\chem{CHBr_3}$. 
+The scaling factor was calculated by finding the yield of bromine from both $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ based on reactions \ref{R:10} and \ref{R:11}, and expressing this in terms of $\chem{CHBr_3}$. 
 
 \begin{align*}
     \chem{X} & = 57 Gg \chem{CH_2Br_2}yr^{-1} \\
@@ -53,12 +52,12 @@ This is used in the scaling factor, $f$:
 \end{equation*}
 
 
-Emissions are then found according to their latitudinal band, and whether the grid box is located over ocean or the coast (for more information about the actual implementation, see Section \ref{sec:tropchem_oslo}). If the location is above 50 $^o$ North over ocean, for example, the emission is taken to be $0.05\times10^{-13} kgm^{-2}s^{-1}\times k$. (The conversion to molecules$cm^{-3}s^{-1}$ can be seen in Section \ref{sec:tropchem_oslo}). 
+Emissions are then found according to their latitudinal band, and whether the grid box is located over ocean or the coast (for more information about the actual implementation, see Section \ref{sec:tropchem_oslo}). If the location is above 50 $^o$ North over ocean, for example, the emission is taken to be $0.05\times10^{-13}$ kgm$^{-2}$s$^{-1}\times k$. (The conversion to molecules cm$^{-3}$s$^{-1}$ can be seen in Section \ref{sec:tropchem_oslo}). 
 
 
 \subsection{Emission inventory}
 
-The emission inventory of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ by \cite{Liang2010} was compared against observations and other emission inventories by \cite{Hossaini2013}. The results can be seen in Figures \ref{fig:Hosaini_fig5} and \ref{fig:Hosaini_fig6} in the Appendix. They show a reasonable agreement between the observations and mixing ratios suggested by \cite{Liang2010} for the stations Alert (ALT), Barrow (BRW) and Summit (SUM), which are of most relevance in this setting. The inventory, however is rather crude and simple as it does not take into account seasonality, extrapolar results of agreement with observations. 
+The emission inventory of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ by \cite{Liang2010} was compared against observations and other emission inventories by \cite{Hossaini2013}. The results can be seen in Figures \ref{fig:Hosaini_fig5} and \ref{fig:Hosaini_fig6} in the Appendix. They show a reasonable agreement between the observations and mixing ratios suggested by \cite{Liang2010} for the stations \acrfull{alt}, \acrfull{brw} and Summit (SUM), which are of most relevance in this setting. The inventory, however is rather crude and simple as it does not take into account seasonality, extrapolar results of agreement with observations. 
 
 
 \input{Chapter3_Theory_ocean_hetReact/images/liang_2010}
@@ -87,7 +86,7 @@ in which the bracketed species $[]$ denotes the number densities (in this case t
 
 \subsubsection{Heterogeneous reactions over aerosol surfaces (Reactions \ref{R:8} and \ref{R:13})}\label{sec:aerosol_react}
 
-The implementation of the aerosol Reactions \ref{R:8} and \ref{R:9} is based on the method described by \cite{CAO} and \cite{schwartz1986}. 
+The implementation of the aerosol Reactions \ref{R:8} and \ref{R:9} is based on the method described by \cite{CAO} and \cite{schwartz1986}. An overview of the constants used can be found in Table \ref{tab:constants}.
 
 \medskip
 
@@ -199,7 +198,7 @@ $L_{mix}$ denotes the typical stable boundary layer height which may, in Polar r
 
 $\beta$ is the ratio of the total reactive surface (induced by the structure of snow/ice surfaces) to a flat area. Thus, for a completely flat surface, $\beta$ equals 1. 
 
-\input{Chapter3_Theory_ocean_hetReact/tables/cao_constants}
+\input{Chapter3_Theory_ocean_hetReact/cao_constants}
 
 
 

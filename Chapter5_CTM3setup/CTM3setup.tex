@@ -20,7 +20,7 @@ The input file consists of three parts, one that sets up the meteorological year
 
 \section{Excluding the stratosphere}\label{subsec:strat}
 
-In order to save CPU time and avoid conflicts regarding the use of stratospheric methyl bromide ($\chem{CH_3Br}$) as a designated species for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (explained further in subsection \ref{sec:oceanic_emissions}), the stratosphere is turned off. This is performed by modifying the following scripts: 
+In order to save CPU time and avoid conflicts regarding the use of stratospheric methyl bromide ($\chem{CH_3Br}$) as a designated species for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (explained further in Section \ref{sec:oceanic_emissions}), the stratosphere is turned off. This is performed by modifying the following scripts: 
 
 \subsection{Makefile}\label{subsubsec:makefile}
 
@@ -115,30 +115,52 @@ The spin-up time is the time it takes for the simulated surface concentrations t
 
 \section{Implementation of halogen chemistry}
 
-In essence, three modules were changed to implement the halogen chemistry. They were \texttt{pchemc\_ij.f90}, \texttt{tropchem\_oslo.f90} and \texttt{chem\_oslo\_rates.f90}. The base for the scripting is the work performed by \cite{Susanne}, which I have continued to alter. Some of the problems that occurred during this process, how these were tested and attemptedly solved, can be seen in Section \ref{chap:problem_solving}. The reactions that were implemented in the various modules can be seen in Table \ref{tab:3}.
+In essence, three modules were changed to implement the halogen chemistry. They were \texttt{pchemc\_ij.f90}, \texttt{tropchem\_oslo.f90} and \texttt{chem\_oslo\_rates.f90}. The base for the scripting is the work performed by \cite{Susanne}, which I have continued to alter.  The reactions that were implemented in the various modules can be seen in Table \ref{tab:3}.
 
-\input{Chapter5_CTM3setup/tables/reactions_implemented}
+
+%Some of the problems that occurred during this process, how these were tested and attemptedly solved, can be seen in Section \ref{chap:problem_solving}.
+\input{Chapter5_CTM3setup/reactions_implemented}
 
 
 \subsection{Changes in \texttt{pchemc\_ij.f90}:}
 
-\texttt{pchem\_ij} is a module that functions as a column driver for the Oslo tropospheric chemistry. It has one subroutine, \texttt{OSLO\_CHEM}, which integrates the Oslo Chemistry in the troposphere using the QSSA method (see Section \ref{sec:QSSA}). 
+\texttt{pchem\_ij} is a module that functions as a column driver for the Oslo tropospheric chemistry. It has one subroutine, \texttt{OSLO\_CHEM}, which integrates the Oslo Chemistry in the troposphere using the QSSA method (see Section \ref{sec:QSSA}). The model loops from the bottom layer to the top layer of the troposphere (\texttt{LMTROP}, \texttt{LM} = total number of layers, \texttt{TROP} = troposphere). 
 
-\subsubsection{Photolysis rates}
-The photolysis rates of $\chem{HOBr}$, $\chem{BrO}$ and $\chem{CH_3Br}$ were already included in \texttt{ratj\_oc.d} and could be declared directly. 
+\subsubsection{Photolysis- and chemical reaction rates}
 
-\medskip
-The photolysis rates of \chem{BrCl} and $\chem{Br_2}$ was set constant as 0.1 as long as the photolysis rate of ozone was higher than 0 (i.e. daylight present)
+The phytolysis- and chemical reaction rates are set at the very beginning of the loop of the tropospheric column. As the oceanic source of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (see Section \ref{sec:impl_ocean_source}) and multiphase reactions (see Section \ref{sec:impl_multiphase_react}) only apply at the surface, this is declared at the beginning:
+
+\begin{lstlisting}
+!// Adding a bromine (CHBr3 and CH2Br2) source 
+!// and heterogeneous reaction rate 
+!// to the first level of the atmosphere
+sea_multi = 1._r8
+
+if (L .eq. 1) then
+ k_hobr_dep = r_hobr_dep
+ POLL_CHBr3_L1 = POLL_CHBr3 * sea_multi
+else
+ k_hobr_dep = 0._r8
+ POLL_CHBr3_L1 = 0._r8
+end if
+\end{lstlisting}
+
+
+The photolysis rates of $\chem{HOBr}$, $\chem{BrO}$ and $\chem{CH_3Br}$ were already included in \texttt{ratj\_oc.d} and could be declared directly. The photolysis rates of \chem{BrCl} and $\chem{Br_2}$ was set constant as 0.1 as long as the photolysis rate of ozone was higher than 0 (i.e. daylight present)
 
 \subsubsection{Halogen families}
 
-The halogen chemistry were implemented using the method of families described in Section \ref{sec:families}. Scaling
-
-\begin{align}
+The halogen chemistry were implemented using the method of families described in Section \ref{sec:families}. The $\chem{Br_y}$-family is the same as the that already was implemented in the CTM3 for the stratosphere, but the $\chem{Cl_x}$- and $\chem{Cl_y}$-families differ. 
+ 
+\begin{align*}
     \chem{Br_y} &= \chem{Br} + \chem{BrO} + \chem{BrONO_2} + \chem{OHBr} + 2\chem{Br_2} + \chem{BrCl} \\
-    \chem{Cl_x} &= \chem{Cl} + \chem{ClO} + \chem{BrCl} \\
+    \chem{Cl_x} &= \chem{Cl} + \chem{ClO} \\
     \chem{Cl_y} &= \chem{Cl_x} + \chem{HCl}
-\end{align}
+\end{align*}
+
+An iterative scaling is applied before and after the QSSA-calculation\newacronym{cpu}{CPU}{central processing unit}
+
+
 
 \subsubsection{Ozone loss}
 
@@ -162,7 +184,7 @@ In the \texttt{I}-direction, \texttt{I} loops from \texttt{MPBLKIB} to \texttt{M
 The modification to the subroutine has led to the following: 
 
 
-\subsubsection{Oceanic emissions of $\chem{CH_2Br_2}$ and $\chem{CHBr_3}$}
+\subsubsection{Oceanic emissions of $\chem{CH_2Br_2}$ and $\chem{CHBr_3}$}\label{sec:impl_ocean_source}
 
 The addition of an organic bromine ($\chem{CH_2Br_2}$ and $\chem{CHBr_3}$) source from the ocean and coastlines based on the findings of \cite{Liang2010} (see Figure \ref{fig:Liang2010}). For more information concerning the organic halogens and the use of Liangs emission inventory, see Section \ref{sec:oceanic_emissions}.
 
@@ -227,7 +249,7 @@ end if !//(abs(YDGRD(J)) .gt. 50._r8) then
 
 \end{lstlisting}
 
-\subsubsection{Multiphase reactions}
+\subsubsection{Multiphase reactions}\label{sec:impl_multiphase_react}
 
 Parameterization of \chem{HOBr}-deposition on sea ice (Reactions \ref{R:7} and \ref{R:8}). According to \cite{CAO}, the change in concentration of \chem{HOBr} depends on the deposition velocity, $v_d$, the boundary layer height, $L_{mix}$ and the total reactive surface area offered by the snow/ice surface, $\beta$ (described further in Section \ref{sec:het_chem}). 
 
@@ -238,9 +260,11 @@ In order to ensure that there is a sea ice surface that the heterogeneous reacti
 \begin{lstlisting}
 r_hobr_dep = 0._r8
 
-beta = 1.4      !Ratio (surface offered/flat area)(1 or bigger)
+beta = 1.4      !Ratio (surface offered/flat area)
+                !(1 or bigger)
 Lmix = 200      !Height of stable BL, standard is 200 [m]
-vd = 0.00605    !Deposition velocity for Lmix=200->vd = 0.00605 [m/s]
+vd = 0.00605    !Deposition velocity for 
+                !Lmix=200->vd = 0.00605 [m/s]
 
 if (CI(I,J) .lt. 0.7_r8) then
  r_hobr_dep = 0._r8
@@ -260,6 +284,8 @@ The pressure- and temperature dependent multiphase reactions occurring on aeroso
 
 \subsection{Changes in \texttt{chem\_oslo\_rates.f90}:}\label{sec:chem_oslo_rates}
 
+
+
 \texttt{chem\_oslo\_rates} is a module that contains the chemical reaction rates for both the troposphere and the stratosphere. It contains several subroutines, and the modified ones are: 
 
 \begin{itemize}
@@ -272,6 +298,5 @@ The pressure- and temperature dependent multiphase reactions occurring on aeroso
     \item \texttt{TCRATE\_TP\_IJ\_TRP}: Finds the reaction rates dependent on temperature and pressure. The temperature- and pressure dependent heterogeneous reaction rates (Reactions \ref{R:8} and \ref{R:13}) were calculated here, using the methood by \cite{CAO} (See Section \ref{sec:aerosol_react})
 \end{itemize}
 
-\input{Chapter5_CTM3setup/tables/rate_constant}
 
-
+\input{Chapter5_CTM3setup/rate_constant}

@@ -1,7 +1,7 @@
 \setcounter{chapter}{3}
 \chapter{Oslo CTM3}\label{chapt:OsloCTM3}
 
-The Oslo CTM3 (chemical transport model) is a three-dimensional global chemical transport model. The model was developed at the Department of Geosciences at the University of Oslo and later at the CICERO Denter for International Climate Research (\cite{SovdeManual}). It operates offline driven by historical weather data from the European Centre for Medium Range Weather Forecasts (ECMWF) open Integrated Forecast System (openIFS) model. The meteorological data is updated (offline) and stored every 3rd hour. The model spin-up time is 12h starting from an analysis at noon the day before (\cite{Sovde2012}). 
+The Oslo CTM3 is a three-dimensional global chemical transport model. The model was developed at the Department of Geosciences at the University of Oslo and later at \acrfull{cicero} (\cite{SovdeManual}). It operates offline driven by historical weather data from the \acrfull{ecmwf} \acrfull{openifs} model. The meteorological data is updated (offline) and stored every 3rd hour. The model spin-up time is 12h starting from an analysis at noon the day before (\cite{Sovde2012}). 
 
 \medskip
 
@@ -9,11 +9,7 @@ The tropospheric chemistry in the CTM3 is a stand-alone module, while the strato
 
 \medskip
 
-The advection scheme in Oslo CTM3 is the UCI CTM transport core documented by \cite{Prather2008}. This is a 3D isotropic (same second order moment (SOM) in all directions) advection scheme, where the zonal (U) and meridional (V) metereological fields are used to calculate the vertical field (W). An important feature of the advection scheme is the handling of the transport at the poles. Each polar-"pie" box is combined with it's adjacent lower-latitude box (which conserves all moments) before [U] and [V] transport and restored to individual boxes afterwards, assuming unchanged polar pie air mass (\cite{Sovde2012}). 
-
-\medskip
-
-scanvenging -- Falk 2019
+The advection scheme in Oslo CTM3 is the UCI CTM transport core documented by \cite{Prather2008}. This is a 3D isotropic (same second order moment in all directions) advection scheme, where the zonal (U) and meridional (V) metereological fields are used to calculate the vertical field (W). An important feature of the advection scheme is the handling of the transport at the poles. Each polar-"pie" box is combined with it's adjacent lower-latitude box (which conserves all moments) before [U] and [V] transport and restored to individual boxes afterwards, assuming unchanged polar pie air mass (\cite{Sovde2012}). 
 
 
 \medskip
@@ -22,11 +18,11 @@ The photodissocation rates (J-values) in $[s^{-1}]$ are calculated online using 
 
 \section{Solutions of chemical ordinary differential equations}
 
-Modelling of the chemical processes in the atmosphere includes solving chemical ordinary differential equations (ODEs). The method must have the ability to solve a system of equations with large variations in time constants, i.e. the lifetimes of species. A system such as this is known as a stiff system, and the difference in time constants leads to time-step limitations (\cite{AtmModFund}). In the Oslo CTM3, two approaches has been combined to solve these problems, which are the Quasi-steady-state approximation (QSSA) and the Family solution, which are in the following subsections. 
+Modelling of the chemical processes in the atmosphere includes solving chemical ordinary differential equations. The method must have the ability to solve a system of equations with large variations in time constants, i.e. the lifetimes of species. A system such as this is known as a stiff system, and the difference in time constants leads to time-step limitations (\cite{AtmModFund}). In the Oslo CTM3, two approaches has been combined to solve these problems, which are the \acrfull{qssa} and the Family solution, which are in the following subsections. 
 
 \subsection{QSSA-integrator}\label{sec:QSSA}
 
-The quasi-steady-state approximation (QSSA) is a method that has the ability to solve a stiff system. It is mathematically quite simple, but has error bounds that are hard to estimate. However, in a global model like the CTM3, the use of a simple approach is necessary as it is computationally cheap, and efficient (\cite{Hesstvedt1978}). 
+The \acrshort{qssa} is a method that has the ability to solve a stiff system. It is mathematically quite simple, but has error bounds that are hard to estimate. However, in a global model like the CTM3, the use of a simple approach is necessary as it is computationally cheap, and efficient (\cite{Hesstvedt1978}). 
 
 \medskip
 
@@ -87,7 +83,7 @@ The Oslo CTM3 uses the following family in the troposphere (\cite{SovdeManual}):
 And the following families (among others) in the stratosphere:
 
 \begin{align*}
-    \chem{O_x} = \chem{SO} & = \chem{O_3} + \chem{O(^1D)} + \chem{O(^3P)} - \chem{NO} - \chem{CL} - \chem{Br} \\
+    \chem{O_x} & = \chem{SO} = \chem{O_3} + \chem{O(^1D)} + \chem{O(^3P)} - \chem{NO} - \chem{CL} - \chem{Br} \\
     \chem{Br_y} & = \chem{Br} + \chem{BrO} + \chem{BrONO_2} + \chem{HOBr} + \chem{HBr} + 2\chem{Br_2} + \chem{BrCl} \\
     \chem{Cl_x} & = \chem{Cl} + \chem{ClO} + \chem{OHCl} + \chem{ClONO_2} + 2\chem{Cl_2} + \chem{OClO} + \chem{BrCl} + \chem{ClOO} + 2\chem{Cl_2O_2} \\
     \chem{Cl_y} & = \chem{Cl_x} + \chem{HCl}
