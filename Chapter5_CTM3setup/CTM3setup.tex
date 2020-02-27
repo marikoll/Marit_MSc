@@ -58,6 +58,10 @@ The tropospheric chemistry parameters were adjusted in \texttt{cmn\_size.f90} in
 
 \subsection{Tracer list - \texttt{tracer\_list\_no\_stratosphere.d}}\label{subsubsec:tracer_list}
 
+The tracer list lists all the tracers that the model need in the simulation, with names and molecular weights. It contains two parts - one with transported species and one with non-transported species. The total number of transported and non-transported must match the \texttt{NPAR} and \texttt{NOTRPAR} in \texttt{cmn\_size.F90} (see Section \ref{subsubsec:cmn_size}) (\cite{SovdeManual}). 
+
+\medskip
+
 The list \texttt{tracer\_list\_no\_stratosphere.d} was created in order to include some of the stratospheric chemistry components as well as the components mentioned above. The added components were: 
 
 \begin{itemize}
@@ -68,6 +72,16 @@ The list \texttt{tracer\_list\_no\_stratosphere.d} was created in order to inclu
 The three components $\chem{Cl}$, $\chem{Br}$, $\chem{BrO}$ were moved from non-transported in order to be able to print these species. 
 
 \subsection{Ltracer list - \texttt{Ltracer\_emis\_ceds17\_YEAR\_megan.d}}\label{subsubsec:Ltracer_list}
+
+The tracer list contains all the emission information that the model needs to be able to run. The emission inventory used in this thesis is the \acrlong{ceds} inventory and the \acrlong{megan}, version 2.10, inventory. 
+
+\medskip
+
+\acrshort{ceds} is a historical emission inventory for anthropogenic aerosol and precursor compounds (\cite{Lund2018}). The historical emissions are only available for the 1750-2014 period, which limits the possibilities for simulations after 2014 in this thesis. 
+
+\medskip
+
+\acrshort{megan} v2.10 is a framework used by the model to estimate biogenic fluxes between terrestrial ecosystems and the atmosphere (\cite{Guenther2012}). 
 
 
 \subsection{Component output - \texttt{gmdump3hrs.f90}}\label{subsubsec:gmdump}
