@@ -112,7 +112,14 @@ The halogens are a group in the periodic table consisting of fluorine, chlorine,
 
 \medskip
 
-Even though bromide is less abundant than chloride, it is most prone to participate in the depletion of ozone. The reason for this is that chlorine has a similar bond strength with hydrogen as it has with hydrocarbons (such as methane), and is therefore prone to react with hydrocarbons rather than act to deplete ozone. In a field study at Alert conducted by \cite{Foster2001}, they found $\chem{Br_2}$ and \chem{BrCl} molecules in relation with \acrshort{ode}. $\chem{Cl_2}$ on the other hand, was below the detection limit throughout the measuring period, indicating that the chlorine compound that is active in the ODEs is \chem{BrCl}- 
+Even though bromide is less abundant than chloride, it is most prone to participate in the depletion of ozone. The reason for this is that chlorine has a similar bond strength with hydrogen as it has with hydrocarbons (such as methane), and is therefore prone to react with hydrocarbons rather than act to deplete ozone: 
+
+\begin{reaction}
+    \chem{Cl} + \chem{CH_4} \rightarrow \chem{HCl} + \chem{CH_3}
+    \label{R:cl_ch4}
+\end{reaction}
+
+In a field study at Alert conducted by \cite{Foster2001}, they found $\chem{Br_2}$ and \chem{BrCl} molecules in relation with \acrshort{ode}. $\chem{Cl_2}$ on the other hand, was below the detection limit throughout the measuring period, indicating that the chlorine compound that is active in the ODEs is \chem{BrCl}- 
 
 \medskip
 
@@ -278,8 +285,14 @@ The reactive surface maybe supplied by different media, and this is an object of
     \item Aerosol surfaces, with low pH
 \end{itemize}
 
+\subsubsection{Chlorine reservoir species}
 
+In the stratosphere, $\chem{NO_2}$ and $\chem{CH_4}$ are responsible for shifting reactive chlorine species into reservoir species (\cite{SeinfeldSpyros}). Methane acts via Reaction \ref{R:cl_ch4} to form $\chem{CH_3}$, and $\chem{NO_2}$ via: 
 
+\begin{reaction}
+    \chem{ClO} + \chem{NO_2} + M \rightarrow \chem{ClONO_2} + M
+    \label{R:clono2}
+\end{reaction}
 
 \subsection{Halogen sources}\label{sec:halogen_sources}
 
