@@ -71,6 +71,13 @@ The list \texttt{tracer\_list\_no\_stratosphere.d} was created in order to inclu
 
 The three components $\chem{Cl}$, $\chem{Br}$, $\chem{BrO}$ were moved from non-transported in order to be able to print these species. 
 
+\subsection{Wet deposition - \texttt{scavenging\_wet.inp}}\label{sec:scav_wet}
+
+Wet scavenging rates for \chem{HCl}, \chem{HBr}, $\chem{BrONO_2}$ and $\chem{ClONO_2}$ were added to the wet deposition input table \texttt{scavenging\_wet.inp}. The Henry's law constants can be seen in Table \ref{tab:Henrys_law}. 
+
+\input{Chapter5_CTM3setup/henrys_law}
+
+
 \subsection{Ltracer list - \texttt{Ltracer\_emis\_ceds17\_YEAR\_megan.d}}\label{subsubsec:Ltracer_list}
 
 The tracer list contains all the emission information that the model needs to be able to run. The emission inventory used in this thesis is the \acrlong{ceds} inventory and the \acrlong{megan}, version 2.10, inventory. 
@@ -124,8 +131,10 @@ The dry-deposition scheme also differs, where I have used the old dry-deposition
 
 The spin-up time is the time it takes for the simulated surface concentrations to be unaffected by initial conditions. \cite{Curci_AirPollution} found that the optimal model spin-up time in terms of ozone was 9 days. Although this study was based on a domain in the GEOS-Chem global model and a regional model, and had a different set-up than the Oslo CTM3, this estimate is applicable to my own spin-up. It also stated by \cite{SeinfeldSpyros} that the global mean lifetime of tropospheric ozone is 19 days. In order to be sure that the chemistry is indeed spun up properly, the restart files were ran for 3 months. 
 
+\subsection{Pre-industrial and present-day restart files}\label{sec:PI_and_PD_restart}
 
-
+The pre-industrial and present-day restart files were made without moving the tracers \chem{Br}. \chem{BrO} and \chem{Cl} to transported species (for information about moving species from non-transported to transported, see Section \ref{subsubsec:tracer_list}). This became the solution to the problem that the original versions of the CTM3 (i.e. unaltered except for turning off the stratosphere in both cases and downscaling of the methane field in the case of the \acrshort{pi}-runs) had problems running. As there is no handling of these non-transported tracers in the troposphere in these branches. 
+ 
 
 \section{Implementation of halogen chemistry}
 
