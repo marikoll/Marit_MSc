@@ -1,5 +1,5 @@
 \setcounter{chapter}{3}
-\chapter{Oslo CTM3}\label{chapt:OsloCTM3}
+\chapter{Theoretical Background: Oslo CTM3}\label{chapt:OsloCTM3}
 
 The Oslo CTM3 is a three-dimensional global chemical transport model. The model was developed at the Department of Geosciences at the University of Oslo and later at \acrfull{cicero} (\cite{SovdeManual}). It operates offline driven by historical weather data from the \acrfull{ecmwf} \acrfull{openifs} model. The meteorological data is updated (offline) and stored every 3rd hour. The model spin-up time is 12h starting from an analysis at noon the day before (\cite{Sovde2012}). 
 
@@ -62,7 +62,7 @@ In which $C_{e} = P/L$ is the photochemical equilibrium concentration. The chara
 
 To obtain satisfactory accuracy with the QSSA method, it is important to use the correct category. Photochemical equilibrium can only be assumed when the lifetime of a given compound is much shorter than the time step (category (i)). If this is not the case, an exponential expression must be applied (category (ii)) (\cite{Hesstvedt1978}). The QSSA scheme is useful and accurate enough for applications in which calculations has to be repeated many times, but can only  be considered mass-conserving for long-lived species (\cite{AtmModFund}). 
 
-\subsection{Family solution to ODEs}\label{sec:families}
+\subsection{Family solution to ordinary differential equations}\label{sec:families}
 
 Some groups of gases (families) exist that has atoms transferring quickly among them, but are only slowly lost from the actual family. To obtain a numerically stable solution, it is more beneficial to integrate a family of components as the family is more stable than the members of it. An example of a family is the odd oxygen family which includes: 
 
@@ -102,6 +102,12 @@ The strong coupling between the Reactions \ref{rqn:ozone}, \ref{rqn:o3no} and \r
 
 The Euler expansion formula is then applied to calculate $x$. Next, the concentration of $\chem{O_3}$ or \chem{NO} may be calculated, depending on which is smaller, according to \textbf{i)}, \textbf{ii)} or \textbf{iii)}. 
 
-\section{Conversion}
+\section{Wet Deposition and Henry's law applied to the CTM3}
+
+\section{3-body reactions applied to the CTM3}
+
+
+\section{Chemical Unit Conversion}
+Legg i appendix. i metode-kapittelet: referer til appendix på hvordan konverteringen ble gjort
 
 cdo-filer, conversion fra \cite{SovdeManual}. 

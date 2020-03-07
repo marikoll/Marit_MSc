@@ -1,5 +1,5 @@
 \setcounter{chapter}{4}
-\chapter{CTM3 setup}
+\chapter{Alteration made in the Oslo CTM3}
 
 This chapter describes the setup and altered modules of the Oslo CTM3. The model is run with a supercomputer, which at the beginning of my master thesis was Abel (\cite{abel}). In January 2020, Abel was shut down and the Oslo CTM3 migrated to Saga (\cite{saga}). 
 
@@ -9,13 +9,20 @@ When testing, a degraded resolution was used in the CTM3. In the \texttt{Makefil
 
 
 
-\section{Input and job-files}
+\section{The Supercomputer}
 
-In the job file, the run is set up run on Saga. Here, the job name, input file, the project number and  the wall clock limit, i.e. the max running time in the super computer are declared. Also, it contains the path to the restart files (information about restart files can be found in Section \ref{subsec:restart_files}).
+\subsection{The job file}
 
-\medskip
+The job file is used to set up a run on Saga. The job file declares the job name, the input file, the project number and the wall clock limit, i.e. the max running time in the super computer and the number of nodes to use on the supercomputer when running the simulation. Also, it contains the path to the restart files (information about restart files can be found in Section \ref{subsec:restart_files}).
+
+\subsubsection{Abel vs. Saga}
+
+
+
+\subsection{The Input File}
 
 The input file consists of three parts, one that sets up the meteorological year, start day and end day. The second part lists some of the input file names, including the tracer lists. Information of the tracer list used here can be found in Section \ref{subsubsec:Ltracer_list} and \ref{subsubsec:tracer_list}. The third part covers information about the diagnostics. 
+
 
 
 \section{Excluding the stratosphere}\label{subsec:strat}
@@ -58,7 +65,7 @@ The tropospheric chemistry parameters were adjusted in \texttt{cmn\_size.f90} in
 
 \subsection{Tracer list - \texttt{tracer\_list\_no\_stratosphere.d}}\label{subsubsec:tracer_list}
 
-The tracer list lists all the tracers that the model need in the simulation, with names and molecular weights. It contains two parts - one with transported species and one with non-transported species. The total number of transported and non-transported must match the \texttt{NPAR} and \texttt{NOTRPAR} in \texttt{cmn\_size.F90} (see Section \ref{subsubsec:cmn_size}) (\cite{SovdeManual}). 
+The tracer list contains all the tracers that the model need in the simulation, with names and molecular weights. It contains two parts - one with transported species and one with non-transported species. The total number of transported and non-transported must match the \texttt{NPAR} and \texttt{NOTRPAR} in \texttt{cmn\_size.F90} (see Section \ref{subsubsec:cmn_size}) (\cite{SovdeManual}). 
 
 \medskip
 
@@ -98,7 +105,7 @@ In the module \texttt{gmdump3hrs.f90}, selected tracer components are printed ev
 
 \section{Pre-industrial run}\label{sec:PI_setup}
 
-The model was run with pre-industrial emissions, taken as the year 1850 in this thesis. In order to set up the CTM3 for this, a few steps has to be changed. Keep in made that the approach was hard-coded in order to avoid having to make a 9 years spin up in the restart-file. 
+The model was run with pre-industrial emissions, taken as the year 1850 in this thesis (\cite{IPCCchapter8}). In order to set up the CTM3 for this, a few steps has to be changed. Keep in mind that the approach was hard-coded in order to avoid having to make a 9 years spin up in the restart-file. 
 
 \medskip
 
