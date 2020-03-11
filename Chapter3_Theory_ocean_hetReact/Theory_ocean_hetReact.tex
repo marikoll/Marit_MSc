@@ -254,15 +254,13 @@ The temperature dependence of the Henry's law coefficient, which is an equilibri
 In which $\Delta_{sol}H$ is the change in enthalpy of dissolution ($H$ in this case does not refer to the Henry's law constant). $R$ is the universal gas constant. 
 
 
-Hva er wet deposition? Hvordan relateres Henrys law til wet deposition?
+At equilibrium, the number of moles per liter of a gas that is dissolved in a droplet is given by Henry's law
 
 
 The Henry's law constants can be seen in Section \ref{sec:scav_wet} in Table \ref{tab:Henrys_law}. 
 
 
-\section{3-body reactions}
+\section{3-body reactions}\label{sec:3Body_theory}
 
 
-Reactions \ref{R:clono2} and \ref{R:13} were implemented by using the 3 body reaction scheme for their reaction rate constants. \cite{SovdeManual}. 
-
-Smooth og grei!
+Reactions \ref{R:clono2} and \ref{R:13} were implemented by using the 3 body reaction scheme for their reaction rate constants. \cite{SovdeManual}. A three-body reaction is the reaction of two species, \chem{A} and \chem{B}, involving a third body, \chem{M}, to form a new species, \chem{AB}. The third body is an inert molecule (generally $\chem{N_2}$ or $\chem{O_2}$ in the atmosphere) that removes excess energy from the excited species $\chem{AB*}$ leaving the product species \chem{AB} in it's unexcited state (\cite{Jacob1999}).

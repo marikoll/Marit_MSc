@@ -178,6 +178,11 @@ end if
 
 The photolysis rates of $\chem{HOBr}$, $\chem{BrO}$ and $\chem{CH_3Br}$ were already included in \texttt{ratj\_oc.d} and could be declared directly. The photolysis rates of \chem{BrCl} and $\chem{Br_2}$ was set constant as 0.1 as long as the photolysis rate of ozone was higher than 0 (i.e. daylight present)
 
+
+\section{3-body reactions}\label{sec:3bReactions_ctm3}
+
+3 body reactions, as described in Section \ref{sec:3Body_theory}
+
 \subsubsection{Halogen families}
 
 The halogen chemistry were implemented using the method of families described in Section \ref{sec:families}. The $\chem{Br_y}$-family is the same as the that already was implemented in the CTM3 for the stratosphere, but the $\chem{Cl_x}$- and $\chem{Cl_y}$-families differ. 
@@ -188,7 +193,7 @@ The halogen chemistry were implemented using the method of families described in
     \chem{Cl_y} &= \chem{Cl_x} + \chem{HCl}
 \end{align*}
 
-An iterative scaling is applied before and after the QSSA-calculation\newacronym{cpu}{CPU}{central processing unit}
+An iterative scaling is applied before and after the QSSA-calculation
 
 
 
@@ -328,5 +333,9 @@ The pressure- and temperature dependent multiphase reactions occurring on aeroso
     \item \texttt{TCRATE\_TP\_IJ\_TRP}: Finds the reaction rates dependent on temperature and pressure. The temperature- and pressure dependent heterogeneous reaction rates (Reactions \ref{R:8} and \ref{R:13}) were calculated here, using the methood by \cite{CAO} (See Section \ref{sec:aerosol_react})
 \end{itemize}
 
+
+\subsection{Wet Deposition and Henry's law}\label{sec:henrys_law_ctm3}
+
+The wet deposition parameters are listed in the table \texttt{savenging\_wet.dat} 
 
 \input{Chapter5_CTM3setup/rate_constant}
