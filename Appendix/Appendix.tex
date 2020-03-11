@@ -8,6 +8,70 @@
 
 \input{Appendix/images/Hossaini_fig6}
 
+
+\cleardoublepage
+
+\chapter{Chemical Unit Conversion}
+
+The following appendix contains the conversion procedures concerning the CTM3 output as well as the conversion of station data to a mass mixing ratio. When analysing atmospheric data such as gases, it is most appropriate to use the mixing ratio (mol mol$^{-1}$), or mole fraction, as it is not dependent on pressure and temperature as the concentration (mol m$^{-3}$) is. It is defined as the ratio of the amount (or mass) of the substance in a given volume to the total amount (or mass) of all constituents in that volume (\cite{SeinfeldSpyros}). 
+
+\medskip
+
+The first section contains the formulas applied to the CTM3 data and the EBAS/NOAA data. The second section contains the \acrfull{cdo} procedure, which is a procedure for processing \acrshort{netcdf}-files. 
+
+\section{Chemical Unit Conversion}
+
+\subsection{Oslo CTM3}\label{sec:unit_conversion_CTM3}
+
+The CTM3 data that are used are given in either monthly averages or tropospheric tracers (3-hour outputs). The monthly averages have units kg of species, and the 3-hour outputs have units g m$^{-3}$. 
+
+\medskip
+
+To obtain the mixing ratio from the monthly averages, the following was applied:
+
+\begin{equation}
+    \chem{X_{VMR}} = \frac{\chem{M_{air}}}{\chem{M_{X}}}\frac{\chem{X_{kg}}}{\chem{air_{kg}}}
+    \label{eq:vmr_monthly_avg}
+\end{equation}
+
+In which $\chem{X_{VMR}}$ is the volume mixing ratio of the species, $\chem{M_X}$ and $\chem{M_{air}}$ are the molecular masses of the species of interest and air. $\chem{X_{kg}}$ and $\chem{air_{kg}}$ are the output data from CTM3 in kg of species. 
+
+\medskip
+
+In order to change the units of the tropospheric tracers (3-hour output), the following was performed: 
+
+\begin{equation}
+    \chem{X_{VMR}} = \frac{\chem{M_{air}}}{\chem{M_{X}}}\frac{\chem{X_{ g/cm^{3}}}}{\chem{\rho_{air}}}
+    \label{eq:vmr_trop_tracer}
+\end{equation}
+
+In which  $\chem{X_{\mu g/m^{3}}}$ is the concentration of the species and $\chem{\rho_{air}}$ is the density of air (in $\mu g/m^{3}$). These are the output data from CTM3.
+
+
+\subsection{EBAS/NOAA}\label{sec:unit_conversion_EBASNOAA}
+
+The EBAS and NOAA data were provided in units $\mu g m^{-3}$, and were thus changes by: 
+
+\begin{equation}
+    \chem{X_{VMR}} = \frac{\chem{M_X}}{\chem{M_{air}}}\frac{\chem{X_{\mu g/cm^{3}}}}{\chem{\rho_{air}}}
+\end{equation}
+
+\section{Unit Conversion Using cdo}\label{sec:cdo}
+
+The \acrshort{cdo}-software is a collection of operators for standard processing of climate and forecast data (\cite{cdo}). CDO is ideal for processing of large \acrshort{netcdf} datasets. 
+
+
+\medskip
+
+The \acrshort{cdo}-scripts were adapted from scripts provided by \cite{StefaniePersonal}. 
+
+\begin{itemize}
+    \item Load cdo by \texttt{module load cdo}
+    \item \texttt{pwd} to the folder of interest
+    \item \texttt{chmod +x "cdo file"} if there has been changes
+    \item \texttt{./"cdo file" "Full path" --surface} (surface level is so far only possibility)
+\end{itemize}
+
 \cleardoublepage
 
 

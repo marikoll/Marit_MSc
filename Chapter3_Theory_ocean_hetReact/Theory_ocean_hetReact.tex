@@ -15,7 +15,7 @@ Bromoform ($\chem{CHBr_3}$) and dibromomethane ($\chem{CH_2Br_2}$) are used as t
 
 \medskip
 
-Bromoform, $\chem{CH_3Br}$, is added as a source from the ocean based on the emission scenario suggested by \cite{Liang2010} (scenario A, Figure \ref{fig:Liang2010}). This scenario was chosen as it has latitudinal-dependent emission field covering the whole globe. The global emissions estimated by \cite{Liang2010}, scenario A, were 425 Gg $\chem{CHBr_3}$yr$^{-1}$ and 57 Gg $\chem{CH_2Br_2}$yr$^{-1}$, respectively.
+Bromoform, $\chem{CH_3Br}$, is added as a source from the ocean based on the emission scenario suggested by \cite{Liang2010} (scenario A, Figure \ref{fig:Liang2010}). This scenario was chosen as it has latitudinal-dependent emission field covering the whole globe. The global emissions estimated by \cite{Liang2010}, scenario A, were 425 Ggyr$^{-1}$ of $\chem{CHBr_3}$ and 57 Ggyr$^{-1}$ of $\chem{CH_2Br_2}$, respectively.
 
 \medskip
 
@@ -34,7 +34,7 @@ The bromine yield, \chem{Z}, from Reactions \ref{R:10} and \ref{R:11} is then:
 
 \begin{align*}
     \chem{Z} & = \Big(3\cdot\Big(\frac{X}{M_{\chem{CH_2Br_2}}}\Big) + 2\cdot\Big(\frac{Y}{M_\chem{CHBr_3}}\Big)\Big)\cdot M_{\chem{Br}} \\
-    & = \Big(3\cdot\Big(\frac{25 Gg \chem{CHBr_3}yr^{-1}}{252.73 g mol^{-1}}\Big) + 2\cdot\Big(\frac{57 Gg \chem{CH_2Br_2}yr^{-1}}{173.83 g mol^{-1}}\Big)\Big)\cdot79.90 g mol^{-1} \\
+    & = \Big(3\cdot\Big(\frac{425 Gg \chem{CHBr_3}yr^{-1}}{252.73 g mol^{-1}}\Big) + 2\cdot\Big(\frac{57 Gg \chem{CH_2Br_2}yr^{-1}}{173.83 g mol^{-1}}\Big)\Big)\cdot79.90 g mol^{-1} \\
     & = 455 Gg\chem{Br}yr^{-1}
 \end{align*}
 
@@ -84,7 +84,7 @@ in which the bracketed species $[]$ denotes the number densities (in this case t
     -\frac{d}{dt}[A] = -\frac{d}{dt}[A] = \frac{d}{dt}[C] = \frac{d}{dt}[D] = k[A]^2
 \end{equation*}
 
-\subsubsection{Heterogeneous reactions over aerosol surfaces (Reactions \ref{R:8} and \ref{R:13})}\label{sec:aerosol_react}
+\subsection{Heterogeneous reactions on aerosol surfaces (Reactions \ref{R:8} and \ref{R:13})}\label{sec:aerosol_react}
 
 The implementation of the aerosol Reactions \ref{R:8} and \ref{R:9} is based on the method described by \cite{CAO} and \cite{schwartz1986}. An overview of the constants used can be found in Table \ref{tab:constants}.
 
@@ -128,7 +128,7 @@ The production rate of $\chem{Br_2}$ in Reaction \ref{R:8} is limited by the abs
 
 \medskip
 
-$R$ is the universal gas law, $T$ is the temperature.
+$R$ is the universal gas constant, $T$ is the temperature.
 
 \medskip
 
@@ -220,15 +220,43 @@ In which $J$ is a first-order photolysis rate coefficient of species $A$ (units:
 
 \section{Wet deposition and Henry's law}\label{sec:wet_dep_henrys_law}
 
-Hva er Henry's law, hva har jeg lagt inn?
-Henry's law expresses the proportional relationship between the amount of gaseous and dissolved gas in a system based on temperature and pressure. 
+Henry's law expresses the proportional relationship between the amount of gaseous and dissolved gas (\chem{A}) in equilibrium (\cite{SeinfeldSpyros}): 
 
-Formel? definere noe grunnleggende utrykk for henry's law constant og dens temperatur-avhengighet?
+\begin{equation*}
+    \chem{A(g)} \rightleftharpoons \chem{A(aq)}
+\end{equation*}
 
-Relationship to wet deposition:
+The proportionality factor is dependent on the partial pressure of \chem{A} in the gas phase and the dissolved \chem{A} such that: 
+
+\begin{equation}
+    [\chem{A(aq)}] = H_Ap_A
+    \label{eq:Henryslaw}
+\end{equation}
+
+In which $H_A$ is the Henry's law coefficient and $p_A$ is the partial pressure of \chem{A(g)}. 
+
+\medskip
+
+In this context, and widely used by atmospheric chemists, the Henry solubility, $H^{cp}$ is applied (\cite{Sander2015}). Rearranging Equation \ref{eq:Henryslaw} gives: 
+
+\begin{equation}
+    H^{cp} \equiv \frac{C_A}{p_A}
+    \label{eq:HenrySol}
+\end{equation}
+
+The temperature dependence of the Henry's law coefficient, which is an equilibrium constant, can be described by the van't Hoff equation (\cite{Sander2015} and references therein): 
+
+\begin{equation*}
+    \frac{d\ln(H)}{d(1/T)} = \frac{-\Delta_{sol}H}{R}
+    \label{eq:vantHoff}
+\end{equation*}
+
+In which $\Delta_{sol}H$ is the change in enthalpy of dissolution ($H$ in this case does not refer to the Henry's law constant). $R$ is the universal gas constant. 
+
+
 Hva er wet deposition? Hvordan relateres Henrys law til wet deposition?
 
-Skal denne tabellen lenger ned?
+
 The Henry's law constants can be seen in Section \ref{sec:scav_wet} in Table \ref{tab:Henrys_law}. 
 
 
