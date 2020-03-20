@@ -1,19 +1,22 @@
 \begin{table}[ht]
+\centering
+\resizebox{14cm}{!}{%
 \begin{tabular}{|lllllll|}
 \hline
-\textbf{Station} & \textbf{Temporal res.} & \textbf{Timzone} & \textbf{Unit}  & \textbf{Variable}          & \textbf{Instrument type} & \textbf{Run number} \\ \hline
-Alert            & 1h                           & UTC              & $\mu$gm$^{-3}$ & $\chem{O_3}$    & uv\_abs                  & 1                   \\
-Alert            & 1w                           & UTC              & $\mu$gm$^{-3}$ & \chem{Cl} & high\_vol\_sampler      & 2001, 2013          \\
-Alert            & 1w                           & UTC              & $\mu$gm$^{-3}$ & \chem{Br}  & high\_vol\_sampler      & 2001, 2013          \\
-Barrow           & 1h                           & UTC              & nmol/mol       & $\chem{O_3}$   & uv\_abs                  & 1, 2, 3             \\
-Eureka           & 1h                           & UTC              & nmol/mol       & $\chem{O_3}$  & uv\_abs                  & 3                   \\
-Summit           & 1h                           & UTC              & nmol/mol       & $\chem{O_3}$  & uv\_abs                  & 1, 2, 3             \\
-Tiksi            & 1h                           & UTC              & nmol/mol       & $\chem{O_3}$   & uv\_abs                  & 2, 3                \\
-Villum           & 1h                           & UTC              & $\mu$gm$^{-3}$ & $\chem{O_3}$   & uv\_abs                  & 2                   \\
-Villum           & 1w                           & UTC              & $\mu$gm$^{-3}$ & \chem{Cl} & filter\_3pack            & 2013, 2017          \\
-Villum           & 1w                           & UTC              & $\mu$gm$^{-3}$ & \chem{Br}  & filter\_3pack            & 2017                \\
-Zeppelin         & 1h                           & UTC              & $\mu$gm$^{-3}$ & $\chem{O_3}$    & uv\_abs                  & 1, 2, 3             \\ \hline
+\textbf{Station}  & \textbf{Variable}  & \textbf{Temporal res.} & \textbf{Timzone} & \textbf{Unit}  & \textbf{Instrument type} & \textbf{Year} \\ \hline
+Alert            & $\chem{O_3}$ & 1h           & UTC              & $\mu$gm$^{-3}$  & uv\_abs                  & 2001               \\
+Alert            & \chem{Cl}    & 1w           & UTC              & $\mu$gm$^{-3}$  & high\_vol\_sampler       & 2001, 2013         \\
+Alert            & \chem{Br}    & 1w           & UTC              & $\mu$gm$^{-3}$  & high\_vol\_sampler       & 2001, 2013         \\
+Barrow           & $\chem{O_3}$ & 1h           & UTC              & nmol/mol        & uv\_abs                  & 2001, 2013, 2018   \\
+Eureka           & $\chem{O_3}$ & 1h           & UTC              & nmol/mol        & uv\_abs                  & 2018               \\
+Summit           & $\chem{O_3}$ & 1h           & UTC              & nmol/mol        & uv\_abs                  & 2001, 2013, 2018   \\
+Tiksi            & $\chem{O_3}$ & 1h           & UTC              & nmol/mol        & uv\_abs                  & 2013, 2018         \\
+Villum           & $\chem{O_3}$ & 1h           & UTC              & $\mu$gm$^{-3}$  & uv\_abs                  & 2013               \\
+Villum           & \chem{Cl}    & 1w           & UTC              & $\mu$gm$^{-3}$  & filter\_3pack            & 2013, 2017         \\
+Villum           & \chem{Br}    & 1w           & UTC              & $\mu$gm$^{-3}$  & filter\_3pack            & 2017               \\
+Zeppelin         & $\chem{O_3}$ & 1h           & UTC              & $\mu$gm$^{-3}$  & uv\_abs                  & 2001, 2013, 2018   \\ \hline
 \end{tabular}
-\caption{Data taken from the different stations. The arithmetic mean was used from all datasets}
+}
+\caption{Key information about data taken from the different stations (\cite{EBAS}). The arithmetic mean value was used from all datasets. The temporal resolution, timezone and unit were given by each dataset. uv\_abs refers to the ultraviolet absorption method (For more information, see e.g. \cite{Galbally2013}). high\_vol\_sampler and filter\_3pack. The years were chosen according to when the model simulations were planned}
 \label{tab:ebas_noaa_data_taken}
 \end{table}
