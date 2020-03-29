@@ -67,7 +67,7 @@ To obtain satisfactory accuracy with the QSSA method, it is important to use the
 Some groups of gases (families) exist that has atoms transferring quickly among them, but are only slowly lost from the actual family. To obtain a numerically stable solution, it is more beneficial to integrate a family of components as the family is more stable than the members of it. An example of a family is the odd oxygen family which includes: 
 
 \begin{equation*}
-    [\chem{O_T}] = [\chem{O}] + [\chem{O(^1D}] + [\chem{O_3}] + [\chem{NO_2}]
+    [\chem{O_T}] = [\chem{O}] + [\chem{O(^1D})] + [\chem{O_3}] + [\chem{NO_2}]
 \end{equation*}
 
 Oxygen atoms in the odd-oxygen family are cycled rapidly between the species atomic oxygen, excited atomic oxygen and ozone, but oxygen atoms are only slowly lost out of the family (\cite{AtmModFund}). The individual rates of production- and loss terms for the members in the family are calculated and summed up across the family. Then, the family concentration is integrated using the QSSA method. Finally, the individual members are scaled with the ratio of the individually integrated family and the sum of the individually integrated members of the family (\cite{SovdeManual}).

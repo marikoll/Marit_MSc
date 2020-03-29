@@ -63,8 +63,13 @@ The emission inventory of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ by \cite{Liang20
 \input{Chapter3_Theory_ocean_hetReact/images/liang_2010}
 
 
+\section{Chemical Kinetics}\label{sec:chem_kinetics}
 
-\section{Heterogeneous chemistry}\label{sec:het_chem}
+This section contains a description of the rate expressions for bimolecular and 3-body reactions. The reaction rate constants for the bimolecular, and 3-body reactions implemented in the troposphere can be seen in Table \ref{tab:2b_and_3b_reactions}
+
+\input{Chapter3_Theory_ocean_hetReact/2body_and_3body_reactions}
+
+\subsection{Bimolecular Reactions}
 
 Bimolecular reactions are reactions in which two chemical species react and produce a different set of species (\cite{Jacob1999}). The reaction can be written as: 
 
@@ -72,19 +77,105 @@ Bimolecular reactions are reactions in which two chemical species react and prod
     A + B \rightarrow C + D
 \end{equation*}
 
+%A direct bimolecular reaction is a reaction in which \chem{A} and \chem{B} goes on to produce \chem{C} and \chem{D} without an intermediate formation of an \chem{AB}-bond, but rather has a transition state $(\chem{AB})^\neq$ that lies between the reactants and products (\cite{JPL}). 
+
+%\medskip
+
+%The correlation between the expected structure of $(\chem{AB})^\neq$ and the A-factor (Arrhenius factor) of the the reaction rate constant
+
+
 The reaction rate, $k$, is the time rate of change of a concentration of the reactant in the reaction (\cite{AtmModFund}). It is given by: 
 
 \begin{equation*}
     -\frac{d}{dt}[A] = -\frac{d}{dt}[B] = \frac{d}{dt}[C] = \frac{d}{dt}[D] = k[A][B]
 \end{equation*}
 
-in which the bracketed species $[]$ denotes the number densities (in this case the number of molecules per $cm^3$) and $k$ is the second-order deposition-rate constant for the reaction in $cm^3\text{molecule}^{-1}s^{-1}$. The product $[A][B]$ is proportional to the frequency of collisions. A bimolecular reaction could also be a self-reaction, in which $B = A$ and the reaction rate would be:
+in which the bracketed species $[]$ denotes the number densities (in this case the number of molecules per $cm^3$) and $k$ is the second-order rate coefficient for the reaction in $cm^3\text{molecule}^{-1}s^{-1}$. The product $[A][B]$ is proportional to the frequency of collisions. A bimolecular reaction could also be a self-reaction, in which $B = A$ and the reaction rate would be:
 
 \begin{equation*}
     -\frac{d}{dt}[A] = -\frac{d}{dt}[A] = \frac{d}{dt}[C] = \frac{d}{dt}[D] = k[A]^2
 \end{equation*}
 
-\subsection{Heterogeneous reactions on aerosol surfaces (Reactions \ref{R:8} and \ref{R:13})}\label{sec:aerosol_react}
+The rate coefficients are given in Table \ref{tab:2b_and_3b_reactions} in Arrhenius form (for more information, see \cite{JPL}):
+
+\begin{equation}
+    k(T) = A\cdot\exp{\Big(-\frac{E/R}{T}\Big)}
+    \label{eq:2b_rate_coeff}
+\end{equation}
+
+In which $A$ is the Arrhenius-factor, $E/R$ is the temperature dependence (activation temperature) and $T$ is the temperature. 
+
+\subsection{3-Body Reactions}
+
+Three-body reactions are reactions in which two chemical species, \chem{A} and \chem{B}, react to produce one single product species, \chem{AB}, helped by a third body, $M$ (\cite{Jacob1999}). The reaction can be written as: 
+
+\begin{equation*}
+    \chem{A} + \chem{B} + M \rightarrow \chem{AB} + M
+\end{equation*}
+
+
+The third body, $M$, is an inert molecule (generally $\chem{N_2}$ or $\chem{O_2}$ in the atmosphere) that removes excess energy from the excited species $\chem{AB*}$ leaving the product species \chem{AB} in it's unexcited state (\cite{Jacob1999}).
+
+
+\medskip
+
+%The rate coefficient for a 3-body reaction is defined as the formation rate of AB by the reaction of $M$ with the excited complex $[\chem{AB}^*]$: 
+
+%\begin{equation*}
+%    \frac{d[\chem{AB}]}{dt} = k_3[\chem{AB}^*][M]
+%\end{equation*}
+
+%This rate is assumed to be in steady state at all times as $[\chem{AB}^*]$ is very short lived, which leads to the following expression: 
+
+%\begin{equation*}
+%    k_1[\chem{A}][\chem{B}] = k_2[\chem{AB}^*] + %k_3[\chem{AB}^*][M]
+%\end{equation*}
+
+The rate coefficients for 3-body reactions can be pressure dependent, and therefore have a low-pressure and high-pressure limit. The low pressure limiting rate constants are given in Table \ref{tab:2b_and_3b_reactions} on the form: 
+
+\begin{equation}
+    k_0(T) = k_0^{300}\Big(\frac{T}{300}\Big)^{-n}    
+    \label{eq:3b_low_pressure}
+\end{equation}
+
+In which $k_0^{300}$ is an estimate of the low-pressure limiting rate constant at 300 K. $n$ is the estimated temperature dependence at the low-pressure limit (for more information, see \cite{JPL}). The low pressure rate constants is of third order and has units $cm^6\text{molecule}^{-1}s^{-1}$ (\cite{AtmModFund}).
+
+\medskip
+
+Similarly, there exists a high-pressure limit:
+
+\begin{equation}
+    k_\infty(T) = k_\infty^{300}\Big(\frac{T}{300}\Big)^{-m}
+    \label{eq:3b_high_pressure}
+\end{equation}
+
+In which $k_\infty^{300}$ is an estimate of the high-pressure limiting rate constant at 300 K. $m$ is the estimated temperature dependence at the high-pressure limit (for more information, see \cite{JPL}). The high-pressure rate constant is of second order and has units $cm^3\text{molecule}^{-1}s^{-1}$ (\cite{AtmModFund}).
+
+
+\section{Photochemical reactions}
+
+For photochemical reactions, the rate expression is (\cite{AtmModFund}):
+
+\begin{equation*}
+    A + hv \rightarrow B + C
+\end{equation*}
+
+and the rate expression is: 
+
+\begin{equation*}
+    \frac{d[A]}{dt} = -J[A]
+\end{equation*}
+
+In which $J$ is a first-order photolysis rate coefficient of species $A$ (units: $s^-1$). 
+
+
+Kan legge inn tabell med D-ratene her 
+
+\section{Heterogeneous chemistry}\label{sec:het_chem}
+
+Skriv kort om heterogene reaksjoner og legg inn hvilke som er lagt inn i CTM3 i tabell
+
+\subsection{Heterogeneous Reactions on Aerosol Surfaces (Reactions \ref{R:8} and \ref{R:13})}\label{sec:aerosol_react}
 
 The implementation of the aerosol Reactions \ref{R:8} and \ref{R:9} is based on the method described by \cite{CAO} and \cite{schwartz1986}. An overview of the constants used can be found in Table \ref{tab:constants}.
 
@@ -161,7 +252,7 @@ $f(q)$ is determined by:
 where $q = a\sqrt{\frac{k_{liq}^I}{D_{liq}}}$, is a dimensionless quantity called the diffuso-reactive parameter. This is used to calculate the uptake rates (\cite{Hanson1994}). 
 
 
-\subsubsection{Heterogeneous reactions over snow and ice surfaces (Reactions \ref{R:7})}\label{sec:snow_ice_react}
+\subsection{Heterogeneous Reactions Over Snow and Ice Surfaces (Reactions \ref{R:7})}\label{sec:snow_ice_react}
 
 
 The implementation of the heterogeneous reactions over snow/ice surfaces also follows the method by \cite{CAO}. 
@@ -201,22 +292,6 @@ $\beta$ is the ratio of the total reactive surface (induced by the structure of 
 \input{Chapter3_Theory_ocean_hetReact/cao_constants}
 
 
-
-\subsection{Photochemistry}
-
-For photochemical reactions, the rate expression is (\cite{AtmModFund}):
-
-\begin{equation*}
-    A + hv \rightarrow B + C
-\end{equation*}
-
-and the rate expression is: 
-
-\begin{equation*}
-    \frac{d[A]}{dt} = -J[A]
-\end{equation*}
-
-In which $J$ is a first-order photolysis rate coefficient of species $A$ (units: $s^-1$). 
 
 \section{Wet deposition and Henry's law}\label{sec:wet_dep_henrys_law}
 
@@ -259,8 +334,3 @@ At equilibrium, the number of moles per liter of a gas that is dissolved in a dr
 
 The Henry's law constants can be seen in Section \ref{sec:scav_wet} in Table \ref{tab:Henrys_law}. 
 
-
-\section{3-body reactions}\label{sec:3Body_theory}
-
-
-Reactions \ref{R:clono2} and \ref{R:13} were implemented by using the 3 body reaction scheme for their reaction rate constants. \cite{SovdeManual}. A three-body reaction is the reaction of two species, \chem{A} and \chem{B}, involving a third body, \chem{M}, to form a new species, \chem{AB}. The third body is an inert molecule (generally $\chem{N_2}$ or $\chem{O_2}$ in the atmosphere) that removes excess energy from the excited species $\chem{AB*}$ leaving the product species \chem{AB} in it's unexcited state (\cite{Jacob1999}).

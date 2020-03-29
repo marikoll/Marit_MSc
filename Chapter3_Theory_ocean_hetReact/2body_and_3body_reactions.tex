@@ -1,10 +1,10 @@
 \begin{table}[]
 \centering
-\resizebox{12cm}{!}{%
+\resizebox{14cm}{!}{%
 \begin{tabular}{|c|ccc|c|c|c|l|}
 \hline
-\multicolumn{8}{|c|}{\textbf{Reactions dependent on temperature}}                                                                                                                                                                                                                                                                                                         \\ \hline
-\textbf{Reaction}                                                    & \multicolumn{1}{c|}{\textbf{A-factor}}    & \multicolumn{2}{c|}{\textbf{E/R}}                                            & \textbf{k (273.15 K)}                          & \multicolumn{3}{l|}{\textbf{Reaction ref.}}                                                                            \\ \hline
+\multicolumn{8}{|c|}{\textbf{Reactions dependent on temperature (Bimolecular reactions)}}                                                                                                                                                                                                                                                                                                         \\ \hline
+\textbf{Reaction}                                                    & \multicolumn{1}{c|}{\textbf{A-factor}}    & \multicolumn{2}{c|}{\textbf{E/R}}                                            & \textbf{k (273.15 K) (*)}                          & \multicolumn{3}{l|}{\textbf{Reaction ref.}}                                                                            \\ \hline
 $\chem{Cl} + \chem{CH_4} \rightarrow \chem{HCl} + \chem{CH_3} $      & \multicolumn{1}{c|}{$7.3\cdot10^{-12}$}   & \multicolumn{2}{c|}{$1280$}                                                  & $6.7\cdot10^{-14}$                             & \multicolumn{3}{c|}{\ref{R:cl_ch4}}                                                                                    \\
 $\chem{O_3} + \chem{Br} \rightarrow \chem{BrO} + \chem{O_2}$         & \multicolumn{1}{c|}{$1.7\cdot10^{-11}$}   & \multicolumn{2}{c|}{$800$}                                                   & $9.1\cdot10^{-13}$                             & \multicolumn{3}{c|}{\ref{R:2}}                                                                                         \\
 $\chem{O_3} + \chem{Cl} \rightarrow \chem{ClO} + \chem{O_2}$         & \multicolumn{1}{c|}{$2.3\cdot10^{-11}$}   & \multicolumn{2}{c|}{$200$}                                                   & $1.1\cdot10^{-11}$                             & \multicolumn{3}{c|}{\ref{R:2}}                                                                                         \\
@@ -17,11 +17,17 @@ $\chem{BrO} + \chem{NO} \rightarrow \chem{NO_2} + \chem{Br}$         & \multicol
 $\chem{CHBr_3} + \chem{OH} \rightarrow 3\chem{Br} + \chem{Products}$ & \multicolumn{1}{c|}{$1.35\cdot10^{-12}$}  & \multicolumn{2}{c|}{$600$}                                                   & $1.5\cdot10^{-13}$                             & \multicolumn{3}{c|}{\ref{R:10}}                                                                                        \\ \hline
 \multicolumn{8}{|c|}{\textbf{Reactions dependent on pressure and temperature (3-body reactions)}}                                                                                                                                                                                                                                                                         \\ \hline
 \multirow{2}{*}{\textbf{Reaction}}                                   & \multicolumn{3}{c}{\textbf{Low-Pressure Limit}}                                                                          & \multicolumn{3}{c|}{\textbf{High-Pressure Limit}}                                                                             & \multirow{2}{*}{\textbf{Reaction ref.}} \\ \cline{2-7}
-                                                                     & \multicolumn{1}{c|}{\textbf{k$_o^{300}$}} & \multicolumn{1}{l|}{\textbf{n}} & \multicolumn{1}{l|}{\textbf{k (273.15 K)}} & \multicolumn{1}{l|}{\textbf{k$_\infty^{300}$}} & \multicolumn{1}{l|}{\textbf{m}} & \multicolumn{1}{l|}{\textbf{k (273.15 K)}} &                                         \\ \hline
+                                                                     & \multicolumn{1}{c|}{\textbf{k$_0^{300}$}} & \multicolumn{1}{l|}{\textbf{n}} & \multicolumn{1}{l|}{\textbf{k$_0^{300}$ (273.15 K) (**)}} & \multicolumn{1}{l|}{\textbf{k$_\infty^{300}$}} & \multicolumn{1}{l|}{\textbf{m}} & \multicolumn{1}{l|}{\textbf{k$_\infty^{300}$ (273.15 K) (***)}} &                                         \\ \hline
 $\chem{BrO} + \chem{NO_2} + M \rightarrow \chem{BrONO_2} + M$        & \multicolumn{1}{c|}{$5.2\cdot10^{-31}$}   & \multicolumn{1}{c|}{$3.2$}      & $7.0\cdot10^{-31}$                         & $6.9\cdot10^{-12}$                             & $2.9$                           & $9.0\cdot10^{-12}$                         & \multicolumn{1}{c|}{\ref{R:9}}          \\
 $\chem{NO_2} + \chem{ClO} + M \rightarrow \chem{ClONO_2} + M $       & \multicolumn{1}{c|}{$1.8\cdot10^{-31}$}   & \multicolumn{1}{c|}{$3.4$}      & $2.5\cdot10^{-31}$                         & $1.5\cdot10^{-11}$                             & $1.9$                           & $1.8\cdot10^{-11}$                         & \multicolumn{1}{c|}{\ref{R:clono2}}     \\ \hline
 \end{tabular}
 }
-\caption{Table}
+\caption{Rate coefficients for some of the bimolecular and 3-body reactions implemented in the troposphere. Values are taken from \cite{JPL}. Rate coefficients are calculated at 273.15 K by: 
+\\ 
+(*) k is calculated by Equation \ref{eq:2b_rate_coeff} 
+\\ 
+(**) k$_0^{300}$ is calculated by Equation \ref{eq:3b_low_pressure} 
+\\ 
+(***) k$_\infty^{300}$ is calculated by Equation \ref{eq:3b_high_pressure}} 
 \label{tab:2b_and_3b_reactions}
 \end{table}
