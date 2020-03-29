@@ -1,0 +1,56 @@
+In order to save CPU time and avoid conflicts regarding the use of stratospheric methyl bromide ($\chem{CH_3Br}$) as a designated species for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (explained further in Section \ref{sec:oceanic_emissions}), the stratosphere was turned off. This is performed by modifying the following scripts: 
+
+\section{Makefile}\label{subsubsec:makefile}
+
+\texttt{Makefile} is the file that sets the user options for the CTM3. The resolution was either set to \texttt{HTWO} (2.25$^o$x2.25$^o$) or \texttt{HFOUR} (4.5$^o$x4.5$^o$). The following modules were also turned on or off (information about the different modules can be found in \cite{SovdeManual}):
+
+\begin{itemize}
+    \item \texttt{OSLOCHEM}: compilation with Oslo chemistry/physics, \textbf{turned on}
+    \item \texttt{TROPCHEM}: compilation with Oslo tropospheric chemistry, \textbf{turned on}
+    \item \texttt{STRATCHEM}: compilation with Oslo stratospheric chemistry, \textbf{turned off}
+    \item \texttt{SULPHUR}: sulfur scheme, \textbf{turned on}
+    \item \texttt{BCOC}: black carbon/organic matter scheme, \textbf{turned off}
+    \item \texttt{NITRATE}: nitrate scheme (\texttt{SALT} and \texttt{SULPHUR} is required), \textbf{turned on}
+    \item \texttt{SEA SALT}: sea salt scheme, \textbf{turned on}
+    \item \texttt{DUST}: dust scheme, \textbf{turned off}
+    \item \texttt{SOA}: secondary organic aerosols scheme, \textbf{turned off}
+    \item \texttt{E90}: applies e90 tracer for STE flux calculations and produces the troposphere, \textbf{turned off}
+    \item \texttt{LINOZ}: applies Linoz $\chem{O_3}$ for STE calculations (not set up yet to replace stratospheric chemistry in the Oslo CTM3), \textbf{turned off}
+    \item \texttt{M7}: not implemented \textbf{turned off}
+\end{itemize}
+
+
+\section{Tropospheric Chemistry Parameters - \texttt{cmn\_size.f90}}\label{subsubsec:cmn_size}
+
+
+The tropospheric chemistry parameters were adjusted in \texttt{cmn\_size.f90} in order to be able to include some of the originally stratospheric tracers without including the stratosphere. This was only done for the \texttt{bromine\_explosion}-branches (An overview of the branches can be seen in Section \ref{sec:code_availability}). 
+
+\medskip
+
+The non-transported species (\texttt{NPAR\_TROP}) were adjusted from 39 to 54 and the transported species (\texttt{NOTRPAR\_TROP}) were adjusted from 7 to 8 leaving the following amount of chemical parameters:
+
+\begin{itemize}
+    \item \texttt{TROPCHEM}: 54 transported, 8 non-transported
+    \item \texttt{SULPHUR}: 5 transported
+    \item \texttt{NITRATE}: 5 transported
+    \item \texttt{SEA SALT}: 8 transported
+\end{itemize}
+
+\section{Tracer list - \texttt{tracer\_list\_no\_stratosphere.d}}\label{subsubsec:tracer_list}
+
+The tracer list contains all the tracers that the model need in the simulation, with names and molecular weights. It contains two parts - one with transported species and one with non-transported species. The total number of transported and non-transported must match the \texttt{NPAR} and \texttt{NOTRPAR} in \texttt{cmn\_size.F90} (see Section \ref{subsubsec:cmn_size}) (\cite{SovdeManual}). 
+
+\medskip
+
+The list \texttt{tracer\_list\_no\_stratosphere.d} was created in order to include some of the stratospheric chemistry components as well as the components mentioned above. The added components were: 
+
+\begin{itemize}
+    \item \textbf{Transported}: $\chem{Cl_x}$, $\chem{HCl}$, $\chem{Cl_y}$, $\chem{CH_3Br}$, $\chem{Br_y}$, $\chem{ClO}$, $\chem{Cl_2}$, $\chem{HBr}$, $\chem{BrONO_2}$, $\chem{OHBr}$, $\chem{Br_2}$, $\chem{BrCl}$, $\chem{Cl}$, $\chem{Br}$, $\chem{BrO}$
+    \item \textbf{Non-transported}: $\chem{H_2}$
+\end{itemize}
+
+The three components $\chem{Cl}$, $\chem{Br}$, $\chem{BrO}$ were moved from non-transported in the \texttt{bromine\_explosion}-branches, in order to have transport for these species. They were left in non-transported in the \texttt{origCTM3\_noStrat}-branches, as the lack of chemistry for those species in the original CTM3-branches led to conflicts (for an overview of the branches, see Section \ref{sec:code_availability}). 
+
+\section{Component output - \texttt{gmdump3hrs.f90}}\label{subsubsec:gmdump}
+
+In the module \texttt{gmdump3hrs.f90}, selected tracer components are printed every hour. In this module, the tracer output was adjusted to dump 19 components instead of 7. To be able to do this, the components must be declared as "transported" in the tracer list (Described in Section \ref{subsubsec:tracer_list}) and in \texttt{cmn\_size.F90} (Described in Section \ref{subsubsec:cmn_size}).

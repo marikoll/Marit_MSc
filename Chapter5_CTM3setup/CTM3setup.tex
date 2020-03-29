@@ -11,113 +11,96 @@ When testing, a degraded resolution was used in the CTM3. In the \texttt{Makefil
 
 \section{The Supercomputer}
 
-\subsection{The job file}
+\subsection{The Job File}
 
-The job file is used to set up a run on Saga. The job file declares the job name, the input file, the project number and the wall clock limit, i.e. the max running time in the super computer and the number of nodes to use on the supercomputer when running the simulation. Also, it contains the path to the restart files (information about restart files can be found in Section \ref{subsec:restart_files}).
+The job file is used to set up a run. The job file declares the job name, the input file, the project number and the wall clock limit, i.e. the max running time in the super computer and the number of nodes to use on the supercomputer when running the simulation. Also, it contains the path to the restart files (information about restart files can be found in Section \ref{subsec:restart_files}).
 
 \subsubsection{Abel vs. Saga}
 
+As the Oslo CTM3 was not optimized for Saga, the job file setup at Saga and Abel differed slightly. At Abel, the most efficient setup was the following: 
+
+\begin{lstlisting}
+#!/bin/bash
+# Script for running on Abel.
+# --------------------------------------------------------------------------
+# Job name (enter your distinct job name):
+#SBATCH --job-name=C3RUN_almost_BE
+#
+# Project (enter your noturn project number):
+#SBATCH --account=geofag
+#
+# Wall clock limit (setting for one year 96:0:0):
+#SBATCH --time=0:30:0
+#
+# Does your job exceed one week, use "--partition=long":
+# ####SBATCH --partition=long
+#
+# Max memory usage:
+#SBATCH --mem-per-cpu=3000M
+#
+# Number of cores:
+#SBATCH --ntasks-per-node=16
+#
+# Number of nodes:
+#SBATCH --nodes=1
+#
+#
+## Set up job environment
+source /cluster/bin/jobsetup
+\end{lstlisting}
+
+The number of nodes had to be different at Saga as it was slowed down by an increased number: 
+
+\begin{lstlisting}
+#!/bin/bash
+# Script for running on Saga.
+# --------------------------------------------------------------------------
+# Job name (enter your distinct job name):
+#SBATCH --job-name=C3RUN_BE_PI_HFOUR_MarchMay_2013
+#
+# Project (enter your noturn project number):
+#SBATCH --account=nn9188k
+#
+# Wall clock limit (setting for one year 96:0:0):
+#SBATCH --time=15:0:0
+#
+# Does your job exceed one week, use "--partition=long":
+# ####SBATCH --partition=long
+#
+# Max memory usage:
+#SBATCH --mem-per-cpu=3000M
+#
+# Number of cores:
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#
+# Number of nodes:
+#SBATCH --nodes=1
+#
+#
+## Set up job environment:
+#set -o errexit  # Exit the script on any error
+set -o nounset  # Treat any unset variables as an error
+\end{lstlisting}
 
 
 \subsection{The Input File}
 
 The input file consists of three parts, one that sets up the meteorological year, start day and end day. The second part lists some of the input file names, including the tracer lists. Information of the tracer list used here can be found in Section \ref{subsubsec:Ltracer_list} and \ref{subsubsec:tracer_list}. The third part covers information about the diagnostics. 
 
+In order to save CPU time and avoid conflicts regarding the use of stratospheric methyl bromide ($\chem{CH_3Br}$) as a designated species for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (explained further in Section \ref{sec:oceanic_emissions}), the stratosphere was turned off. Oppskrifta ligger i \ref{app:turning_off_the_stratosphere}
+
+SKriv om Pre-industrial setup \ref{app:PI_run}
 
 
-\section{Excluding the stratosphere}\label{subsec:strat}
+\section{Wet deposition - \texttt{scavenging\_wet.inp}}\label{sec:scav_wet}
 
-In order to save CPU time and avoid conflicts regarding the use of stratospheric methyl bromide ($\chem{CH_3Br}$) as a designated species for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (explained further in Section \ref{sec:oceanic_emissions}), the stratosphere is turned off. This is performed by modifying the following scripts: 
-
-\subsection{Makefile}\label{subsubsec:makefile}
-
-\texttt{Makefile} is the file that sets the user options for the CTM3. The resolution was either set to \texttt{HTWO} (2.25$^o$x2.25$^o$) or \texttt{HFOUR} (4.5$^o$x4.5$^o$). The following modules were also turned on or off (information about the different modules can be found in \cite{SovdeManual}):
-
-\begin{itemize}
-    \item \texttt{OSLOCHEM}: compilation with Oslo chemistry/physics, \textbf{turned on}
-    \item \texttt{TROPCHEM}: compilation with Oslo tropospheric chemistry, \textbf{turned on}
-    \item \texttt{STRATCHEM}: compilation with Oslo stratospheric chemistry, \textbf{turned off}
-    \item \texttt{SULPHUR}: sulfur scheme, \textbf{turned on}
-    \item \texttt{BCOC}: black carbon/organic matter scheme, \textbf{turned off}
-    \item \texttt{NITRATE}: nitrate scheme (\texttt{SALT} and \texttt{SULPHUR} is required), \textbf{turned on}
-    \item \texttt{SEA SALT}: sea salt scheme, \textbf{turned on}
-    \item \texttt{DUST}: dust scheme, \textbf{turned off}
-    \item \texttt{SOA}: secondary organic aerosols scheme, \textbf{turned off}
-    \item \texttt{E90}: applies e90 tracer for STE flux calculations and produces the troposphere, \textbf{turned off}
-    \item \texttt{LINOZ}: applies Linoz $\chem{O_3}$ for STE calculations (not set up yet to replace stratospheric chemistry in the Oslo CTM3), \textbf{turned off}
-    \item \texttt{M7}: not implemented \textbf{turned off}
-\end{itemize}
-
-
-\subsection{Tropospheric chemistry parameters - \texttt{cmn\_size.f90}}\label{subsubsec:cmn_size}
-
-
-The tropospheric chemistry parameters were adjusted in \texttt{cmn\_size.f90} in order to be able to include some of the originally stratospheric tracers without including the stratosphere. The non-transported species (\texttt{NPAR\_TROP}) were adjusted from 39 to 54 and the transported species (\texttt{NOTRPAR\_TROP}) were adjusted from 7 to 8 leaving the following amount of chemical parameters:
-
-\begin{itemize}
-    \item \texttt{TROPCHEM}: 54 transported, 8 non-transported
-    \item \texttt{SULPHUR}: 5 transported
-    \item \texttt{NITRATE}: 5 transported
-    \item \texttt{SEA SALT}: 8 transported
-\end{itemize}
-
-
-
-\subsection{Tracer list - \texttt{tracer\_list\_no\_stratosphere.d}}\label{subsubsec:tracer_list}
-
-The tracer list contains all the tracers that the model need in the simulation, with names and molecular weights. It contains two parts - one with transported species and one with non-transported species. The total number of transported and non-transported must match the \texttt{NPAR} and \texttt{NOTRPAR} in \texttt{cmn\_size.F90} (see Section \ref{subsubsec:cmn_size}) (\cite{SovdeManual}). 
-
-\medskip
-
-The list \texttt{tracer\_list\_no\_stratosphere.d} was created in order to include some of the stratospheric chemistry components as well as the components mentioned above. The added components were: 
-
-\begin{itemize}
-    \item \textbf{Transported}: $\chem{Cl_x}$, $\chem{HCl}$, $\chem{Cl_y}$, $\chem{CH_3Br}$, $\chem{Br_y}$, $\chem{ClO}$, $\chem{Cl_2}$, $\chem{HBr}$, $\chem{BrONO_2}$, $\chem{OHBr}$, $\chem{Br_2}$, $\chem{BrCl}$, $\chem{Cl}$, $\chem{Br}$, $\chem{BrO}$
-    \item \textbf{Non-transported}: $\chem{H_2}$
-\end{itemize}
-
-The three components $\chem{Cl}$, $\chem{Br}$, $\chem{BrO}$ were moved from non-transported in order to be able to print these species. 
-
-\subsection{Wet deposition - \texttt{scavenging\_wet.inp}}\label{sec:scav_wet}
-
-Wet scavenging rates for \chem{HCl}, \chem{HBr}, $\chem{BrONO_2}$ and $\chem{ClONO_2}$ were added to the wet deposition input table \texttt{scavenging\_wet.inp}. The Henry's law constants can be seen in Table \ref{tab:Henrys_law}. 
+Wet scavenging rates for \chem{HCl}, \chem{HBr}, $\chem{BrONO_2}$ and $\chem{ClONO_2}$ were added to the wet deposition input table \texttt{scavenging\_wet.inp}. The Henry's law constants are listed in Table \ref{tab:Henrys_law}. 
 
 \input{Chapter5_CTM3setup/henrys_law}
 
 
-\subsection{Ltracer list - \texttt{Ltracer\_emis\_ceds17\_YEAR\_megan.d}}\label{subsubsec:Ltracer_list}
 
-The tracer list contains all the emission information that the model needs to be able to run. The emission inventory used in this thesis is the \acrlong{ceds} inventory and the \acrlong{megan}, version 2.10, inventory. 
-
-\medskip
-
-\acrshort{ceds} is a historical emission inventory for anthropogenic aerosol and precursor compounds (\cite{Lund2018}). The historical emissions are only available for the 1750-2014 period, which limits the possibilities for simulations after 2014 in this thesis. 
-
-\medskip
-
-\acrshort{megan} v2.10 is a framework used by the model to estimate biogenic fluxes between terrestrial ecosystems and the atmosphere (\cite{Guenther2012}). 
-
-
-\subsection{Component output - \texttt{gmdump3hrs.f90}}\label{subsubsec:gmdump}
-
-
-In the module \texttt{gmdump3hrs.f90}, selected tracer components are printed every hour. In this module, the tracer output was adjusted to dump 19 components instead of 7. To be able to do this, the components must be declared as "transported" in the tracer list (Described in Section \ref{subsubsec:tracer_list}) and in \texttt{cmn\_size.F90} (Described in Section \ref{subsubsec:cmn_size}).
-
-\section{Pre-industrial run}\label{sec:PI_setup}
-
-The model was run with pre-industrial emissions, taken as the year 1850 in this thesis (\cite{IPCCchapter8}). In order to set up the CTM3 for this, a few steps has to be changed. Keep in mind that the approach was hard-coded in order to avoid having to make a 9 years spin up in the restart-file. 
-
-\medskip
-
-The tracer lists has to be set for 1850. It is then the \texttt{Ltracer\_emis\_ceds17\_1850\_megan.d} that is used. 
-
-\medskip
-
-In \texttt{ch4routines.f90}, the subroutine \texttt{ch4surface\_scale\_hymn} was activated along with \texttt{ch4surface\_hymn}, allowing scaling of the methane-surface field with 1850 values, taken as 808.25 ppm (value suggested by \cite{RagnhildPersonal}). The scaling is hard-coded to this value. 
-
-\medskip
-
-The subroutine \texttt{set\_ch4\_stt} (also in \texttt{ch4routines.f90}) was activated from \texttt{pmain.f90} to allow scaling of the entire field (lev, lon and lat) (not only the surface field). This, again, was done as a precaution and to avoid a long spin-up. 
 
 \section{Restart files}\label{subsec:restart_files}
 
@@ -142,6 +125,18 @@ The spin-up time is the time it takes for the simulated surface concentrations t
 
 The pre-industrial and present-day restart files were made without moving the tracers \chem{Br}. \chem{BrO} and \chem{Cl} to transported species (for information about moving species from non-transported to transported, see Section \ref{subsubsec:tracer_list}). This became the solution to the problem that the original versions of the CTM3 (i.e. unaltered except for turning off the stratosphere in both cases and downscaling of the methane field in the case of the \acrshort{pi}-runs) had problems running. As there is no handling of these non-transported tracers in the troposphere in these branches. 
  
+\section{Ltracer list - \texttt{Ltracer\_emis\_ceds17\_YEAR\_megan.d}}\label{subsubsec:Ltracer_list}
+
+The tracer list contains all the emission information that the model needs to be able to run. The emission inventory used in this thesis is the \acrlong{ceds} inventory and the \acrlong{megan}, version 2.10, inventory. 
+
+\medskip
+
+\acrshort{ceds} is a historical emission inventory for anthropogenic aerosol and precursor compounds (\cite{Lund2018}). The historical emissions are only available for the 1750-2014 period, which limits the possibilities for simulations after 2014 in this thesis. 
+
+\medskip
+
+\acrshort{megan} v2.10 is a framework used by the model to estimate biogenic fluxes between terrestrial ecosystems and the atmosphere (\cite{Guenther2012}). 
+
 
 \section{Implementation of halogen chemistry}
 
@@ -158,7 +153,7 @@ In essence, three modules were changed to implement the halogen chemistry. They 
 
 \subsubsection{Photolysis- and chemical reaction rates}
 
-The phytolysis- and chemical reaction rates are set at the very beginning of the loop of the tropospheric column. As the oceanic source of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (see Section \ref{sec:impl_ocean_source}) and multiphase reactions (see Section \ref{sec:impl_multiphase_react}) only apply at the surface, this is declared at the beginning:
+The phytolysis- and chemical reaction rates were set at the very beginning of the loop of the tropospheric column. As the oceanic source of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (see Section \ref{sec:impl_ocean_source}) and multiphase reactions (see Section \ref{sec:impl_multiphase_react}) only apply at the surface, this was declared at the beginning:
 
 \begin{lstlisting}
 !// Adding a bromine (CHBr3 and CH2Br2) source 
@@ -176,9 +171,7 @@ end if
 \end{lstlisting}
 
 
-The photolysis rates of $\chem{HOBr}$, $\chem{BrO}$ and $\chem{CH_3Br}$ were already included in \texttt{ratj\_oc.d} and could be declared directly. The photolysis rates of \chem{BrCl} and $\chem{Br_2}$ was set constant as 0.1 as long as the photolysis rate of ozone was higher than 0 (i.e. daylight present)
-
-
+The photolysis rates of $\chem{HOBr}$, $\chem{BrO}$ and $\chem{CH_3Br}$ were already included in \texttt{ratj\_oc.d} and could be declared directly. The photolysis rates of \chem{BrCl} and $\chem{Br_2}$ were set constant as 0.1 as long as the photolysis rate of ozone was higher than 0 (i.e. daylight present)
 
 
 \subsection{Halogen families}
@@ -321,21 +314,23 @@ The pressure- and temperature dependent multiphase reactions occurring on aeroso
 
 \texttt{chem\_oslo\_rates} is a module that contains the chemical reaction rates for both the troposphere and the stratosphere. It contains several subroutines, and the modified ones are: 
 
-\begin{itemize}
-    \item \texttt{TCRATE\_CONS2}: Contains the constant reaction rates and the temperature dependent reaction rates for the troposphere and the stratosphere. 
-    \begin{itemize}
-        \item There are some reactions that were already included by Amund Søvde \cite{SovdeManual} in the stratosphere. These were used directly in the troposphere. These are Reactions \ref{R:2} (for both chlorine and bromine),  \ref{R:4}, \ref{R:6}, \ref{R:17}, \ref{R:15}, \ref{R:16} and \ref{R:14}. The Arrhenius factor and temperature dependence for the reactions are taken from Jet Propulsion Laboratory (JPL) (\cite{JPL}). 
-        \item The reaction rate for Reaction \ref{R:9} is taken from \cite{CAO}.
-        \item The Arrhenius constant and temperature dependence for Reaction \ref{R:10} is taken from \cite{Parella}(see Table \ref{tab:rr_ocean_emis}). 
-    \end{itemize}
-    \item \texttt{TCRATE\_TP\_IJ\_TRP}: Finds the reaction rates dependent on temperature and pressure. The temperature- and pressure dependent heterogeneous reaction rates (Reactions \ref{R:8} and \ref{R:13}) were calculated here, using the methood by \cite{CAO} (See Section \ref{sec:aerosol_react})
-\end{itemize}
 
-\subsection{3-body reactions}\label{sec:3bReactions_ctm3}
+\subsubsection{Temperature Dependent Reaction Rates}\label{sec:temp_depend_react_rates}
 
-3 body reactions, as described in Section \ref{sec:3Body_theory}
+The constant- and the temperature dependent reaction rates for the troposphere and the stratosphere are found in the subroutine \texttt{TCRATE\_CONS2}. Some reactions were already declared in the stratosphere (by Amund Søvde, \cite{SovdeManual}), and therefore included in the troposphere. This applied to the bimolecular Reactions \ref{R:2} (for both chlorine and bromine),  \ref{R:4}, \ref{R:6}, \ref{R:17}, \ref{R:15}, \ref{R:16} and \ref{R:14}. Reaction \ref{R:10} was also added. The Arrhenius factor for these reactions were taken from \cite{JPL}. 
 
-Reaksjonene som produserer BrONO2 og ClONO2
+\medskip
+
+An overview of the reactions and their reaction rates can be found in Table \ref{tab:2b_and_3b_reactions}. A description of bimolecular reaction chemistry can be read in Section \ref{sec:bimolecular_reactions}. 
+
+\subsubsection{Temperature- and Pressure Dependent Reaction Rates}\label{sec:temp_press_dependent_react_rates}
+
+The temperature- and pressure dependent reaction rates for the troposphere are calculated in the subroutine \texttt{TCRATE\_TP\_IJ\_TRP}. The Reactions \ref{R:9} and \ref{R:cl_ch4} were moved to this subroutine, from the stratosphere. Their reaction rates are calculated using the function \texttt{RATE3B} (see \cite{SovdeManual}) with values from \cite{JPL}. A description of 3-body reaction chemistry can be read in Section \ref{sec:3body_reactions}. An overview of the reactions and their reaction rates can be found in Table \ref{tab:2b_and_3b_reactions}. 
+
+\medskip
+
+The temperature- and pressure dependent heterogeneous reaction rates (Reactions \ref{R:8} and \ref{R:13}) were also calculated in this subroutine, using the method by \cite{CAO} (See Section \ref{sec:aerosol_react})
+
 
 
 

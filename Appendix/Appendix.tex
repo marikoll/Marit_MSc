@@ -22,7 +22,23 @@ Some key information about the station data obtained from ebas (\cite{EBAS}) is 
 
 \section{Ozonosonde data}
 
-Ozonosonde measurements from Summit, Greenland, was obtained from \cite{NOAA} for the year 2013. The ozonosonde measures ozone by using an Electrochemical Concentration Cell Ozonesonde (For more information, visit \cite{ESRL}).  
+Ozonosonde measurements from Summit, Greenland, was obtained from \cite{NOAA} for the year 2013. The ozonosonde measures ozone by using an Electrochemical Concentration Cell Ozonosonde (For more information, visit \cite{ESRL}).  
+
+\cleardoublepage
+
+\chapter{Running the CTM3}\label{app:running_CTM3}
+
+\cleardoublepage
+
+\chapter{Turning Off the Stratosphere}\label{app:turning_off_the_stratosphere}
+
+\input{Appendix/Turning_off_stratosphere}
+
+\cleardoublepage
+
+\chapter{Pre-Industrial Run}\label{app:PI_run}
+
+\input{Appendix/PI_run}
 
 \cleardoublepage
 
@@ -38,7 +54,7 @@ The first section contains the formulas applied to the CTM3 data and the EBAS/NO
 
 \subsection{Oslo CTM3}\label{sec:unit_conversion_CTM3}
 
-The CTM3 data that are used are given in either monthly averages or tropospheric tracers (3-hour outputs). The monthly averages have units kg of species, and the 3-hour outputs have units g m$^{-3}$. 
+The CTM3 data used were given in either monthly averages or tropospheric tracers (3-hour outputs). The monthly averages have units kg of species, and the 3-hour outputs have units g m$^{-3}$. 
 
 \medskip
 
@@ -83,11 +99,12 @@ The \acrshort{cdo}-software is a collection of operators for standard processing
 
 The \acrshort{cdo}-scripts were adapted from scripts provided by \cite{StefaniePersonal}. 
 
+
+
 \begin{itemize}
     \item Load cdo by \texttt{module load cdo}
-    \item \texttt{pwd} to the folder of interest
     \item \texttt{chmod +x "cdo file"} if there has been changes
-    \item \texttt{./"cdo file" "Full path" --surface} (surface level is so far only possibility)
+    \item \texttt{./"cdo file" "Full path"} 
 \end{itemize}
 
 \cleardoublepage

@@ -1,0 +1,14 @@
+
+The model was run with pre-industrial emissions, taken as the year 1850 in this thesis (\cite{IPCCchapter8}). In order to set up the CTM3 for this, a few steps has to be changed. Keep in mind that the approach was hard-coded in order to avoid having to make a 9 years spin up in the restart-file (due to the atmospheric lifetime of methane). 
+
+\medskip
+
+The tracer list,  \texttt{Ltracer\_emis\_ceds17\_1850\_megan.d}, was set for 1850. 
+
+\medskip
+
+In \texttt{ch4routines.f90}, the subroutine \texttt{ch4surface\_scale\_hymn} was activated along with \texttt{ch4surface\_hymn}, allowing scaling of the methane-surface field with 1850 values, taken as 808.25 ppm (value suggested by \cite{RagnhildPersonal}). The scaling was hard-coded to this value. 
+
+\medskip
+
+The subroutine \texttt{set\_ch4\_stt} (also in \texttt{ch4routines.f90}) was activated from \texttt{pmain.f90} to allow scaling of the entire field (lev, lon and lat) (not only the surface field). 
