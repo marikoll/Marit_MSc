@@ -95,7 +95,7 @@ SKriv om Pre-industrial setup \ref{app:PI_run}
 
 \section{Wet deposition - \texttt{scavenging\_wet.inp}}\label{sec:scav_wet}
 
-Wet scavenging rates for \chem{HCl}, \chem{HBr}, $\chem{BrONO_2}$ and $\chem{ClONO_2}$ were added to the wet deposition input table \texttt{scavenging\_wet.inp}. The Henry's law constants are listed in Table \ref{tab:Henrys_law}. 
+Wet scavenging rates for \chem{HCl}, \chem{HBr} and $\chem{ClONO_2}$ were added to the wet deposition input table \texttt{scavenging\_wet.inp}. The Henry's law constants are listed in Table \ref{tab:Henrys_law}. 
 
 \input{Chapter5_CTM3setup/henrys_law}
 
@@ -331,7 +331,124 @@ The temperature- and pressure dependent reaction rates for the troposphere are c
 
 The temperature- and pressure dependent heterogeneous reaction rates (Reactions \ref{R:8} and \ref{R:13}) were also calculated in this subroutine, using the method by \cite{CAO} (See Section \ref{sec:aerosol_react})
 
+\subsubsection{Heterogeneous aerosol reactions}\label{sec:het_aerosol_react_CTM3}
 
+The heterogeneous reaction set for Reactions \ref{R:13} and \ref{R:8} (process described in Section \ref{sec:aerosol_react}) were implemented in the subroutine \texttt{TCRATE\_TP\_IJ\_TRP}. 
+
+
+\begin{lstlisting}
+!//All constants taken from Cao et al., 2014, 
+!//Numerical analysis of the chemical
+!//kinetic mechanisms of ozone depletion and halogen 
+!//release in the polar troposphere.
+!// DOI: 10.5194/acp-14-3771-2014
+
+          !//General constants
+          alpha = 1.0            !Accommodation coeff., 
+                                 !dimensionless
+          H_star = 1.7e4_r8      !Effective Henry const. 
+                                 !HOBr, [mol/L*atm]
+          R = R_ATM * 1000       !Universal gas constant, 
+                                 ![L*atm/K*mol] 
+          Dliq = 5.0e-6_r8       !Liq. HOBr diffusion 
+                                 !coef., [cm2/s]
+          a = 0.45e-4_r8         !Typical aerosol radius, 
+                                 ![cm]
+          Mol_HOBr = 96.91e-3_r8 !Molar mass of HOBr, 
+                                 ![kg/mol]
+          Dg = 0.2               !Molecular diffusivity, 
+                                 ![cm2/s]
+          alpha_eff = 1.0e-6_r8  !Surface to volume coeff., 
+                                 ![1/cm]
+          !//For HBr calculations
+          H_star_HBr = 3.0e8_r8 !Effective Henry const.  
+                                !HBr, [mol/L*atm]
+          k2_HBr = 5.0e4_r8     !2nd order reaction rate 
+                                !const. HBr, [L/mol*s]
+          !//For HCl calculations
+          H_star_HCl = 3.0e6_r8 !Effective Henry const. 
+                                !HCl, [mol/L*atm]
+          k2_HCl = 1.0e5_r8     !2nd order reaction rate 
+                                !const.(rrc) HCl, [L/mol*s]
+          !//For BrONO2 calculations
+          gamma_BrONO2 = 0.06   !HOBr uptake coeff. 
+                                !dimensionless
+          !// neglectible: 0.0001 
+          !// dominant: 0.06
+          !// critical: 0.0004
+          
+    do L = 1, LMTROP
+       !// from ground to top of trop.
+          M_HCl = ZC_LOCAL(111,L) ! HCl [molec/cm3]
+          M_HBr = ZC_LOCAL(140,L) ! HBr [molec/cm3]
+          !//Temperature
+          THE = TEMP(L)
+          !Mean molecular speed of HOBr, [cm/s]
+          v_HOBr = 1000 * sqrt((8 * R * THE) / &
+                    (CPI * Mol_HOBr))
+          !//HBr calculations
+          P_HBr = (M_HBr * 1.0e3_r8 * R * THE) / &
+                    AVOGNR  !Partial p., HBr(g),[atm}
+          k1_HBr = k2_HBr * H_star_HBr * P_HBr 
+                !1st order liq. rrc, [1/s]
+          q_HBr = a * sqrt(k1_HBr /Dliq)       
+                !Function for HBr, dimensionless
+          !// No uptake if no HBr is present
+          if (q_HBr .lt. 1.e-20_r8) then
+             f_q_HBr = 0._r8
+             HBr_del = 0._r8
+          else
+             f_q_HBr = (1./tanh(q_HBr)) - &
+                (1.0/q_HBr) !f(q) for HBr, dimensionless
+             HBr_del = (v_HOBr / &
+                (4 * H_star * R * THE * f_q_HBr &
+                * sqrt(k1_HBr * Dliq))) !Dimensionless
+          endif
+          gamma_HBr = 1.0 / ((1 / alpha) + HBr_del)
+          !HOBr uptake coef., diemensionless
+          !//Reaction rate constant for 
+          !//HOBr + HBr (aerosol)-> Br2 + H2O
+          !// [1/s]
+          r_hobr_hbr_a(L) = (1.0 / ((a / Dg) &
+                     + (4.0 / (v_HOBr * gamma_HBr)))) &
+                     * alpha_eff
+          !//HCl calculations
+          P_HCl = (M_HCl * 1.0e3_r8 * R * THE) / &
+                AVOGNR  !Partial p., HCl(g),[atm}
+          k1_HCl = k2_HCl * H_star_HCl &
+                * P_HCl !1st order liq. rrc,[1/s]
+          q_HCl = a * sqrt(k1_HCl / Dliq)!Function for HCl, 
+                                         !dimensionless
+          !//No uptake if no HCl present
+          if (q_HCl .lt. 1.e-20_r8) then
+             f_q_HCl = 0._r8
+             HCl_del = 0._r8
+          else
+             f_q_HCl = (1./tanh(q_HCl)) - &
+                    (1.0 / q_HCl)  !f(q) for HCl, 
+                                   !dimensionless
+             HCl_del = (v_HOBr / &
+                  (4 * H_star * R * THE * f_q_HCl &
+                  * sqrt(k1_HCl * Dliq))) !Dimensionless
+          endif
+          gamma_HCl = 1.0 / ((1 / alpha) + HCl_del)
+          !HOBr uptake coef., diemensionless
+          !//Reaction rate constant for: 
+          !//HOBr + HCl (aerosol)-> BrCl + H2O
+          !// [1/molecules * s]
+          r_hobr_hcl_a(L) = ( 1.0 / ((a / Dg) &
+                     + ( 4.0 / (v_HOBr * gamma_HCl)))) &
+                     * alpha_eff
+          !//BrONO2 calculations
+          !//Reaction rate constant for: 
+          !//BrONO2 + H2O (aerosol)-> HOBr + HNO3
+          !// [1/s]
+          r_brono2_h2o_a(L) = (1.0 / ((a / Dg) &
+                + (4.0 / (100 * v_HOBr * gamma_BrONO2)))) &
+                * alpha_eff
+    end do !///L = 1, LMTROP
+
+\end{lstlisting}
 
 
 \subsection{Wet Deposition and Henry's law}\label{sec:henrys_law_ctm3}
