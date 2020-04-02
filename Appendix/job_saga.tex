@@ -1,0 +1,31 @@
+\begin{lstlisting}
+#!/bin/bash
+# Script for running on Saga.
+# ----------------------------------------------
+# Job name (enter your distinct job name):
+#SBATCH --job-name=C3RUN_BE_PI_HFOUR_MarchMay_2013
+#
+# Project (enter your noturn project number):
+#SBATCH --account=nn9188k
+#
+# Wall clock limit (setting for one year 96:0:0):
+#SBATCH --time=15:0:0
+#
+# Does your job exceed one week, use "--partition=long":
+# ####SBATCH --partition=long
+#
+# Max memory usage:
+#SBATCH --mem-per-cpu=3000M
+#
+# Number of cores:
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=8
+#
+# Number of nodes:
+#SBATCH --nodes=1
+#
+#
+## Set up job environment:
+#set -o errexit  # Exit the script on any error
+set -o nounset  # Treat any unset variables as an error
+\end{lstlisting}

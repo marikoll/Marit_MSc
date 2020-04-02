@@ -1,96 +1,15 @@
 \setcounter{chapter}{4}
 \chapter{Alteration made in the Oslo CTM3}
 
-This chapter describes the setup and altered modules of the Oslo CTM3. The model is run with a supercomputer, which at the beginning of my master thesis was Abel (\cite{abel}). In January 2020, Abel was shut down and the Oslo CTM3 migrated to Saga (\cite{saga}). 
+This chapter describes the setup and altered modules of the Oslo CTM3. 
 
 \medskip
 
-When testing, a degraded resolution was used in the CTM3. In the \texttt{Makefile} it is possible to degrade the horizontal resolution by combining several boxes into one. The setting used for testing was \texttt{HWINDOW=HFOUR}, i.e. a combination of four native boxes and thus a $4.5^o \times 4.5^o$ resolution. 
+A degraded resolution was used for the runs in the CTM3. In the \texttt{Makefile} it is possible to degrade the horizontal resolution by combining several boxes into one. The setting used for running the model was \texttt{HWINDOW=HFOUR}, i.e. a combination of four native boxes and thus a $4.5^o \times 4.5^o$ resolution. This is explained more in Appendix \ref{subsubsec:makefile}. In addition, the stratosphere was turned off in all the branches in order to save CPU time and to avoid conflict with the organic bromide sources. How this was performed is explained in Appendix \ref{app:turning_off_the_stratosphere}. 
 
+\medskip
 
-
-\section{The Supercomputer}
-
-\subsection{The Job File}
-
-The job file is used to set up a run. The job file declares the job name, the input file, the project number and the wall clock limit, i.e. the max running time in the super computer and the number of nodes to use on the supercomputer when running the simulation. Also, it contains the path to the restart files (information about restart files can be found in Section \ref{subsec:restart_files}).
-
-\subsubsection{Abel vs. Saga}
-
-As the Oslo CTM3 was not optimized for Saga, the job file setup at Saga and Abel differed slightly. At Abel, the most efficient setup was the following: 
-
-\begin{lstlisting}
-#!/bin/bash
-# Script for running on Abel.
-# --------------------------------------------------------------------------
-# Job name (enter your distinct job name):
-#SBATCH --job-name=C3RUN_almost_BE
-#
-# Project (enter your noturn project number):
-#SBATCH --account=geofag
-#
-# Wall clock limit (setting for one year 96:0:0):
-#SBATCH --time=0:30:0
-#
-# Does your job exceed one week, use "--partition=long":
-# ####SBATCH --partition=long
-#
-# Max memory usage:
-#SBATCH --mem-per-cpu=3000M
-#
-# Number of cores:
-#SBATCH --ntasks-per-node=16
-#
-# Number of nodes:
-#SBATCH --nodes=1
-#
-#
-## Set up job environment
-source /cluster/bin/jobsetup
-\end{lstlisting}
-
-The number of nodes had to be different at Saga as it was slowed down by an increased number: 
-
-\begin{lstlisting}
-#!/bin/bash
-# Script for running on Saga.
-# --------------------------------------------------------------------------
-# Job name (enter your distinct job name):
-#SBATCH --job-name=C3RUN_BE_PI_HFOUR_MarchMay_2013
-#
-# Project (enter your noturn project number):
-#SBATCH --account=nn9188k
-#
-# Wall clock limit (setting for one year 96:0:0):
-#SBATCH --time=15:0:0
-#
-# Does your job exceed one week, use "--partition=long":
-# ####SBATCH --partition=long
-#
-# Max memory usage:
-#SBATCH --mem-per-cpu=3000M
-#
-# Number of cores:
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
-#
-# Number of nodes:
-#SBATCH --nodes=1
-#
-#
-## Set up job environment:
-#set -o errexit  # Exit the script on any error
-set -o nounset  # Treat any unset variables as an error
-\end{lstlisting}
-
-
-\subsection{The Input File}
-
-The input file consists of three parts, one that sets up the meteorological year, start day and end day. The second part lists some of the input file names, including the tracer lists. Information of the tracer list used here can be found in Section \ref{subsubsec:Ltracer_list} and \ref{subsubsec:tracer_list}. The third part covers information about the diagnostics. 
-
-In order to save CPU time and avoid conflicts regarding the use of stratospheric methyl bromide ($\chem{CH_3Br}$) as a designated species for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (explained further in Section \ref{sec:oceanic_emissions}), the stratosphere was turned off. Oppskrifta ligger i \ref{app:turning_off_the_stratosphere}
-
-SKriv om Pre-industrial setup \ref{app:PI_run}
+To run the CTM3, a supercomputer is required. At the beginning of my master thesis the supercomputer Abel (\cite{abel}) was used. In January 2020, Abel was shut down and the Oslo CTM3 migrated to Saga (\cite{saga}). There are some differences between the two  and these differences as well as the setup of the model runs are explained in Appendix \ref{app:supercomputer}. 
 
 
 \section{Wet deposition - \texttt{scavenging\_wet.inp}}\label{sec:scav_wet}
@@ -99,31 +18,6 @@ Wet scavenging rates for \chem{HCl}, \chem{HBr} and $\chem{ClONO_2}$ were added 
 
 \input{Chapter5_CTM3setup/henrys_law}
 
-
-
-
-\section{Restart files}\label{subsec:restart_files}
-
-
-The restart file is a NetCDF file that contains the tracer distribution and moments for all species in a simulation. For the transported species, it has prefix \texttt{STT}, and \texttt{XSTT} for the non-transported species. The transported species are associated with their moments, which has the prefixes \texttt{SUT}, \texttt{SVT}, \texttt{SWT}, \texttt{SUU}, \texttt{SVV}, \texttt{SWW}, \texttt{SUV}, \texttt{SUW}, \texttt{SVW} (\cite{SovdeManual}). The restart file is used as an initial field for the production run, which requires a spin up, and it is therefore necessary to determine the length of the spin up (in model time) according to the lifetime of the chemical species of interest. 
-
-\medskip
-
-Restart files used in \cite{Falk_2019} was provided by Stefanie (\texttt{ctm3\_restart\_20010101.nc}) and used for my own spin-up. The provided restart file was spun-up over a 10 years transient run starting in 1990. It was necessary to make new restart files, as the code is changed and the stratosphere is turned off, which alters the chemistry. The restart files were thus based on the same emission inventory (MEGAN and CEDS17) except for biomass burning which was taken from CEDS17 instead of GFed. The reason for this is that the GFed files only exist until 2005, and my intent was to run the model in later years as well. 
-
-\medskip
-
-
-The dry-deposition scheme also differs, where I have used the old dry-deposition scheme instead of the mOSaic scheme (for more information, see \cite{Falk_2019} and references therein). The main difference between the dry-deposition schemes is that the dry deposition rate in the old scheme is lower over ice and snow surfaces, leading to a general overestimation of $\chem{O_3}$.
-
-
-\medskip
-
-The spin-up time is the time it takes for the simulated surface concentrations to be unaffected by initial conditions. \cite{Curci_AirPollution} found that the optimal model spin-up time in terms of ozone was 9 days. Although this study was based on a domain in the GEOS-Chem global model and a regional model, and had a different set-up than the Oslo CTM3, this estimate is applicable to my own spin-up. It also stated by \cite{SeinfeldSpyros} that the global mean lifetime of tropospheric ozone is 19 days. In order to be sure that the chemistry is indeed spun up properly, the restart files were ran for 3 months. 
-
-\subsection{Pre-industrial and present-day restart files}\label{sec:PI_and_PD_restart}
-
-The pre-industrial and present-day restart files were made without moving the tracers \chem{Br}. \chem{BrO} and \chem{Cl} to transported species (for information about moving species from non-transported to transported, see Section \ref{subsubsec:tracer_list}). This became the solution to the problem that the original versions of the CTM3 (i.e. unaltered except for turning off the stratosphere in both cases and downscaling of the methane field in the case of the \acrshort{pi}-runs) had problems running. As there is no handling of these non-transported tracers in the troposphere in these branches. 
  
 \section{Ltracer list - \texttt{Ltracer\_emis\_ceds17\_YEAR\_megan.d}}\label{subsubsec:Ltracer_list}
 
@@ -333,7 +227,7 @@ The temperature- and pressure dependent heterogeneous reaction rates (Reactions 
 
 \subsubsection{Heterogeneous aerosol reactions}\label{sec:het_aerosol_react_CTM3}
 
-The heterogeneous reaction set for Reactions \ref{R:13} and \ref{R:8} (process described in Section \ref{sec:aerosol_react}) were implemented in the subroutine \texttt{TCRATE\_TP\_IJ\_TRP}. 
+The heterogeneous reaction set for Reactions \ref{R:13} and \ref{R:8} (process described in Section \ref{sec:aerosol_react}) were implemented in the subroutine \texttt{TCRATE\_TP\_IJ\_TRP}. The implementation of Reaction \ref{R:8} was treated differently from Reaction \ref{R:13} as the uptake coefficient for the hydrolysis of $\chem{BrONO_2}$ was parameterized as $\gamma = 0.06$ as can be seen from the code below. 
 
 
 \begin{lstlisting}

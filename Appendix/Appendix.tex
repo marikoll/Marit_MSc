@@ -28,6 +28,56 @@ Ozonosonde measurements from Summit, Greenland, was obtained from \cite{NOAA} fo
 
 \chapter{Running the CTM3}\label{app:running_CTM3}
 
+\section{The Supercomputer}\label{app:supercomputer}
+
+\subsection{The Job File}
+
+The job file is used to set up a run. The job file declares the job name, the input file, the project number and the wall clock limit, i.e. the max running time in the super computer and the number of nodes to use on the supercomputer when running the simulation. Also, it contains the path to the restart files (information about restart files can be found in Section \ref{subsec:restart_files}).
+
+\subsubsection{Abel vs. Saga}
+
+As the Oslo CTM3 was not optimized for Saga, the job file setup at Saga and Abel differed slightly. At Abel, the most efficient setup was the following: 
+
+\input{Appendix/job_abel}
+
+The number of nodes had to be different at Saga as it was slowed down by an increased number: 
+
+\input{Appendix/job_saga}
+
+\subsection{The Input File}
+
+The input file consists of three parts, one that sets up the meteorological year, start day and end day. The second part lists some of the input file names, including the tracer lists. Information of the tracer list used here can be found in Section \ref{subsubsec:Ltracer_list} and \ref{subsubsec:tracer_list}. The third part covers information about the diagnostics. 
+
+\medskip
+
+In order to save CPU time and avoid conflicts regarding the use of stratospheric methyl bromide ($\chem{CH_3Br}$) as a designated species for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (explained further in Section \ref{sec:oceanic_emissions}), the stratosphere was turned off. How this was performed is explained in Section \ref{app:turning_off_the_stratosphere}.
+
+SKriv om Pre-industrial setup \ref{app:PI_run}
+
+
+\section{Restart Files}\label{subsec:restart_files}
+
+
+The restart file is a NetCDF file that contains the tracer distribution and moments for all species in a simulation. For the transported species, it has prefix \texttt{STT}, and \texttt{XSTT} for the non-transported species. The transported species are associated with their moments, which has the prefixes \texttt{SUT}, \texttt{SVT}, \texttt{SWT}, \texttt{SUU}, \texttt{SVV}, \texttt{SWW}, \texttt{SUV}, \texttt{SUW}, \texttt{SVW} (\cite{SovdeManual}). The restart file is used as an initial field for the production run, which requires a spin up, and it is therefore necessary to determine the length of the spin up (in model time) according to the lifetime of the chemical species of interest. 
+
+\medskip
+
+Restart files used in \cite{Falk_2019} was provided by Stefanie (\texttt{ctm3\_restart\_20010101.nc}) and used for my own spin-up. The provided restart file was spun-up over a 10 years transient run starting in 1990. It was necessary to make new restart files, as the code is changed and the stratosphere is turned off, which alters the chemistry. The restart files were thus based on the same emission inventory (MEGAN and CEDS17) except for biomass burning which was taken from CEDS17 instead of GFed. The reason for this is that the GFed files only exist until 2005, and my intent was to run the model in later years as well. 
+
+\medskip
+
+
+The dry-deposition scheme also differs, where I have used the old dry-deposition scheme instead of the mOSaic scheme (for more information, see \cite{Falk_2019} and references therein). The main difference between the dry-deposition schemes is that the dry deposition rate in the old scheme is lower over ice and snow surfaces, leading to a general overestimation of $\chem{O_3}$.
+
+
+\medskip
+
+The spin-up time is the time it takes for the simulated surface concentrations to be unaffected by initial conditions. \cite{Curci_AirPollution} found that the optimal model spin-up time in terms of ozone was 9 days. Although this study was based on a domain in the GEOS-Chem global model and a regional model, and had a different set-up than the Oslo CTM3, this estimate is applicable to my own spin-up. It also stated by \cite{SeinfeldSpyros} that the global mean lifetime of tropospheric ozone is 19 days. In order to be sure that the chemistry is indeed spun up properly, the restart files were ran for 3 months. 
+
+\subsection{Pre-industrial and present-day restart files}\label{sec:PI_and_PD_restart}
+
+The pre-industrial and present-day restart files were made without moving the tracers \chem{Br}. \chem{BrO} and \chem{Cl} to transported species (for information about moving species from non-transported to transported, see Section \ref{subsubsec:tracer_list}). This became the solution to the problem that the original versions of the CTM3 (i.e. unaltered except for turning off the stratosphere in both cases and downscaling of the methane field in the case of the \acrshort{pi}-runs) had problems running. As there is no handling of these non-transported tracers in the troposphere in these branches. 
+
 \cleardoublepage
 
 \chapter{Turning Off the Stratosphere}\label{app:turning_off_the_stratosphere}
@@ -39,6 +89,11 @@ Ozonosonde measurements from Summit, Greenland, was obtained from \cite{NOAA} fo
 \chapter{Pre-Industrial Run}\label{app:PI_run}
 
 \input{Appendix/PI_run}
+
+
+
+
+
 
 \cleardoublepage
 

@@ -177,73 +177,65 @@ Skriv kort om heterogene reaksjoner og legg inn hvilke som er lagt inn i CTM3 i 
 
 \subsection{Heterogeneous Reactions on Aerosol Surfaces (Reactions \ref{R:8} and \ref{R:13})}\label{sec:aerosol_react}
 
-The implementation of the aerosol Reactions \ref{R:8} and \ref{R:9} is based on the method described by \cite{CAO} and \cite{schwartz1986}. An overview of the constants used can be found in Table \ref{tab:constants}.
+The implementation of the heterogeneous aerosol Reactions \ref{R:13} and \ref{R:8} is based on the method described by \cite{CAO}. An overview of the constants used can be found in Table \ref{tab:constants}.
 
 \medskip
 
-The production rate of $\chem{Br_2}$ molecules for Reaction \ref{R:8} is given as: 
+The explanation for Reaction \ref{R:8} will be for $\chem{X} = \chem{Br}$, but the same applies to $\chem{X} = \chem{Cl}$. Reaction \ref{R:13} is differently treated ($\gamma$ is parameterized), and is explained further in Section \ref{sec:het_aerosol_react_CTM3}. The production rate of $\chem{Br_2}$ molecules for Reaction \ref{R:8} is (\cite{schwartz1986}): 
 
 \begin{equation*}
     \frac{d}{dt}[\chem{Br_2}] = -\frac{d}{dt}[\chem{HOBr}] = k[\chem{HOBr}]
 \end{equation*}
 
-which has the first-order reaction-rate constant: 
+which has the first-order reaction-rate constant which is dependent on the concentration of \chem{HBr}: 
 
-\begin{equation*}
+\begin{equation}
     k = \big(\frac{a}{D_g} + \frac{4}{v_{therm}\gamma}\big)^{-1}\alpha_{eff}
     \label{eq:reaction_rate_const}
+\end{equation}
+
+$a$ is a typical aerosol radius (taken as $a = 0.45 \mu m$), $D_g$ is the molecular diffusivity in the gas-phase (taken as $D_g = 0.2  cm^2s^{-1}$), and the ratio $a/D_g$ represents the molecular diffusion limit (\cite{CAO}). 
+
+\medskip
+
+$v_{therm}$ in Equation \ref{eq:reaction_rate_const} is the mean molecular speed of \chem{HOBr} as the impinging gas on the aerosol surface. This is given as:
+
+\begin{equation*}
+    v_{them} = \sqrt{\frac{8RT}{\pi \chem{M_{HOBr}}}}
 \end{equation*}
 
-in which $a$ is the aerosol radius, $D_g$ is the molecular diffusivity in the gas-phase, and the ratio $a/D_g$ represents the molecular diffusion limit. Following \cite{CAO}, the values of these are $a = 0.45 \mu m$ and $D_g = 0.2 cm^2s^{-1}$. 
+in which $R$ is the universal gas constant (in $Latm/Kmol$), $T$ is the absolute temperature in Kelvin,  and $\chem{M_{HOBr}}$ is the molas mass of \chem{HOBr}. $v_{therm}$ has units $cm/s$. 
 
 \medskip
 
-$v_{therm}$ in Equation \ref{eq:reaction_rate_const} is the mean molecular speed of \chem{HOBr} given as $v_{them} = \sqrt{8RT/(\pi \chem{M_{HOBr}})}$ in which $R$ is the universal gas constant (units $[Latm/Kmol]$), $T$ is the absolute temperature (units $[K]$) and $\chem{M_{HOBr}}$ is the molas mass of \chem{HOBr} (units $[g/mol]$). 
-
-\medskip
-
-$\gamma$ is the uptake coefficient or reaction efficiency of \chem{HOBr} on sea salt aerosols, i.e. the probability that the reaction will occur (\cite{SeinfeldSpyros}).
-
-\medskip
-
-$\alpha_{eff}$ is the surface-volume coefficient, i.e. the ratio of the total aerosol surface area, $A_{\text{aerosol}}$, and the total volume, $V$ (units $[cm^2cm^{-3}]$).
+Finally, the two remaining parameters of Equation \ref{eq:reaction_rate_const} are $\gamma$ and $\alpha_{eff}$. $\gamma$ is the uptake coefficient or reaction efficiency of \chem{HOBr} on sea salt aerosols, i.e. the probability that the reaction will occur (\cite{SeinfeldSpyros}). $\alpha_{eff}$ is the surface-volume coefficient, i.e. the ratio of the total aerosol surface area, $A_{\text{aerosol}}$, and the total volume, $V$ and has the units $[cm^2cm^{-3}]$.
  
 \medskip
 
-The production rate of $\chem{Br_2}$ in Reaction \ref{R:8} is limited by the absorption of \chem{HOBr} and \chem{HBr}/\chem{HCl} in the suspended aerosol particles (\cite{CAO}). \cite{Hanson1994} expressed the effective uptake coefficient on small drops as: 
+The production rate of $\chem{Br_2}$ in Reaction \ref{R:8} is limited by the absorption of \chem{HOBr} and \chem{HBr} in the suspended aerosol particles (\cite{CAO}). The probability of the reaction, i.e. the uptake coefficient for \chem{HOBr}, $\gamma$,  can be expressed as (\cite{Hanson1994}) (Values are listed in Table \ref{tab:constants}): 
 
 \begin{equation}
     \frac{1}{\gamma} = \frac{1}{\alpha}+ \frac{v_{therm}}{4H^*RT\sqrt{k_{liq}^ID_{liq}}f(q)}
     \label{eq:upt_coeff}
 \end{equation}
 
-\medskip
-
-$R$ is the universal gas constant, $T$ is the temperature.
-
-\medskip
-
-$D_{liq}$ is the liquid phase diffusion coefficient (proportionality factor implying that a mass of the substance diffuses through a unit surface in a unit time at a concentration gradient of unity). 
-
-\medskip
-
-in which $\alpha$ is the mass accommodation coefficient. This quantity describes the probability that a gas or vapour particle will stick upon collision with the surface of a particle, where $0\leq\alpha\leq1$ (\cite{SeinfeldSpyros}). Following \cite{CAO}, this will be taken as unity. 
-
-\medskip
-
-$H^*$ is the effective Henry's law constant for the species in question. The Henry's law coefficient, $H$, is a proportionality factor between the amount of dissolved gas and it's partial pressure in the gas phase (\cite{Sander2015}, see also Section \ref{sec:wet_dep_henrys_law}).  
-
-$k_{liq}^I$ is the first-order liquid reaction rate constant for the species in question, calculated by: 
+in which $\alpha$ is the mass accommodation coefficient. This quantity describes the probability that a gas or vapour particle will stick upon collision with the surface of a particle, where $0\leq\alpha\leq1$ (\cite{SeinfeldSpyros}). Following \cite{CAO}, this will be taken as unity. As before, $R$ is the universal gas constant and $T$ is the temperature. $D_{liq}$ is the liquid phase diffusion coefficient which is a proportionality factor implying that a mass of the substance diffuses through a unit surface in a unit time at a concentration gradient of unity. $H^*$ is the effective Henry's law constant for \chem{HBr}. The Henry's law coefficient, $H$, is a proportionality factor between the amount of dissolved gas and it's partial pressure in the gas phase (\cite{Sander2015}, see also Section \ref{sec:wet_dep_henrys_law}). $k_{liq}^I$ is the first-order liquid reaction rate constant for \chem{HBr}, calculated by: 
 
 \begin{equation}
-    k_{liq}^I = k_{liq}^{II}[\chem{X}]_{liq}= k_{liq}^{II}H^*_\chem{X}P_\chem{X}
+    k_{liq}^I = k_{liq}^{II}[\chem{HBr}]_{liq}= k_{liq}^{II}H^*_\chem{HBr}P_\chem{HBr}
 \end{equation}
 
-In which $H^*_\chem{X}$ is the effective Henry's law constant for the species and $P_\chem{X}$ is it's partial pressure.
+In which $H^*_\chem{HBr}$ is the effective Henry's law constant for the species. $P_\chem{HBr}$ is it's partial pressure given by:
+
+\begin{equation*}
+    P_\chem{HBr} = \frac{\chem{M_{HBr}}RT}{Av}
+\end{equation*}
+
+which is where the dependence of the concentration of \chem{HBr} (in molecules$cm^{-3}$) appears, by $\chem{M_{HBr}}$. $R$ is the universal gas constant (converted from $LatmK^{-1}mol^{-1}$ to $10^3cm^3K^{-1}mol^{-1}$). $T$ is the temperature in Kelvin, and $Av$ is Avogadros number. 
 
 \medskip
 
-$f(q)$ is determined by: 
+Lastly, $f(q)$ in Equation \ref{eq:upt_coeff} is determined by: 
 
 \begin{equation}
     f(q) = \coth{q} -\frac{1}{q} = \frac{1}{\tanh{q}} -\frac{1}{q}
@@ -259,7 +251,7 @@ The implementation of the heterogeneous reactions over snow/ice surfaces also fo
 
 \medskip
 
-The change in concentration for Reactions \ref{R:7} can be given as: 
+The rate of change in concentration for Reactions \ref{R:7} can be given as: 
 
 \begin{equation*}
     -\frac{d}{dt}[\chem{HOBr}] = k[\chem{HOBr}]
