@@ -6,16 +6,18 @@ Some of the processes that are implemented in the Oslo CTM3 requires some furthe
 \section{Oceanic Emissions of Halocarbons}\label{sec:oceanic_emissions}
 
 
-The ocean is a natural source of gaseous halocarbons, and is therefore used here as a source needed for the bromine explosion to occur. Methyl halides ($\chem{CH_3X}$) and polyhagenated species ($\chem{CHBr_3}$, $\chem{CH_2Br_2}$) are released from the ocean, but methyl halides (particularly $\chem{CH_3Br}$) may also be emitted by biomass burning (\cite{SeinfeldSpyros}). 
+The ocean is a natural source of gaseous halocarbons, and is needed for the bromine explosion to occur (\cite{Schmidt} and references therein). Methyl halides ($\chem{CH_3X}$) and polyhagenated species ($\chem{CHBr_3}$, $\chem{CH_2Br_2}$) are released from the ocean, but methyl halides (particularly $\chem{CH_3Br}$) may also be emitted by biomass burning (\cite{SeinfeldSpyros}). 
+
+
 
 \medskip
 
-Bromoform ($\chem{CHBr_3}$) and dibromomethane ($\chem{CH_2Br_2}$) are used as the oceanic sources of bromine in this implementation. The anthropogenic signal of methyl halides are not taken into consideration in this thesis. Nor are the difference in lifetime ($\chem{CH_3Br} \sim$ 1 month, $\chem{CH_2Br_2} \sim$ 4 months) as well as seasonal variations. 
+Natural marine sources of bromoform ($\chem{CHBr_3}$) and dibromomethane ($\chem{CH_2Br_2}$) were used as sources of bromine in this implementation. The anthropogenic signal of methyl halides were not taken into consideration in this thesis. Nor were the difference in lifetime ($\chem{CH_3Br} \sim$ 1 month, $\chem{CH_2Br_2} \sim$ 4 months) as well as seasonal variations. 
 
 
 \medskip
 
-Bromoform, $\chem{CH_3Br}$, is added as a source from the ocean based on the emission scenario suggested by \cite{Liang2010} (scenario A, Figure \ref{fig:Liang2010}). This scenario was chosen as it has latitudinal-dependent emission field covering the whole globe. The global emissions estimated by \cite{Liang2010}, scenario A, were 425 Ggyr$^{-1}$ of $\chem{CHBr_3}$ and 57 Ggyr$^{-1}$ of $\chem{CH_2Br_2}$, respectively.
+Bromoform, $\chem{CH_3Br}$, was added as a source from the ocean based on the emission scenario suggested by \cite{Liang2010} (scenario A, Figure \ref{fig:Liang2010}). This scenario was chosen as it has latitudinal-dependent emission field covering the whole globe. The global emissions estimated by \cite{Liang2010}, scenario A, were 425 Ggyr$^{-1}$ of $\chem{CHBr_3}$ and 57 Ggyr$^{-1}$ of $\chem{CH_2Br_2}$, respectively.
 
 \medskip
 
@@ -52,7 +54,7 @@ This is used in the scaling factor, $f$:
 \end{equation*}
 
 
-Emissions are then found according to their latitudinal band, and whether the grid box is located over ocean or the coast (for more information about the actual implementation, see Section \ref{sec:tropchem_oslo}). If the location is above 50 $^o$ North over ocean, for example, the emission is taken to be $0.05\times10^{-13}$ kgm$^{-2}$s$^{-1}\times k$. (The conversion to molecules cm$^{-3}$s$^{-1}$ can be seen in Section \ref{sec:tropchem_oslo}). 
+Emissions are then found according to their latitudinal band, and whether the grid box is located over ocean or the coast (for more information about the actual implementation, see Section \ref{sec:tropchem_oslo}). If the location is above 50 $^o$ North over ocean, for example, the emission is taken to be $0.05\times10^{-13}$ kgm$^{-2}$s$^{-1}\times f$. (The conversion to molecules cm$^{-3}$s$^{-1}$ can be seen in Section \ref{sec:tropchem_oslo}). 
 
 
 \subsection{Emission inventory}
@@ -267,12 +269,12 @@ Thus, the deposition-rate constant depends on the deposition velocity, $v_d$, at
 
 \medskip
 
-The deposition velocity, $v_d = (r_a + r_b + r_c)^{-1}$, is dependent on three resistances which are: 
+The deposition velocity, $v_d = (r_a + r_b + r_c)^{-1}$, is dependent on three resistances. The values from \cite{CAO} were used to calculate the value of the deposition velocity. The resistances and their corresponding values are: 
 
 \begin{itemize}
-    \item The aerodynamic resistance, $r_a$. This is the resistance of the turbulent transport to bring the gas from the atmosphere to the surface, approximated as: $1/(u\kappa^2)(\ln(z/z_0))^2$, where $u = 8 ms^{-1}$ is the wind speed, $\kappa = 0.4$ is the Von Karman constant, $z$ is the surface layer height, approximated as the lower $10\%$ of the boundary layer, i.e. $z = 0.1L_{mix}$, and $z_0$ is the surface roughness length which is approximated as $10^{-5} m$ for ice surfaces. $r_a$ is therefor dependent on local properties. 
+    \item The aerodynamic resistance, $r_a$. This is the resistance of the turbulent transport to bring the gas from the atmosphere to the surface, approximated as: $1/(u\kappa^2)(\ln(z/z_0))^2$, where $u = 8 ms^{-1}$ is the wind speed, $\kappa = 0.4$ is the Von Karman constant, $z$ is the surface layer height, approximated as the lower $10\%$ of the boundary layer, i.e. $z = 0.1L_{mix}$, and $z_0$ is the surface roughness length which is approximated as $10^{-5} m$ for ice surfaces. $r_a$ is therefore dependent on local properties, but in this thesis, the parameterization by \cite{CAO} was used. 
     \item The quasi-laminar layer resistance, $r_b$, is the ability of molecular diffusion to transfer gas across a liquid-laminar layer above the surface. It is thus given as $r_b = z_0/D_g$
-    \item The resistance due to the reaction loss, $r_c$ is given as $r_c = 4/v_{therm}\gamma$. The uptake coefficient is taken as $\gamma = 0.06$ including the assumption that the source of $\chem{H^+}$ and halogen ions are limitless at the snow/ice surface. 
+    \item The resistance due to the reaction loss, $r_c$ is given as $r_c = 4/v_{therm}\gamma$. The uptake coefficient is taken as $\gamma = 0.06$ including the assumption that the source of $\chem{H^+}$ and halogen ions are limitless at the snow/ice surface. This is not a realistic assumption, but is thought to be fair, as the reaction will self-terminate by the lack of \chem{HOBr} when the ozone is depleted. 
 \end{itemize}
 
 $L_{mix}$ denotes the typical stable boundary layer height which may, in Polar regions, range from near-zero up to approximately 1000 m depending on. Consequently, the deposition velocities vary.
