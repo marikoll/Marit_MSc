@@ -5,7 +5,10 @@ This chapter describes the setup and altered modules of the Oslo CTM3.
 
 \medskip
 
-A degraded resolution was used for the runs in the CTM3. In the \texttt{Makefile} it is possible to degrade the horizontal resolution by combining several boxes into one. The setting used for running the model was \texttt{HWINDOW=HFOUR}, i.e. a combination of four native boxes and thus a $4.5^o \times 4.5^o$ resolution. This is explained more in Appendix \ref{subsubsec:makefile}. In addition, the stratosphere was turned off in all the branches in order to save CPU time and to avoid conflict with the organic bromide sources. How this was performed is explained in Appendix \ref{app:turning_off_the_stratosphere}. 
+A degraded resolution was used for the runs in the CTM3. In the \texttt{Makefile} it is possible to degrade the horizontal resolution by combining several boxes into one. The setting used for running the model was \texttt{HWINDOW=HFOUR}, i.e. a combination of four native boxes and thus a $4.5^o \times 4.5^o$ resolution (Illustrated in Figure \ref{fig:res_map}). This is explained more in Appendix \ref{subsubsec:makefile}. In addition, the stratosphere was turned off in all the branches in order to save CPU time and to avoid conflict with the organic bromide sources. How this was performed is explained in Appendix \ref{app:turning_off_the_stratosphere}. 
+
+\input{Chapter5_CTM3setup/images/resolution_map}
+
 
 \medskip
 

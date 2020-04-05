@@ -65,15 +65,18 @@ The emission inventory of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ by \cite{Liang20
 \input{Chapter3_Theory_ocean_hetReact/images/liang_2010}
 
 
-\section{Chemical Kinetics}\label{sec:chem_kinetics}
+\section{Chemical Kinetics and Photoprocesses}\label{sec:chem_kinetics}
 
-This section contains a description of the rate expressions for bimolecular and 3-body reactions. The reaction rate constants for the bimolecular, and 3-body reactions implemented in the troposphere can be seen in Table \ref{tab:2b_and_3b_reactions}
+This section contains a description of the rate expressions for bimolecular and 3-body reactions as well as photolysis reactions. The reaction rate constants for the bimolecular, and 3-body reactions implemented in the troposphere can be seen in Table \ref{tab:2b_and_3b_reactions} and the photochemical reactions are listed in Table \ref{tab:photolysis_reactions}.
 
 \input{Chapter3_Theory_ocean_hetReact/2body_and_3body_reactions}
 
+\input{Chapter3_Theory_ocean_hetReact/photolysis_reactions}
+
+
 \subsection{Bimolecular Reactions}\label{sec:bimolecular_reactions}
 
-Bimolecular reactions are reactions in which two chemical species react and produce a different set of species (\cite{Jacob1999}). The reaction can be written as: 
+Bimolecular reactions are reactions in which two chemical species react and produce a different set of species (\cite{Jacob1999}). A bimolecular (two-body) reaction can be written as: 
 
 \begin{equation*}
     A + B \rightarrow C + D
@@ -109,7 +112,7 @@ In which $A$ is the Arrhenius-factor, $E/R$ is the temperature dependence (activ
 
 \subsection{3-Body Reactions}\label{sec:3body_reactions}
 
-Three-body reactions are reactions in which two chemical species, \chem{A} and \chem{B}, react to produce one single product species, \chem{AB}, helped by a third body, $M$ (\cite{Jacob1999}). The reaction can be written as: 
+Three-body reactions are reactions in which two chemical species, \chem{A} and \chem{B}, react to produce one single product species, \chem{AB}, helped by a third body, $M$ (\cite{Jacob1999}). A three-body reaction can be written as: 
 
 \begin{equation*}
     \chem{A} + \chem{B} + M \rightarrow \chem{AB} + M
@@ -154,28 +157,28 @@ Similarly, there exists a high-pressure limit:
 In which $k_\infty^{300}$ is an estimate of the high-pressure limiting rate constant at 300 K. $m$ is the estimated temperature dependence at the high-pressure limit (for more information, see \cite{JPL}). The high-pressure rate constant is of second order and has units $cm^3\text{molecule}^{-1}s^{-1}$ (\cite{AtmModFund}).
 
 
-\section{Photochemical reactions}
+\subsection{Photochemical reactions}\label{sec:pchem_reactions}
 
-For photochemical reactions, the rate expression is (\cite{AtmModFund}):
+Photochemical reactions are unimolecular (one-body), i.e. a molecule is hit by a single photon of radiation and breaks into two or more products (\cite{AtmModFund}):
 
 \begin{equation*}
     A + hv \rightarrow B + C
 \end{equation*}
 
-and the rate expression is: 
+The loss rate of \chem{A} is: 
 
 \begin{equation*}
     \frac{d[A]}{dt} = -J[A]
 \end{equation*}
 
-In which $J$ is a first-order photolysis rate coefficient of species $A$ (units: $s^-1$). 
+In which $J$ is the first-order photolysis rate coefficient of \chem{A} in $s^-1$. 
 
 
-Kan legge inn tabell med D-ratene her 
+\section{Heterogeneous Chemistry}\label{sec:het_chem}
 
-\section{Heterogeneous chemistry}\label{sec:het_chem}
+Heterogeneous reactions occurs a reactant in the gas phase diffuses on the surface of a particle (\cite{DAVIES2018}). This section contains the theory behind the implementation of heterogeneous reactions at aerosol surfaces (Section \ref{sec:aerosol_react}) and over snow/ice surfaces (Section \ref{sec:snow_ice_react}). The heterogeneous reactions that were implemented can be seen in Table \ref{tab:het_reactions}. 
 
-Skriv kort om heterogene reaksjoner og legg inn hvilke som er lagt inn i CTM3 i tabell
+\include{Chapter3_Theory_ocean_hetReact/Heterogeneous_reactions}
 
 \subsection{Heterogeneous Reactions on Aerosol Surfaces (Reactions \ref{R:8} and \ref{R:13})}\label{sec:aerosol_react}
 
