@@ -132,6 +132,15 @@
 \pagestyle{fancy}
 \fancyhf{}
 
+%%%%%%%% Definition-instance ->  for brances %%%%%
+
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+
+\newtheorem{mydef}{Branch}[chapter]
+
+
 %%%%%%%% Fortran syntax %%%%%%%%%%%%%%%%
 \definecolor{mygray}{rgb}{0.9,0.9,0.9}
 \definecolor{darkgreen}{rgb}{0,0.6,0}

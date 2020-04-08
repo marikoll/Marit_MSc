@@ -71,12 +71,12 @@ end if
 The photolysis rates of $\chem{HOBr}$, $\chem{BrO}$ and $\chem{CH_3Br}$ were already included in \texttt{ratj\_oc.d} and could be declared directly. The photolysis rates of \chem{BrCl} and $\chem{Br_2}$ were set constant as 0.1 as long as the photolysis rate of ozone was higher than 0 (i.e. daylight present)
 
 
-\subsection{Halogen families}
+\subsection{Halogen families}\label{sec:halogen_families_BryClxCly}
 
 The halogen chemistry were implemented using the method of families described in Section \ref{sec:families}. The $\chem{Br_y}$-family is the same as the that already was implemented in the CTM3 for the stratosphere, but the $\chem{Cl_x}$- and $\chem{Cl_y}$-families differ. 
  
 \begin{align*}
-    \chem{Br_y} &= \chem{Br} + \chem{BrO} + \chem{BrONO_2} + \chem{OHBr} + 2\chem{Br_2} + \chem{BrCl} \\
+    \chem{Br_y} &= \chem{Br} + \chem{BrO} + \chem{BrONO_2} + \chem{HOBr} + \chem{HBr} + 2\chem{Br_2} + \chem{BrCl} \\
     \chem{Cl_x} &= \chem{Cl} + \chem{ClO} \\
     \chem{Cl_y} &= \chem{Cl_x} + \chem{HCl}
 \end{align*}
@@ -172,9 +172,9 @@ end if !//(abs(YDGRD(J)) .gt. 50._r8) then
 
 \end{lstlisting}
 
-\subsubsection{Multiphase reactions}\label{sec:impl_multiphase_react}
+\subsubsection{Heterogeneous Reaction over Ice Surfaces}\label{sec:impl_multiphase_react}
 
-Parameterization of \chem{HOBr}-deposition on sea ice (Reactions \ref{R:7} and \ref{R:8}). According to \cite{CAO}, the change in concentration of \chem{HOBr} depends on the deposition velocity, $v_d$, the boundary layer height, $L_{mix}$ and the total reactive surface area offered by the snow/ice surface, $\beta$ (described further in Section \ref{sec:het_chem}). 
+Parameterization of \chem{HOBr}-deposition on sea ice (Reactions \ref{R:7} and \ref{R:8}). According to \cite{CAO}, the change in concentration of \chem{HOBr} depends on the deposition velocity, $v_d$, the boundary layer height, $L_{mix}$ and the total reactive surface area offered by the snow/ice surface, $\beta$ (described further in Section \ref{sec:het_chem}). Following \cite{CAO}, the boundary layer height $L_{mix} = 200 m$ was chosen, with  the deposition velocity $v_d = 0.0065 m/s$ set accordingly. $\beta = 1.4$ was chosen to ensure a big enough reactive surface area. 
 
 \medskip 
 

@@ -4,13 +4,65 @@
 Tentative layout: 
 
 
-\section{Code development}
+\section{Code Development}\label{sec:results_code_development}
+
+This section contains some results 
+
+
+\subsection{A First Look}
+
+Figure \ref{fig:CompObsOrigBE} shows results in terms of $\chem{O_3}$-concentration from preliminary model runs with the chemistry described in Chapter \ref{Chap:CTM3theory_ocean_hetReact} and the branches listed in Section \ref{sec:code_availability}. 
+
+\medskip
+
+Branch \ref{def:BE_PD} produces very low concentrations of $\chem{O_3}$, as can be seen from Figure \ref{fig:CompObsOrigBE}. It does not capture the ozone depletion events that can be seen for instance at Alert around the 9th of April. The original CTM3 branch produces $\chem{O_3}$ concentrations more comparable to observations, altough without distinct bromine explosion events. 
 
 \input{Chapter6_Results/images/ozone_2001_compObsOrigBE}
 
+
+\section{Different Removal Tests}
+
+Figure \ref{fig:test_RemoveHetReacts} shows results in terms of $\chem{O_3}$-concentration from attempting to turn off different heterogeneous reactions, namely snow/ice reactions (described in Section \ref{sec:snow_ice_react}), heterogeneous reactions over aerosol surfaces (described in Section \ref{sec:aerosol_react}) as well as heterogeneous reactions involving chlorine and bromine, respectively. For this purpose, four new branches were created (for a full overview of the branches, see Table \ref{tab:branches}). These were:
+
+\begin{mydef}\label{def:BE_PD_noAerosol}
+    \texttt{marikoll\_bromine\_explosion\_noHetAerosol}: Branch \ref{def:BE_PD} without heterogeneous aerosol reactions.
+\end{mydef}
+
+\begin{mydef}\label{def:BE_PD_noIce}
+    \texttt{marikoll\_bromine\_explosion\_noSnowIce}: Branch \ref{def:BE_PD} without heterogeneous snow/ice reactions.
+\end{mydef}
+
+\begin{mydef}\label{def:BE_PD_noCl}
+    \texttt{marikoll\_bromine\_explosion\_noHetChlorine}: Branch \ref{def:BE_PD} without heterogeneous reactions involving chlorine.
+\end{mydef}
+
+\begin{mydef}\label{def:BE_PD_noBr}
+    \texttt{marikoll\_bromine\_explosion\_noHetBromine}: Branch \ref{def:BE_PD} without heterogeneous reactions involving bromine.
+\end{mydef}
+
+\input{Chapter6_Results/branches}
+
+
+
+
 \input{Chapter6_Results/images/ozone_2001_testRemoveHetReacts}
 
+Figure \ref{fig:test_ClyInt} contains the result in terms of $\chem{O_3}$ concentration of adding an integration of the $\chem{Cl_y}$-family, which was not handled prior to the previous model runs (the chemical families are listed in Section \ref{sec:halogen_families_BryClxCly}). 
+
+\medskip
+
+As the inclusion of $\chem{ClONO2}$ (Reaction \ref{R:clono2}) function purely as a sink to the $\chem{ClO}$, this reaction was also removed altogether to see if this would help the low chlorine levels. 
+
 \input{Chapter6_Results/images/ozone_2001_newClyIntegration}
+
+\subsection{Changing $L_{mix}$ in Reaction \ref{R:7}}
+
+The boundary layer height, $L_{mix}$ and deposition velocity, $v_d$ in the preliminary runs had values listed in Section \ref{sec:impl_multiphase_react}. In an attempt to "kick-start" the bromine explosions $L_{mix}$ and $v_d$, wer lowered in the \texttt{marikoll\_bromine\_explosion\_noHetChlorine}- branch. 
+
+\medskip
+
+The first test was executed with $L_{mix} = 25 m$ and $v_d = 0.00824 m/s$. This boundary layer height was chosen due to the height of the second model layer height $995.86 hPa$, with is about $23 m$ higher than the first model layer height at $998.82 hPa$. The low level was chosen to make sure the bromine explosion would indeed occur. This test caused too much bromine explosion for the model to complete the run. $L_{mix}$ was then lowered to $L_{mix} = 100 m$ with $v_d = 0.00667 m/s$. 
+
 
 \section{Comparison between the PD- and PI-branches}
 
