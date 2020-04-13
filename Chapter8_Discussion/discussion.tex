@@ -3,19 +3,18 @@
 
 \section{Code Development}\label{sec:discussion_code_development}
 
-In Figure \ref{fig:CompObsOrigBE} (in Section \ref{sec:results_code_development}) the ozone observations at Alert, Barrow, Summit and Zeppelin were compared to model results using the original CTM3 branch (Branch \ref{def:origCTM3_PD}) and the bromine explosion branch (Branch \ref{def:BE_PD}). The latter produced $\chem{O_3}$
+The Oslo CTM3 is documented by \cite{SovdeManual} and the documentation in the code itself. The branches I developed were based on the work already performed by \cite{Susanne} in her master thesis from 2016. The process was slowed down by quite some time due to the lack of documentation in the new code and my ability to interpret it. Also, due to the change of super computers in January 2020, some problems arose concerning how to optimize the model runs in technical terms (see Section \ref{app:supercomputer}). This led to the decision to perform the model runs at \texttt{HFOUR}-resolution instead of \texttt{HTWO} and shorten the time of the spin-up and the model runs to three months (model time). 
+
 
 
 \subsection{A First Look}
 
+In Figure \ref{fig:CompObsOrigBE} (in Section \ref{sec:results_code_development}) the ozone observations at Alert, Barrow, Summit and Zeppelin were compared to model results using the original CTM3 branch (Branch \ref{def:origCTM3_PD}) and the bromine explosion branch (Branch \ref{def:BE_PD}). The latter produced far too low $\chem{O_3}$-concentrations. In order to examine the reason why, a test where the different types of heterogeneous reactions were removed was performed. This is explained in the next section. 
 
-\section{Available stuff}
+\subsection{Test: Removing Heterogeneous Reactions}
 
-\begin{itemize}
-    \item Dokumentasjonen til Susanne var dårlig
-    \item Abel til Saga - måtte kutte fra HTWO til HFOUR + kortere kjøringer (3 mnd spinup, 3 mnd kjøring)
-    \item CTM3 manualen
-\end{itemize}
+Branch \ref{def:BE_PD_noAerosol}-\ref{def:BE_PD_noBr} were created as an attempt to see which process may have caused the problems in the initial BE-branch (Branch \ref{def:BE_PD}). The resulting modelled ozone along with ozone measurements are shown in Figure \ref{fig:test_RemoveHetReacts}. 
+
 
 \section{Future work}
 

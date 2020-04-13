@@ -46,9 +46,9 @@ In essence, three modules were changed to implement the halogen chemistry. They 
 
 \subsection{Changes in \texttt{pchemc\_ij.f90}:}
 
-\texttt{pchem\_ij} is a module that functions as a column driver for the Oslo tropospheric chemistry. It has one subroutine, \texttt{OSLO\_CHEM}, which integrates the Oslo Chemistry in the troposphere using the QSSA method (see Section \ref{sec:QSSA}). The model loops from the bottom layer to the top layer of the troposphere (\texttt{LMTROP}, \texttt{LM} = total number of layers, \texttt{TROP} = troposphere). 
+\texttt{pchem\_ij} is a module that works as a column driver for the Oslo tropospheric chemistry. It has one subroutine, \texttt{OSLO\_CHEM}, which integrates the Oslo Chemistry in the troposphere using the QSSA method (see Section \ref{sec:QSSA}). The model loops from the bottom layer to the top layer of the troposphere (\texttt{LMTROP}, \texttt{LM} = total number of layers, \texttt{TROP} = troposphere). 
 
-\subsubsection{Photolysis- and chemical reaction rates}
+\subsubsection{Photolysis- and Chemical Reaction Rates}
 
 The phytolysis- and chemical reaction rates were set at the very beginning of the loop of the tropospheric column. As the oceanic source of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (see Section \ref{sec:impl_ocean_source}) and multiphase reactions (see Section \ref{sec:impl_multiphase_react}) only apply at the surface, this was declared at the beginning:
 
@@ -68,15 +68,16 @@ end if
 \end{lstlisting}
 
 
-The photolysis rates of $\chem{HOBr}$, $\chem{BrO}$ and $\chem{CH_3Br}$ were already included in \texttt{ratj\_oc.d} and could be declared directly. The photolysis rates of \chem{BrCl} and $\chem{Br_2}$ were set constant as 0.1 as long as the photolysis rate of ozone was higher than 0 (i.e. daylight present)
+The photolysis rates of $\chem{HOBr}$, $\chem{BrO}$ and $\chem{CH_3Br}$ were already included in \texttt{ratj\_oc.d} and could be declared directly. The photolysis rates of \chem{BrCl} and $\chem{Br_2}$ were set constant as 0.1 $s^{-1}$ as long as the photolysis rate of ozone was higher than 0 (i.e. daylight present)
 
 
 \subsection{Halogen families}\label{sec:halogen_families_BryClxCly}
 
-The halogen chemistry were implemented using the method of families described in Section \ref{sec:families}. The $\chem{Br_y}$-family is the same as the that already was implemented in the CTM3 for the stratosphere, but the $\chem{Cl_x}$- and $\chem{Cl_y}$-families differ. 
+The halogen chemistry were implemented using the method of families described in Section \ref{sec:families}. The $\chem{Br_y}$-family is the same as the that already was implemented in the CTM3 for the stratosphere, but the $\chem{Cl_x}$- and $\chem{Cl_y}$-families differ. The families were adapted from the family-solutions in the stratosphere (\texttt{pchemc\_str\_ij\_.f90}. 
  
 \begin{align*}
     \chem{Br_y} &= \chem{Br} + \chem{BrO} + \chem{BrONO_2} + \chem{HOBr} + \chem{HBr} + 2\chem{Br_2} + \chem{BrCl} \\
+    \chem{Br_z} & = \chem{Br} + \chem{BrO} \\
     \chem{Cl_x} &= \chem{Cl} + \chem{ClO} \\
     \chem{Cl_y} &= \chem{Cl_x} + \chem{HCl}
 \end{align*}

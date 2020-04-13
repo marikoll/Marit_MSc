@@ -15,14 +15,14 @@ Figure \ref{fig:CompObsOrigBE} shows results in terms of $\chem{O_3}$-concentrat
 
 \medskip
 
-Branch \ref{def:BE_PD} produces very low concentrations of $\chem{O_3}$, as can be seen from Figure \ref{fig:CompObsOrigBE}. It does not capture the ozone depletion events that can be seen for instance at Alert around the 9th of April. The original CTM3 branch produces $\chem{O_3}$ concentrations more comparable to observations, altough without distinct bromine explosion events. 
+Branch \ref{def:BE_PD} produces very low concentrations of $\chem{O_3}$, as can be seen from Figure \ref{fig:CompObsOrigBE}. It does not capture the ozone depletion events that can be seen for instance at Alert around the 9th of April. The original CTM3 branch produced $\chem{O_3}$ concentrations more comparable to observations, although without distinct bromine explosion events. 
 
 \input{Chapter6_Results/images/ozone_2001_compObsOrigBE}
 
 
-\section{Different Removal Tests}
+\section{Test: Removing Heterogeneous Reactions}
 
-Figure \ref{fig:test_RemoveHetReacts} shows results in terms of $\chem{O_3}$-concentration from attempting to turn off different heterogeneous reactions, namely snow/ice reactions (described in Section \ref{sec:snow_ice_react}), heterogeneous reactions over aerosol surfaces (described in Section \ref{sec:aerosol_react}) as well as heterogeneous reactions involving chlorine and bromine, respectively. For this purpose, four new branches were created (for a full overview of the branches, see Table \ref{tab:branches}). These were:
+Figure \ref{fig:test_RemoveHetReacts} shows results in terms of $\chem{O_3}$-concentration from attempting to turn off different heterogeneous reactions, namely snow/ice reactions (described in Section \ref{sec:snow_ice_react}), heterogeneous reactions over aerosol surfaces (described in Section \ref{sec:aerosol_react}) as well as heterogeneous reactions involving chlorine and bromine, respectively. The runs were initiated with the same restart file (spin-up) as Branch \ref{def:BE_PD}. For this purpose, four new branches were created (for a full overview of the branches, see Table \ref{tab:branches}). These were:
 
 \begin{mydef}\label{def:BE_PD_noAerosol}
     \texttt{marikoll\_bromine\_explosion\_noHetAerosol}: Branch \ref{def:BE_PD} without heterogeneous aerosol reactions.
@@ -40,14 +40,33 @@ Figure \ref{fig:test_RemoveHetReacts} shows results in terms of $\chem{O_3}$-con
     \texttt{marikoll\_bromine\_explosion\_noHetBromine}: Branch \ref{def:BE_PD} without heterogeneous reactions involving bromine.
 \end{mydef}
 
+
 \input{Chapter6_Results/branches}
-
-
 
 
 \input{Chapter6_Results/images/ozone_2001_testRemoveHetReacts}
 
-Figure \ref{fig:test_ClyInt} contains the result in terms of $\chem{O_3}$ concentration of adding an integration of the $\chem{Cl_y}$-family, which was not handled prior to the previous model runs (the chemical families are listed in Section \ref{sec:halogen_families_BryClxCly}). 
+
+\medskip
+
+In the vertical, the corresponding $\chem{Br_y}$ concentrations to Figure \ref{fig:test_RemoveHetReacts} are shown in Figures \ref{fig:vert_noAer_bry_2001}-\ref{fig:vert_noBr_bry_2001} for the four new branches, Branch \ref{def:BE_PD_noAerosol}-\ref{def:BE_PD_noBr}, respectively (The $\chem{Br_y}$-family is explained in Section \ref{sec:halogen_families_BryClxCly}). 
+
+\input{Chapter6_Results/images/vertical_noAerosol_2001_bry}
+
+\input{Chapter6_Results/images/vertical_noSnowIce_2001_bry}
+
+\input{Chapter6_Results/images/vertical_noCl_2001_bry}
+
+\input{Chapter6_Results/images/vertical_noBr_2001_bry}
+
+
+
+
+\textbf{NOTE:} after these tests, a mistake in the scaling of $\chem{Cl_x}$ was discovered. \chem{BrCl} had mistakenly been scaled with this family, which led to disappearance of all \chem{Cl}-species. The subsequent tests were fixed for this.
+
+\subsection{Integrating $\chem{Cl_y}$}
+
+Figure \ref{fig:test_ClyInt} contains the result in terms of $\chem{O_3}$ concentration where an integration of the $\chem{Cl_y}$-family was added. This integration was not handled prior to the previous model runs (the chemical families are listed in Section \ref{sec:halogen_families_BryClxCly}). 
 
 \medskip
 
@@ -57,7 +76,7 @@ As the inclusion of $\chem{ClONO2}$ (Reaction \ref{R:clono2}) function purely as
 
 \subsection{Changing $L_{mix}$ in Reaction \ref{R:7}}
 
-The boundary layer height, $L_{mix}$ and deposition velocity, $v_d$ in the preliminary runs had values listed in Section \ref{sec:impl_multiphase_react}. In an attempt to "kick-start" the bromine explosions $L_{mix}$ and $v_d$, wer lowered in the \texttt{marikoll\_bromine\_explosion\_noHetChlorine}- branch. 
+The boundary layer height, $L_{mix}$ and deposition velocity, $v_d$ in the preliminary runs had values listed in Section \ref{sec:impl_multiphase_react}. In an attempt to "kick-start" the bromine explosions $L_{mix}$ was lowered (And corresponding $v_d$ increased) in the \texttt{marikoll\_bromine\_explosion\_noHetChlorine}- branch. 
 
 \medskip
 
