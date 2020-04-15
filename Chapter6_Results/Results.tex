@@ -29,7 +29,7 @@ Figure \ref{fig:test_RemoveHetReacts} shows results in terms of $\chem{O_3}$-con
 \end{mydef}
 
 \begin{mydef}\label{def:BE_PD_noIce}
-    \texttt{marikoll\_bromine\_explosion\_noSnowIce}: Branch \ref{def:BE_PD} without heterogeneous snow/ice reactions.
+    \texttt{marikoll\_bromine\_explosion\_noSnowIce}: Branch \ref{def:BE_PD} without heterogeneous reactions over ice surfaces (called \texttt{noSnowIce} by mistake).
 \end{mydef}
 
 \begin{mydef}\label{def:BE_PD_noCl}
@@ -66,7 +66,7 @@ In the vertical, the corresponding $\chem{Br_y}$ concentrations to Figure \ref{f
 
 \subsection{Integrating $\chem{Cl_y}$}
 
-Figure \ref{fig:test_ClyInt} contains the result in terms of $\chem{O_3}$ concentration where an integration of the $\chem{Cl_y}$-family was added. This integration was not handled prior to the previous model runs (the chemical families are listed in Section \ref{sec:halogen_families_BryClxCly}). 
+Figure \ref{fig:test_ClyInt} contains the result in terms of $\chem{O_3}$ concentration where an integration of the $\chem{Cl_y}$-family was added to the initial BE-branch (Branch \ref{def:BE_PD}) This integration was not handled prior to the previous model runs (the chemical families are listed in Section \ref{sec:halogen_families_BryClxCly}). 
 
 \medskip
 
@@ -81,6 +81,18 @@ The boundary layer height, $L_{mix}$ and deposition velocity, $v_d$ in the preli
 \medskip
 
 The first test was executed with $L_{mix} = 25 m$ and $v_d = 0.00824 m/s$. This boundary layer height was chosen due to the height of the second model layer height $995.86 hPa$, with is about $23 m$ higher than the first model layer height at $998.82 hPa$. The low level was chosen to make sure the bromine explosion would indeed occur. This test caused too much bromine explosion for the model to complete the run. $L_{mix}$ was then lowered to $L_{mix} = 100 m$ with $v_d = 0.00667 m/s$. 
+
+\subsection{Lmix = 200}
+
+\subsection{Lmix = 100}
+
+\subsection{Lmix = 100 After Fix}
+
+The weighing of Reaction \ref{R:7} was removed (in \texttt{pchemc\_ij.f90}). It was initially weighted with $0.5$ assuming half of the \chem{HOBr} was reacting with \chem{Br} and half with \chem{Cl}, but was removed as the heterogeneous reactions involving \chem{Cl} were removed. Also, $\chem{Br_2}$ was added to the debugging-scaling in \texttt{pchemc\_ij.f90}
+
+\subsection{Lmix = 100, \chem{HBr} Adjusted to 30 ppt}
+
+In order to boost the concentration of \chem{HBr}, the concentration was set to 30 ppt ($= 8.059 \text{molecules}cm^{-3}$ at $273.15 K$) in the first sub-timestep of \texttt{pchemc\_ij.f90}.  
 
 
 \section{Comparison between the PD- and PI-branches}

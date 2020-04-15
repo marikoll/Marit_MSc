@@ -82,11 +82,31 @@ Reaction \ref{rqn:ozone} is the most significant source of ozone in the atmosphe
     \label{rqn:OH}
 \end{reaction}
 
-This is the only gas-phase reaction in the troposphere that is able to break the \chem{H-O} bond in $\chem{H_2O}$ (\cite{SeinfeldSpyros}). Tropospheric ozone is thus increasing the oxidizing capacity of the troposphere as it is acting as a precursor for \chem{OH}. The hydroxyl radicals interplay in a chain of reaction that results in the removal of atmospheric \chem{CO} and $\chem{CH_4}$ (\cite{Levy1971}). 
+This is the only gas-phase reaction in the troposphere that is able to break the \chem{H-O} bond in $\chem{H_2O}$ (\cite{SeinfeldSpyros}). Tropospheric ozone is thus increasing the oxidizing capacity of the troposphere as it is acting as a precursor for \chem{OH}. In remote regions, ozone loss by $\chem{HO_x}$ can be an important mechanism when \chem{NO}-concentrations are low(\cite{Jacob1999}): 
 
-\medskip
 
-When \chem{NO} and $\chem{NO_2}$ is present in sunlight, ozone may be produced photochemically (i.e. the initiating step is the absorption of a photon (\cite{Cadle1970})) in by the photolysis of $\chem{NO_2}$ (Reaction \ref{rqn:no2hv} below) followed by Reaction \ref{rqn:ozone} (\cite{Hesstvedt1978}): 
+\begin{reaction}
+    \chem{OH} + \chem{O_3} \rightarrow \chem{HO_2} + \chem{O_2}
+    \label{rqn:oh_o3}
+\end{reaction}
+\begin{reaction}
+    \chem{HO_2} + \chem{O_3} \rightarrow \chem{OH} + 2\chem{O_3}
+    \label{rqn:ho2_o3}
+\end{reaction}
+
+The hydroxyl radicals interplay in a chain of reaction that results in the removal of atmospheric \chem{CO} and $\chem{CH_4}$ (\cite{Levy1971}). Oxidation of a hydrocarbon, denoted generically as \chem{RH}, by \chem{OH} produces an inorganic peroxy radical, $\chem{RO_2}$ (\cite{Jacob1999}):
+
+\begin{reaction}
+    \chem{RH} + \chem{OH} \xrightarrow{\chem{O_2}} \chem{RO_2} + \chem{H_2O}
+\end{reaction}
+
+When \chem{NO} and $\chem{RO_2}$ are present (in polluted areas), these react to produce $\chem{NO_2}$ and organic oxy radicals \chem{RO} (\cite{Jacob1999}): 
+
+\begin{equation}
+    \chem{RO_2} + \chem{NO} \rightarrow \chem{RO} + \chem{NO_2}
+\end{equation}
+
+Ozone may then be produced photochemically (i.e. the initiating step is the absorption of a photon (\cite{Cadle1970})) by the photolysis of $\chem{NO_2}$ (Reaction \ref{rqn:no2hv} below) followed by Reaction \ref{rqn:ozone} (\cite{Hesstvedt1978}): 
 
 
 \begin{reaction}
@@ -94,34 +114,21 @@ When \chem{NO} and $\chem{NO_2}$ is present in sunlight, ozone may be produced p
     \label{rqn:no2hv}
 \end{reaction}
 
-The \chem{NO}-molecule quickly reacts with ozone to regenerate $\chem{NO_2}$:
-
-
-\begin{reaction}
-    \chem{O_3} + \chem{NO} \rightarrow \chem{O_2} + \chem{NO_2}
-    \label{rqn:o3no}
-\end{reaction}
-
-Tropospheric ozone production is sustained by emissions of $\chem{NO_x}$ and hydrocarbons \cite{Jacob1999}. 
-
-
-
-\subsection{Influence of Nitrogen}\label{sec:influence_of_nitrogen}
-
-
-Generally, tropospheric ozone is a result of two main precursors, $\chem{NO_x} = \chem{NO} + \chem{NO_2}$
-
-In polluted regions, there is an important balance between regions with too much $\chem{NO_x}$, which generally acts as a precursor of ozone, and areas where the $\chem{NO_x}$ concentration is low enough to sustain the production of ozone depleting reactive halogens. The high concentrations of $\chem{HNO_3}$ and $\chem{H_2SO_4}$ can in theory provide the reactive surfaces for acidity dependent autocatalytic release of reactive halogens, but the efficiency of this mechanism is degraded in the case of $\chem{NO_x}$ and hydrocarbon concentrations (\cite{Simpson2015}). High concentrations of $\chem{NO_x}$ suppresses the formation of $\chem{HO_x}$, which is in turn a key component of the halogen explosion sequence. Hydrocarbons serve as sinks for reactive halogens due to their willingness to react with these rather than with ozone, and thus terminates the halogen explosion sequence (\cite{Simpson2015}). Incidents in which halogens do get activated in polluted regions, production of nitryl halides, $\chem{XNO_2}$, is considered to be a major activation process. Observations have shown that this is mostly relevant for chlorine as the reactivity and/or solubility of $\chem{BrNO_2}$ and $\chem{INO_2}$ are likely much greater than for $\chem{ClNO_2}$ \cite{Simpson2015}. 
-
-\medskip
+Tropospheric ozone production is thus sustained by emissions of $\chem{NO_x}$ and hydrocarbons \cite{Jacob1999}. 
 
 
 
 
 
-\cite{SeinfeldSpyros} SKRIV OM HIGH NOX/LOW NOX ENVIRONMENTS
+%\subsection{Influence of Nitrogen}\label{sec:influence_of_nitrogen}
 
-In the troposphere, ozone is a secondary pollutant produced in areas with high anthropogenic emissions of $\chem{NO_x}$. 
+
+%\input{Chapter2_Theory/images/highNOxlowNOx}
+
+%In polluted regions, there is an important balance between regions with too much $\chem{NO_x}$, which generally acts as a precursor of ozone, and areas where the $\chem{NO_x}$ concentration is low enough to sustain the production of ozone depleting reactive halogens. The high concentrations of $\chem{HNO_3}$ and $\chem{H_2SO_4}$ can in theory provide the reactive surfaces for acidity dependent autocatalytic release of reactive halogens, but the efficiency of this mechanism is degraded in the case of $\chem{NO_x}$ and hydrocarbon concentrations (\cite{Simpson2015}). High concentrations of $\chem{NO_x}$ suppresses the formation of $\chem{HO_x}$, which is in turn a key component of the halogen explosion sequence. Hydrocarbons serve as sinks for reactive halogens due to their willingness to react with these rather than with ozone, and thus terminates the halogen explosion sequence (\cite{Simpson2015}). Incidents in which halogens do get activated in polluted regions, production of nitryl halides, $\chem{XNO_2}$, is considered to be a major activation process. Observations have shown that this is mostly relevant for chlorine as the reactivity and/or solubility of $\chem{BrNO_2}$ and $\chem{INO_2}$ are likely much greater than for $\chem{ClNO_2}$ \cite{Simpson2015}. 
+
+
+
 
 \section{Halogen Chemistry}\label{sec:halogen_chemistry}
 
@@ -178,7 +185,7 @@ The discovery of ODEs in the troposphere due to anomalously high concentrations 
 
 \medskip
 
-During polar spring, the amount of ozone in the polar boundary layer may decrease from tens of ppb to less than 1 ppb due to catalytic destruction by reactive halogen species (\cite{CAO}). the reaction scheme assuming bromine is the depleting agent is to a large extent summarized in Figure \ref{fig:het_react}. 
+During polar spring, the amount of ozone in the polar boundary layer may decrease from tens of ppb to less than 1 ppb due to catalytic destruction by reactive halogen species (\cite{CAO}). The reaction scheme assuming bromine is the depleting agent is to a large extent summarized in Figure \ref{fig:het_react}. 
 
 \medskip
 
@@ -212,7 +219,7 @@ The halogen oxides may proceed to deplete ozone. They partition quickly between 
     \chem{XO} + \chem{XO} \rightarrow \chem{OXO} + \chem{X} \label{R:5} 
 \end{reaction}
 
-The \chem{XO}-self reaction in Reactions \ref{R:3} to \ref{R:5} are often considered the rate limiting step for $\chem{O_3}$ destruction (\cite{JPL}). The partitioning between \chem{XO} and \chem{X} is rapid (\cite{Schmidt} reported a $[\chem{XO}]/[\chem{X}]$ ratio globally close to 1). In addition to the partitioning in Reactions \ref{R:3} to \ref{R:5}, \chem{XO} may be oxidized or photolysed:  
+The \chem{XO}-self reaction in Reactions \ref{R:3}-\ref{R:5} are often considered the rate limiting step for $\chem{O_3}$ destruction (\cite{Hausmann1994}). The partitioning between \chem{XO} and \chem{X} is rapid, although in the polar regions, the $[\chem{XO}]/[\chem{X}]$ is generally larger than one (\cite{Schmidt}). In addition to the partitioning in Reactions \ref{R:3}-\ref{R:5}, \chem{XO} may be oxidized or photolysed:  
 
 \begin{reaction}
     \chem{OH} + \chem{XO} \rightarrow \chem{X} + \chem{HO_2}
@@ -226,9 +233,10 @@ The \chem{XO}-self reaction in Reactions \ref{R:3} to \ref{R:5} are often consid
 
 The halogen oxides quickly photodissociate (on the order of seconds and minutes time scale) and Reactions \ref{R:2} and \ref{R:20} creates a null cycle that does not destroy or produce ozone. This has an effect on the partitioning of \chem{X} and \chem{XO} species. The oxides dominate the radical form, which extends the lifetime of the $\chem{XO_x} = \chem{X} + \chem{XO}$-family as the oxides are generally less reactive than the atomic form (\cite{Simpson2015}). 
 
+
 \medskip
 
-Termination reactions that renders the \chem{XO}-radical into the reservoir species \chem{HBr}, \chem{HOBr} and $\chem{BrONO_2}$ may proceed as follows: 
+Termination reactions that renders the \chem{XO} and \chem{X}-radicals into the reservoir species \chem{HBr} and \chem{HOBr} may proceed as follows: 
 
 \begin{reaction}
     \chem{XO} + \chem{HO_2} \rightarrow \chem{HOX} + \chem{O_2}
@@ -246,25 +254,9 @@ Termination reactions that renders the \chem{XO}-radical into the reservoir spec
     \label{R:16}
 \end{reaction}
 
-\begin{reaction}
-    \chem{BrO} + \chem{NO_2} + M \rightarrow \chem{BrONO_2} + M
-    \label{R:9}
-\end{reaction}
-
-Depending on their relative bond strength, the reservoir species may be reactivated by: 
 
 
-\begin{reaction}
-    \chem{BrO} + \chem{NO} \rightarrow \chem{NO_2} + \chem{Br}
-    \label{R:14}
-\end{reaction}
-
-
-
-\begin{reaction}
-    \chem{BrONO_2} + \chem{H_2O} \xrightarrow{aerosol} \chem{HOBr} + \chem{HNO_3}
-    \label{R:13}
-\end{reaction}
+The efficiency of ozone destruction is not only dependent on the availability of reactive bromine, but also the efficiency of reconverting reservoir species (\chem{HBr} and \chem{HOBr}) back into reactive \chem{Br}). \chem{HOBr} photolyses readily to form \chem{Br} and \chem{OH} (\cite{Hausmann1994}):
 
 \begin{reaction}
     \chem{HOBr} + hv \rightarrow \chem{Br} + \chem{OH}
@@ -295,6 +287,10 @@ In which the multiphase Reactions \ref{R:7} and \ref{R:8} outlines the release o
 
 \medskip
 
+The ODEs terminate when there's no ozone left to deplete, as that prohibits Reaction \ref{rqn:oh_o3}-\ref{rqn:ho2_o3} such that there will be far less $\chem{HO_x}$-species. This affects Reaction \ref{R:6}, $\chem{BrO} + \chem{HO_2} \rightarrow \chem{HOBr} + \chem{O_2}$, which again terminates the autocatalytic heterogeneous reactions that produces reactive halogen species. 
+
+\subsubsection{Reactive Surfaces}
+
 The reactive surface maybe supplied by different media, and this is an object of many research articles (e.g.  \cite{Simpson2018}, \cite{Rankin}). Whichever is more significant, there is most likely a cooperation of the reactive surfaces that accelerates the bromine explosion events. The reactive surfaces are (generally): 
 
 \begin{itemize}
@@ -302,6 +298,30 @@ The reactive surface maybe supplied by different media, and this is an object of
     \item Snow surfaces, with low pH
     \item Aerosol surfaces, with low pH
 \end{itemize}
+
+\subsubsection{ODEs and Halogen-Driven $\chem{NO_x}$-Loss}
+
+Halogen driven tropospheric ozone loss globally was found by \cite{Schmidt} to be due to a combination of depletion by catalytic BE-events and a decrease in $\chem{NO_x}$-driven ozone production. This is due to halogen-driven $\chem{NO_x}$-loss which is largest in low $\chem{NO_x}$-areas, such as the polar regions. The halogen-driven $\chem{NO_x}$-loss occurs due to hydrolysis of the halogen nitrates (\cite{Schmidt}):
+
+\begin{reaction}
+    \chem{BrO} + \chem{NO} \rightarrow \chem{NO_2} + \chem{Br}
+    \label{R:14}
+\end{reaction}
+
+
+\begin{reaction}
+    \chem{BrO} + \chem{NO_2} + M \rightarrow \chem{BrONO_2} + M
+    \label{R:9}
+\end{reaction}
+
+
+\begin{reaction}
+    \chem{BrONO_2} + \chem{H_2O} \xrightarrow{aerosol} \chem{HOBr} + \chem{HNO_3}
+    \label{R:13}
+\end{reaction}
+
+
+
 
 \subsubsection{Chlorine Reservoir Species}
 

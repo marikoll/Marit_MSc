@@ -94,7 +94,14 @@ The advantage of using families is that is a fast method, and reasonably accurat
 
 \subsection{O3-NO variable}\label{sec:O3-NO}
 
-The strong coupling between the Reactions \ref{rqn:ozone}, \ref{rqn:o3no} and \ref{rqn:no2hv} cause numerical instability problems when choosing time steps that are too long (\cite{Hesstvedt1978}). To avoid these instabilities, a new variable is defined: 
+The strong coupling between the Reactions \ref{rqn:ozone}, \ref{rqn:no2hv} and:
+
+\begin{reaction}
+    \chem{O_3} + \chem{NO} \rightarrow \chem{NO_2} + \chem{O_2}
+    \label{rqn:o3no}
+\end{reaction}
+
+cause numerical instability problems when choosing time steps that are too long (\cite{Hesstvedt1978}). To avoid these instabilities, a new variable is defined: 
 
 \begin{equation}
     x = [\chem{O_3}] - [\chem{NO}]
