@@ -1,27 +1,26 @@
 \setcounter{chapter}{2} 
 \chapter{Theoretical Background: Processes Implemented in the CTM3}\label{Chap:CTM3theory_ocean_hetReact}
 
-Some of the processes that are implemented in the Oslo CTM3 requires some further explanation. Here, I will cover the theory behind the implementation of emissions of organic halogen species and the heterogeneous reaction surfaces.
+Some of the processes that are implemented in the Oslo CTM3 requires some further explanation. This chapter covers the theory behind the implementation of emissions of organic halogen species and the heterogeneous reaction surfaces. These processes are essential to achieve the \acrfull{be} episodes causing the \acrfull{ode}s in the polar tropospheric boundary layer (theory covered in Chapter \ref{ch:theoretical_back}).
 
 \section{Oceanic Emissions of Halocarbons}\label{sec:oceanic_emissions}
 
 
-The ocean is a natural source of gaseous halocarbons, and is needed for the bromine explosion to occur (\cite{Schmidt} and references therein). Methyl halides ($\chem{CH_3X}$) and polyhagenated species ($\chem{CHBr_3}$, $\chem{CH_2Br_2}$) are released from the ocean, but methyl halides (particularly $\chem{CH_3Br}$) may also be emitted by biomass burning (\cite{SeinfeldSpyros}). 
+The ocean is a natural source of gaseous halocarbons, and is needed for the bromine explosion to occur (\cite{Schmidt} and references therein)(theory covered in Section \ref{sec:halogen_sources}). Methyl halides ($\chem{CH_3X}$) and polyhagenated species ($\chem{CHBr_3}$, $\chem{CH_2Br_2}$) are released from the ocean, and methyl halides (particularly $\chem{CH_3Br}$) may also be emitted by biomass burning (\cite{SeinfeldSpyros}). 
 
+\medskip
+
+Natural marine sources of bromoform ($\chem{CHBr_3}$) and dibromomethane ($\chem{CH_2Br_2}$) were used as sources of bromine in this implementation. The component mapping methyl bromide ($\chem{CH_3Br}$) was already included in the Oslo CTM3, which would only be used by the model when the stratosphere was activated (which was not the case in my runs. The setup is explained in Section \ref{chap:CTM3_Setup}). In order to further simplify my implementation, the $\chem{CH_3Br}$-component was used to denote the combined emissions of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$.
 
 
 \medskip
 
-Natural marine sources of bromoform ($\chem{CHBr_3}$) and dibromomethane ($\chem{CH_2Br_2}$) were used as sources of bromine in this implementation. The anthropogenic signal of methyl halides were not taken into consideration in this thesis. Nor were the difference in lifetime ($\chem{CH_3Br} \sim$ 1 month, $\chem{CH_2Br_2} \sim$ 4 months) as well as seasonal variations. 
+The anthropogenic signal of methyl halides was not taken into consideration in this thesis. Neither was the difference in lifetime for $\chem{CH_3Br}$ ($94 (84-114)$ days) and $\chem{CHBr_3}$ ($15 (13-7)$ days) (\cite{Hossaini2016_chlorine}) or seasonal variations (\cite{Liang2010}). 
 
 
 \medskip
 
-Bromoform, $\chem{CH_3Br}$, was added as a source from the ocean based on the emission scenario suggested by \cite{Liang2010} (scenario A, Figure \ref{fig:Liang2010}). This scenario was chosen as it has latitudinal-dependent emission field covering the whole globe. The global emissions estimated by \cite{Liang2010}, scenario A, were 425 Ggyr$^{-1}$ of $\chem{CHBr_3}$ and 57 Ggyr$^{-1}$ of $\chem{CH_2Br_2}$, respectively.
-
-\medskip
-
-The thought behind the implementation (the variable \texttt{POLL\_CHBr3}) is that it contains the emissions from both $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$. The reason for this is that there was already an organic halogen existing in the CTM3, methyl bromide ($\chem{CH_3Br}$), which would only be used by the model when the stratosphere was activated (which was not the case in my runs). Thus, this was used for the mapping of the concentration of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ instead. To simplify this source further, $\chem{CH_2Br_2}$ was added to the emission scheme in Figure \ref{fig:Liang2010} by a scaling factor based on the global emissions. 
+Bromoform, $\chem{CHBr_3}$, was added as a source from the ocean based on the emission scenario suggested by \cite{Liang2010} (scenario A, Figure \ref{fig:Liang2010}). This scenario was chosen as it has latitudinal-dependent emission field covering the whole globe. The global emissions estimated by \cite{Liang2010}, scenario A, were 425 Ggyr$^{-1}$ of $\chem{CHBr_3}$ and 57 Ggyr$^{-1}$ of $\chem{CH_2Br_2}$, respectively. $\chem{CH_2Br_2}$ was added to the emission scheme in Figure \ref{fig:Liang2010} by a scaling factor based on the global emissions. The scaling factor is derived below.
 
 \medskip
 
