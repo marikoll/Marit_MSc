@@ -12,17 +12,17 @@
 
 \cleardoublepage
 
-\chapter{EBAS and NOAA data}\label{app:ebas_noaa_data}
+\chapter{EBAS and NOAA Data}\label{app:ebas_noaa_data}
 
 
-\section{Station data}
+\section{Station Data}
 
 Some key information about the station data obtained from ebas (\cite{EBAS}) is listed in Table \ref{tab:ebas_noaa_data_taken}. 
 
 \input{Appendix/station_data}
 
 
-\section{Ozonosonde data}
+\section{Ozonosonde Data}
 
 Ozonosonde measurements from Summit, Greenland, was obtained from \cite{NOAA} for the year 2013. The ozonosonde measures ozone by using an Electrochemical Concentration Cell Ozonosonde (For more information, visit \cite{ESRL}).  
 
@@ -54,7 +54,41 @@ The input file consists of three parts, one that sets up the meteorological year
 
 In order to save CPU time and avoid conflicts regarding the use of stratospheric methyl bromide ($\chem{CH_3Br}$) as a designated species for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (explained further in Section \ref{sec:oceanic_emissions}), the stratosphere was turned off. How this was performed is explained in Section \ref{app:turning_off_the_stratosphere}.
 
-SKriv om Pre-industrial setup \ref{app:PI_run}
+\medskip
+
+In the Pre-industrial setups are slightly different and explained in Section \ref{app:PI_run}
+
+\section{Emission List - \texttt{Ltracer\_emis\_ceds17\_YEAR\_megan.d}}
+\label{subsubsec:Ltracer_list}
+
+The tracer list contains all the emission information that the model needs to be able to run. The emission inventory used in this thesis is the \acrlong{ceds} inventory and the \acrlong{megan}, version 2.10, inventory. 
+
+\medskip
+
+\acrshort{ceds} is a historical emission inventory for anthropogenic aerosol and precursor compounds (\cite{Lund2018}). The historical emissions are only available for the 1750-2014 period, which limits the possibilities for simulations after 2014 in this thesis. 
+
+\medskip
+
+\acrshort{megan} v2.10 is a framework used by the model to estimate biogenic fluxes between terrestrial ecosystems and the atmosphere (\cite{Guenther2012}). 
+
+
+
+\section{Tracer List - \texttt{tracer\_list\_no\_stratosphere.d}}\label{subsubsec:tracer_list}
+
+The tracer list contains all the tracers that the model need in the simulation, with names and molecular weights. It contains two parts - one with transported species and one with non-transported species. The total number of transported and non-transported must match the \texttt{NPAR} and \texttt{NOTRPAR} in \texttt{cmn\_size.F90} (see Section \ref{subsubsec:cmn_size}) (\cite{SovdeManual}). 
+
+\medskip
+
+The list \texttt{tracer\_list\_no\_stratosphere.d} was created in order to include some of the stratospheric chemistry components as well as the components mentioned above. The added components were: 
+
+\begin{itemize}
+    \item \textbf{Transported}: $\chem{Cl_x}$, $\chem{HCl}$, $\chem{Cl_y}$, $\chem{CH_3Br}$, $\chem{Br_y}$, $\chem{ClO}$, $\chem{Cl_2}$, $\chem{HBr}$, $\chem{BrONO_2}$, $\chem{OHBr}$, $\chem{Br_2}$, $\chem{BrCl}$, $\chem{Cl}$, $\chem{Br}$, $\chem{BrO}$
+    \item \textbf{Non-transported}: $\chem{H_2}$
+\end{itemize}
+
+The three components $\chem{Cl}$, $\chem{Br}$, $\chem{BrO}$ were moved from non-transported in the \texttt{bromine\_explosion}-branches, in order to have transport for these species. They were left in non-transported in the \texttt{origCTM3\_noStrat}-branches, as the lack of chemistry for those species in the original CTM3-branches led to conflicts (for an overview of the branches, see Section \ref{sec:code_availability}). 
+
+
 
 
 \section{Restart Files}\label{subsec:restart_files}
@@ -76,7 +110,7 @@ The dry-deposition scheme also differs, where I have used the old dry-deposition
 
 The spin-up time is the time it takes for the simulated surface concentrations to be unaffected by initial conditions. \cite{Curci_AirPollution} found that the optimal model spin-up time in terms of ozone was 9 days. Although this study was based on a domain in the GEOS-Chem global model and a regional model, and had a different set-up than the Oslo CTM3, this estimate is applicable to my own spin-up. It also stated by \cite{SeinfeldSpyros} that the global mean lifetime of tropospheric ozone is 19 days. In order to be sure that the chemistry is indeed spun up properly, the restart files were ran for 3 months. 
 
-\subsection{Pre-industrial and present-day restart files}\label{sec:PI_and_PD_restart}
+\subsection{Pre-Industrial and Present-Day Restart Files}\label{sec:PI_and_PD_restart}
 
 The pre-industrial and present-day restart files were made without moving the tracers \chem{Br}. \chem{BrO} and \chem{Cl} to transported species (for information about moving species from non-transported to transported, see Section \ref{subsubsec:tracer_list}). This became the solution to the problem that the original versions of the CTM3 (i.e. unaltered except for turning off the stratosphere in both cases and downscaling of the methane field in the case of the \acrshort{pi}-runs) had problems running. As there is no handling of these non-transported tracers in the troposphere in these branches. 
 
@@ -91,11 +125,6 @@ The pre-industrial and present-day restart files were made without moving the tr
 \chapter{Pre-Industrial Run}\label{app:PI_run}
 
 \input{Appendix/PI_run}
-
-
-
-
-
 
 \cleardoublepage
 

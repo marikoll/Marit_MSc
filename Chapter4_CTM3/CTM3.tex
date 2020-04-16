@@ -1,11 +1,15 @@
 \setcounter{chapter}{3}
 \chapter{Theoretical Background: Oslo CTM3}\label{chapt:OsloCTM3}
 
+This chapter covers some of the functionality of the Oslo CTM3 that is of importance in the implementation of the halogen chemistry (Theory outlined in Chapter \ref{Chap:CTM3theory_ocean_hetReact} and the implementation process outlined in Chapter \ref{chap:CTM3_Setup}).
+
+\section{The Oslo CTM3}
+
 The Oslo CTM3 is a three-dimensional global chemical transport model. The model was developed at the Department of Geosciences at the University of Oslo and later at \acrfull{cicero} (\cite{SovdeManual}). It operates offline driven by historical weather data from the \acrfull{ecmwf} \acrfull{openifs} model. The meteorological data is updated (offline) and stored every 3rd hour. The model spin-up time is 12h starting from an analysis at noon the day before (\cite{Sovde2012}). 
 
 \medskip
 
-The tropospheric chemistry in the CTM3 is a stand-alone module, while the stratosphere module requires the troposphere. Thus, there is a possibility of turning off the stratosphere to better isolate chemical processes occurring in the troposphere. In that case, the tropospheric species that are advected throughout the stratosphere are allowed to do so, but are not affected by any real chemistry. The species that are photolyzed in the stratosphere are instead set to decay at fixed rates, and species that have stratospheric origin (such as ozone and $\chem{NO_x}$) are set to model climatological values (climatological values produced by the CTM3 with stratosphere).  (\cite{Sovde2012}).
+The tropospheric chemistry in the CTM3 is a stand-alone module, while the stratosphere module requires the troposphere. Thus, there is a possibility of turning off the stratosphere to better isolate chemical processes occurring in the troposphere. In that case, the tropospheric species that are advected throughout the stratosphere are allowed to do so, but are not affected by any real chemistry. The species that are photolyzed in the stratosphere are instead set to decay at fixed rates, and species that have stratospheric origin (such as ozone and $\chem{NO_x}$) are set to model climatological values (climatological values produced by the CTM3 with stratosphere) (\cite{Sovde2012}).
 
 \medskip
 

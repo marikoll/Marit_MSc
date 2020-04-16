@@ -3,9 +3,13 @@
 
 This chapter describes the setup and altered modules of the Oslo CTM3. 
 
+\section{Setup of The Model}
+
+A degraded resolution was used for the runs in the CTM3. In the \texttt{Makefile} it is possible to degrade the horizontal resolution by combining several boxes into one. The setting used for running the model was \texttt{HWINDOW=HFOUR}, i.e. a combination of four native boxes and thus a $4.5^o \times 4.5^o$ resolution (Illustrated in Figure \ref{fig:res_map}). In the vertical, 60 layers were used. The setup of the \texttt{Makefile} is explained more in Appendix \ref{subsubsec:makefile}. 
+
 \medskip
 
-A degraded resolution was used for the runs in the CTM3. In the \texttt{Makefile} it is possible to degrade the horizontal resolution by combining several boxes into one. The setting used for running the model was \texttt{HWINDOW=HFOUR}, i.e. a combination of four native boxes and thus a $4.5^o \times 4.5^o$ resolution (Illustrated in Figure \ref{fig:res_map}). This is explained more in Appendix \ref{subsubsec:makefile}. In addition, the stratosphere was turned off in all the branches in order to save CPU time and to avoid conflict with the organic bromide sources. How this was performed is explained in Appendix \ref{app:turning_off_the_stratosphere}. 
+The stratosphere was turned off in all the branches in order to save CPU time and to avoid conflict with the organic bromide sources (see Section \ref{sec:oceanic_emissions}). How this was performed is explained in Appendix \ref{app:turning_off_the_stratosphere}. 
 
 \input{Chapter5_CTM3setup/images/resolution_map}
 
@@ -17,22 +21,11 @@ To run the CTM3, a supercomputer is required. At the beginning of my master thes
 
 \section{Wet deposition - \texttt{scavenging\_wet.inp}}\label{sec:scav_wet}
 
-Wet scavenging rates for \chem{HCl}, \chem{HBr} and $\chem{ClONO_2}$ were added to the wet deposition input table \texttt{scavenging\_wet.inp}. The Henry's law constants are listed in Table \ref{tab:Henrys_law}. 
+Wet scavenging rates for \chem{HCl}, \chem{HBr} and $\chem{ClONO_2}$ were added to the wet deposition input table \texttt{scavenging\_wet.inp}. The Henry's law constants are listed in Table \ref{tab:Henrys_law} and the wet deposition and Henry's law is explained in Section \ref{sec:wet_dep_henrys_law}. 
 
 \input{Chapter5_CTM3setup/henrys_law}
 
  
-\section{Ltracer list - \texttt{Ltracer\_emis\_ceds17\_YEAR\_megan.d}}\label{subsubsec:Ltracer_list}
-
-The tracer list contains all the emission information that the model needs to be able to run. The emission inventory used in this thesis is the \acrlong{ceds} inventory and the \acrlong{megan}, version 2.10, inventory. 
-
-\medskip
-
-\acrshort{ceds} is a historical emission inventory for anthropogenic aerosol and precursor compounds (\cite{Lund2018}). The historical emissions are only available for the 1750-2014 period, which limits the possibilities for simulations after 2014 in this thesis. 
-
-\medskip
-
-\acrshort{megan} v2.10 is a framework used by the model to estimate biogenic fluxes between terrestrial ecosystems and the atmosphere (\cite{Guenther2012}). 
 
 
 \section{Implementation of halogen chemistry}
@@ -86,10 +79,10 @@ An iterative scaling is applied before and after the QSSA-calculation
 
 
 
-\subsubsection{Ozone loss}
+\subsection{Ozone loss}
 
 
-The loss in $\chem{O_3}$ was added assuming a low-$\chem{NO_x}$ regime explained in Section \ref{sec:O3-NO}
+The loss in $\chem{O_3}$ was added assuming a low-$\chem{NO_x}$ regime explained in Section \ref{sec:O3-NO}.
 
 \subsection{Changes in \texttt{tropchem\_oslo.f90}:}\label{sec:tropchem_oslo}
 

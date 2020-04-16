@@ -36,21 +36,9 @@ The non-transported species (\texttt{NPAR\_TROP}) were adjusted from 39 to 54 an
     \item \texttt{SEA SALT}: 8 transported
 \end{itemize}
 
-\section{Tracer list - \texttt{tracer\_list\_no\_stratosphere.d}}\label{subsubsec:tracer_list}
+The numbers of transported- and non-transported species must match the number of these species in the tracer list (see Section \ref{subsubsec:tracer_list}) 
 
-The tracer list contains all the tracers that the model need in the simulation, with names and molecular weights. It contains two parts - one with transported species and one with non-transported species. The total number of transported and non-transported must match the \texttt{NPAR} and \texttt{NOTRPAR} in \texttt{cmn\_size.F90} (see Section \ref{subsubsec:cmn_size}) (\cite{SovdeManual}). 
 
-\medskip
-
-The list \texttt{tracer\_list\_no\_stratosphere.d} was created in order to include some of the stratospheric chemistry components as well as the components mentioned above. The added components were: 
-
-\begin{itemize}
-    \item \textbf{Transported}: $\chem{Cl_x}$, $\chem{HCl}$, $\chem{Cl_y}$, $\chem{CH_3Br}$, $\chem{Br_y}$, $\chem{ClO}$, $\chem{Cl_2}$, $\chem{HBr}$, $\chem{BrONO_2}$, $\chem{OHBr}$, $\chem{Br_2}$, $\chem{BrCl}$, $\chem{Cl}$, $\chem{Br}$, $\chem{BrO}$
-    \item \textbf{Non-transported}: $\chem{H_2}$
-\end{itemize}
-
-The three components $\chem{Cl}$, $\chem{Br}$, $\chem{BrO}$ were moved from non-transported in the \texttt{bromine\_explosion}-branches, in order to have transport for these species. They were left in non-transported in the \texttt{origCTM3\_noStrat}-branches, as the lack of chemistry for those species in the original CTM3-branches led to conflicts (for an overview of the branches, see Section \ref{sec:code_availability}). 
-
-\section{Component output - \texttt{gmdump3hrs.f90}}\label{subsubsec:gmdump}
+\section{Component Output - \texttt{gmdump3hrs.f90}}\label{subsubsec:gmdump}
 
 In the module \texttt{gmdump3hrs.f90}, selected tracer components are printed every hour. In this module, the tracer output was adjusted to dump 19 components instead of 7. To be able to do this, the components must be declared as "transported" in the tracer list (Described in Section \ref{subsubsec:tracer_list}) and in \texttt{cmn\_size.F90} (Described in Section \ref{subsubsec:cmn_size}).
