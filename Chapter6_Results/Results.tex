@@ -8,6 +8,7 @@ Tentative layout:
 
 This section contains some results 
 
+Test-runs are between 14- and 20 (model) days, production runs are 1-3 (model) months
 
 \subsection{A First Look}
 
@@ -25,19 +26,19 @@ Branch \ref{def:BE_PD} produces very low concentrations of $\chem{O_3}$, as can 
 Figure \ref{fig:test_RemoveHetReacts} shows results in terms of $\chem{O_3}$-concentration from attempting to turn off different heterogeneous reactions, namely snow/ice reactions (described in Section \ref{sec:snow_ice_react}), heterogeneous reactions over aerosol surfaces (described in Section \ref{sec:aerosol_react}) as well as heterogeneous reactions involving chlorine and bromine, respectively. The runs were initiated with the same restart file (spin-up) as Branch \ref{def:BE_PD}. For this purpose, four new branches were created (for a full overview of the branches, see Table \ref{tab:branches}). These were:
 
 \begin{mydef}\label{def:BE_PD_noAerosol}
-    \texttt{marikoll\_bromine\_explosion\_noHetAerosol}: Branch \ref{def:BE_PD} without heterogeneous aerosol reactions.
+    \texttt{marikoll\_bromine\_explosion\_noHetAerosol}: Branch \ref{def:BE_PD} without heterogeneous aerosol reactions (Reaction \ref{R:8}). 
 \end{mydef}
 
 \begin{mydef}\label{def:BE_PD_noIce}
-    \texttt{marikoll\_bromine\_explosion\_noSnowIce}: Branch \ref{def:BE_PD} without heterogeneous reactions over ice surfaces (called \texttt{noSnowIce} by mistake).
+    \texttt{marikoll\_bromine\_explosion\_noSnowIce}: Branch \ref{def:BE_PD} without heterogeneous reactions over ice surfaces (called \texttt{noSnowIce} by mistake) (Reaction \ref{R:7}).
 \end{mydef}
 
 \begin{mydef}\label{def:BE_PD_noCl}
-    \texttt{marikoll\_bromine\_explosion\_noHetChlorine}: Branch \ref{def:BE_PD} without heterogeneous reactions involving chlorine.
+    \texttt{marikoll\_bromine\_explosion\_noHetChlorine}: Branch \ref{def:BE_PD} without heterogeneous reactions involving chlorine (Reaction \ref{R:8} and \ref{R:7} with $\chem{X} = \chem{Cl}$).
 \end{mydef}
 
 \begin{mydef}\label{def:BE_PD_noBr}
-    \texttt{marikoll\_bromine\_explosion\_noHetBromine}: Branch \ref{def:BE_PD} without heterogeneous reactions involving bromine.
+    \texttt{marikoll\_bromine\_explosion\_noHetBromine}: Branch \ref{def:BE_PD} without heterogeneous reactions involving bromine (Reaction \ref{R:8} and \ref{R:7} with $\chem{X} = \chem{Br}$).
 \end{mydef}
 
 
@@ -92,8 +93,35 @@ The weighing of Reaction \ref{R:7} was removed (in \texttt{pchemc\_ij.f90}). It 
 
 \subsection{Lmix = 100, \chem{HBr} Adjusted to 30 ppt}
 
-In order to boost the concentration of \chem{HBr}, the concentration was set to 30 ppt ($= 8.059 \text{molecules}cm^{-3}$ at $273.15 K$) in the first sub-timestep of \texttt{pchemc\_ij.f90}.  
+In order to boost the concentration of \chem{HBr}, the concentration was hard-coded to 30 ppt ($= 8.059 \text{molecules}cm^{-3}$ at $273.15 K$) in the first sub-timestep of \texttt{pchemc\_ij.f90}. This worked in the test-run
 
+
+\subsection{Lmix = 200, \chem{HBr} Adjusted to 10 ppt}
+
+A test-run of this managed to maintain 10 ppt - concentrations of \chem{HBr}, but longer runs crashed. Because the 10 ppt was maintained, a restart file was kept from the test-run to boost the concentration in a longer run (without hard-coding of the \chem{HBr} concentration)
+
+
+\subsection{Lmix = 100, with new restart file}
+
+C3RUN\_BE\_HFOUR\_HBr10ppt\_May
+
+Figur med HOBr og HBr - antikorrelert. Null effekt på ozon, hot spots med Br, BrO og Br2. 
+
+The anticorrelation of \chem{HOBr} and \chem{HBr} indicates that \chem{HOBr} is titrated from the system, leaving hot spots of \chem{HBr}. 
+
+\subsection{Lmix = 50, with new restart file}
+
+Still anti-correlation between \chem{HOBr} and \chem{HBr}. Maybe a bit less $\chem{O_3}$? 
+
+vd = 0.0074 
+
+C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix50\_May
+
+\subsection{Lmix = 25, with new restart file}
+
+vd = 0.00824
+
+C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix25\_May
 
 \section{Comparison between the PD- and PI-branches}
 
