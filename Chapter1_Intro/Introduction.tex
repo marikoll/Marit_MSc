@@ -42,19 +42,28 @@ Several studies have shown that CTMs in general overestimates surface ozone conc
 
 Another aspect that causes biases in the modelling of the ozone content in the troposphere is that the representation of the chemistry is limited in many models. Tropospheric halogens that is known to alter the ozone content is an example of compounds that are routinely omitted from model chemistry schemes (\cite{Young2018}, \cite{Sherwen2017}). 
 
-\section{Previous work}
+\section{Previous Work}
 
 The basis of this thesis is the work started by Susanne Foldvik (\cite{Susanne}) in her master thesis in 2017. Her code was passed on to me, and I have continued developing the method. The basis of her work was the theory presented by Cao et. al. (\cite{CAO}), which simulates the halogen induced ODEs in a box model.  
 
 
 \section{Description of the Thesis}
 
-\subsection{Objectives}
+\subsection{Outline of the Thesis}
+
+The background theory of this thesis is divided into three parts. First, the general theory considering the chemistry of ozone and reactive halogens, the sources and implications, are presented in Chapter \ref{ch:theoretical_back}. The theory behind the specific processes implemented in the Oslo CTM3 is described in Chapter \ref{Chap:CTM3theory_ocean_hetReact}. Lastly, the relevant parts of the Oslo CTM3 itself is explained in Chapter \ref{chapt:OsloCTM3}. 
+
+\medskip
+
+The methods used to implement the halogen chemistry is outlined in Chapter \ref{chap:CTM3_Setup}. The results are presented in Chapter \ref{chap:results} with the subsequent discussion in Chapter \ref{chap:discussion}. Finally, the conclusion can be found in Chapter \ref{Chap:conclusion}. 
+
+
+\subsection{Objective of the Thesis}
 
 The objective of this thesis is to investigate the impact tropospheric ozone and it's destruction induced by reactive halogen agents have on the radiative balance at high latitudes. The goal is to implement the ODE's by reactive halogen agents into the Oslo CTM3, validate the implementation by comparing with observations of ODE's, and perform several experiments to assess the  impact this implementation might have on the radiative balance, primarily in the Arctic. The experiments may include: 
 
 \begin{itemize}
-    \item Develop a reliable halogen-chemistry scheme in the Oslo CTM3
+    \item Develop a reliable halogen-chemistry scheme in the Oslo CTM3 and estimate performance of the new scheme by comparing with observations and the original CTM3
     \item Comparing the runs with pre-industrial conditions, as tropospheric ozone mainly occurs due to anthropogenic emissions of $\chem{NO_x}$, \chem{VOC}s, \chem{CO} and $\chem{CH_4}$.
     \item Multiply the calculated ozone concentrations with a normalized RF field to find out whether the ODE implementation causes changes in the ozone induced RF
     \item Compare pre-industrial (pre-industrial is here defined as pre-1850) and present day ozone induced RF with the original and modified CTM3

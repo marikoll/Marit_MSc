@@ -16,9 +16,13 @@ The tropospheric chemistry in the CTM3 is a stand-alone module, while the strato
 The advection scheme in Oslo CTM3 is the UCI CTM transport core documented by \cite{Prather2008}. This is a 3D isotropic (same second order moment in all directions) advection scheme, where the zonal (U) and meridional (V) metereological fields are used to calculate the vertical field (W). An important feature of the advection scheme is the handling of the transport at the poles. Each polar-"pie" box is combined with it's adjacent lower-latitude box (which conserves all moments) before [U] and [V] transport and restored to individual boxes afterwards, assuming unchanged polar pie air mass (\cite{Sovde2012}). 
 
 
+\section{Photochemistry}\label{sec:CTM3_photochemistry}
+
+The photodissocation rates (J-values) in $[s^{-1}]$ are calculated online using the fast-JX method, version 6.7c (\cite{FastJX}, \cite{SovdeManual}). The method calculates the photolysis rates (\texttt{J}-values) in the troposphere and the stratosphere from the surface to 60 km (\cite{Sovde2012}). 
+
 \medskip
 
-The photodissocation rates (J-values) in $[s^{-1}]$ are calculated online using the fast-JX method, version 6.7c (\cite{FastJX}, \cite{SovdeManual}). The method calculates the photolysis rates (\texttt{J}-values) in the troposphere and the stratosphere from the surface to 60 km (\cite{Sovde2012}). The reactions are listed in \texttt{ratj\_oc.d}. 
+When only treating the troposphere, 20 photodissociation rates are calculated, whereas if the stratosphere is included, 51 rates are calculated. This is set automatically in \texttt{cmn\_size.F90} by the variable \texttt{JPPJ}. The reactions with photodissiciation rates associated to them are listed in \texttt{ratj\_oc.d}. 
 
 \section{Solutions of chemical ordinary differential equations}
 

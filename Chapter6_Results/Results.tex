@@ -1,5 +1,5 @@
 \setcounter{chapter}{5}
-\chapter{Results}
+\chapter{Results}\label{chap:results}
 
 Tentative layout: 
 
@@ -122,6 +122,45 @@ C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix50\_May
 vd = 0.00824
 
 C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix25\_May
+
+
+\subsection{Lmix = 100, cycling of \chem{HOBr} and \chem{HBr} and hard-coded photodissociation rates}
+
+C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix100\_ohbr2 - test run with the reaction: 
+
+\begin{reaction}
+    \chem{Br_2} + \chem{OH} \rightarrow \chem{HOBr} + \chem{Br}
+    \label{rqn:oh_br2}
+\end{reaction}
+
+C3RUN\_BE\_HFOUR\_HDP\_MarchMay - long run with the reaction: 
+
+\begin{reaction}
+    \chem{HBr} + \chem{OH} \rightarrow \chem{H_2O} + \chem{Br}
+    \label{rqn:oh_hbr}
+\end{reaction}
+
+As well as hard-coded photodissociation rates as it turned out the rates were not previously calculated for Reactions \ref{R:18}, \ref{R:20} and \ref{R:12}. These were previously set to be solved by the fast-JX method (see Section \ref{sec:CTM3_photochemistry}), but this had not worked. Instead, these were hard-coded as was done previously (by \cite{Susanne}) for Reactions \ref{R:19} and \ref{R:1}. The photodissociation rates were set to: 
+
+\begin{itemize}
+    \item $3\cdot10^{-4} s^{-1}$ for Reaction \ref{R:18} (value from \cite{CAO})
+    \item $0.014 s^{-1}$ for Reaction \ref{R:20}(value from \cite{CAO})
+    \item $0.05\cdot10^{-8} s^{-1}$ for Reaction \ref{R:12} (value from \cite{Papanastasiou2013}, Arctic spring dissociation rate, Figure 2, p. 3022)
+\end{itemize}
+
+
+Testen viser bedring, men \chem{HBr} er fortsatt altfor høy- for treig våtavsetning? 
+
+\subsection{Lmix = 100, new Henry's law constants for \chem{HBr} and \chem{HCl}}
+
+New values for Henry's law constants were applied to fix the high concentrations seen in \chem{HBr}. The values were taken from \cite{dean1999}:
+
+\begin{itemize}
+    \item \chem{HBr}: $2.5 \cdot 10^{1} [M/amt]$, $370 K$
+    \item \chem{HCl}: $1.9\cdot10^1 [M/atm]$, $600 K$ 
+\end{itemize}
+
+Fin ODE klokka 21 den 29/3! Høye Br og BrO og lav ozon! (fil 88) 
 
 \section{Comparison between the PD- and PI-branches}
 
