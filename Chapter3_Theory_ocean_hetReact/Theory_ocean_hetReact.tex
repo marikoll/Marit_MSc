@@ -1,4 +1,4 @@
-\setcounter{chapter}{2} 
+\setcounter{chapter}{4} 
 \chapter{Theoretical Background: Processes Implemented in the CTM3}\label{Chap:CTM3theory_ocean_hetReact}
 
 Some of the processes that are implemented in the Oslo CTM3 requires some further explanation. This chapter covers the theory behind the implementation of emissions of organic halogen species and the heterogeneous reaction surfaces. These processes are essential to achieve the \acrfull{be} episodes causing the \acrfull{ode}s in the polar tropospheric boundary layer (theory covered in Chapter \ref{ch:theoretical_back}).
@@ -291,29 +291,37 @@ $\beta$ is the ratio of the total reactive surface (induced by the structure of 
 
 \section{Wet deposition and Henry's law}\label{sec:wet_dep_henrys_law}
 
+Wet deposition is the process in which chemicals are scavenged out out the atmosphere by the means of rain, snow or cloud and fog droplets (collectively denoted as hydrometeors) and subsequently deposited on the Earth's surface. In order for wet deposition to occur, the gas or aerosol species must be in the presence of condensed water, get scavenged by a hydrometeor, and finally get deposited at the surface (\cite{SeinfeldSpyros}). 
+
+\medskip
+
 Henry's law expresses the proportional relationship between the amount of gaseous and dissolved gas (\chem{A}) in equilibrium (\cite{SeinfeldSpyros}): 
 
 \begin{equation*}
     \chem{A(g)} \rightleftharpoons \chem{A(aq)}
 \end{equation*}
 
-The proportionality factor is dependent on the partial pressure of \chem{A} in the gas phase and the dissolved \chem{A} such that: 
+The proportionality factor is given by the Henry's law coefficient, $H_A$, which is dependent on the partial pressure of \chem{A} in the gas phase and the dissolved \chem{A} such that: 
 
 \begin{equation}
     [\chem{A(aq)}] = H_Ap_A
     \label{eq:Henryslaw}
 \end{equation}
 
-In which $H_A$ is the Henry's law coefficient and $p_A$ is the partial pressure of \chem{A(g)}. 
+In which $p_A$ is the partial pressure (atm) of \chem{A(g)}, and $[\chem{A(aq)}]$ is the concentration of the aqueous-phase A (mol L$^{-1}$). The usual units of the Henry's law coefficient $H_A$ are mol L$^{-1}$atm$^{-1}$, in which mol L$^{-1}$ is often written as M (\cite{SeinfeldSpyros}).
 
 \medskip
 
 In this context, and widely used by atmospheric chemists, the Henry solubility, $H^{cp}$ is applied (\cite{Sander2015}). Rearranging Equation \ref{eq:Henryslaw} gives: 
 
 \begin{equation}
-    H^{cp} \equiv \frac{C_A}{p_A}
+    H^{cp} \equiv \frac{[\chem{A(aq)}]}{p_A}
     \label{eq:HenrySol}
 \end{equation}
+
+The SI unit of $H^{cp}$ is mol m$^{-3}$Pa$^{-1}$, but the unit M atm$^{-1}$ is more commonly used (\cite{Sander2015}).
+
+\medskip
 
 The temperature dependence of the Henry's law coefficient, which is an equilibrium constant, can be described by the van't Hoff equation (\cite{Sander2015} and references therein): 
 
@@ -324,9 +332,7 @@ The temperature dependence of the Henry's law coefficient, which is an equilibri
 
 In which $\Delta_{sol}H$ is the change in enthalpy of dissolution ($H$ in this case does not refer to the Henry's law constant). $R$ is the universal gas constant. 
 
+\medskip
 
-At equilibrium, the number of moles per liter of a gas that is dissolved in a droplet is given by Henry's law
-
-
-The Henry's law constants can be seen in Section \ref{sec:scav_wet} in Table \ref{tab:Henrys_law}. 
+The Henry's law constants implemented in the CTM3 are presented in Section \ref{sec:scav_wet} in Table \ref{tab:Henrys_law}. 
 

@@ -1,4 +1,4 @@
-\setcounter{chapter}{5}
+\setcounter{chapter}{7}
 \chapter{Results}\label{chap:results}
 
 Tentative layout: 
@@ -65,7 +65,7 @@ In the vertical, the corresponding $\chem{Br_y}$ concentrations to Figure \ref{f
 
 \textbf{NOTE:} after these tests, a mistake in the scaling of $\chem{Cl_x}$ was discovered. \chem{BrCl} had mistakenly been scaled with this family, which led to disappearance of all \chem{Cl}-species. The subsequent tests were fixed for this.
 
-\subsection{Integrating $\chem{Cl_y}$}
+\subsection{Integrating $\chem{Cl_y}$ in Branch \ref{def:BE_PD}}
 
 Figure \ref{fig:test_ClyInt} contains the result in terms of $\chem{O_3}$ concentration where an integration of the $\chem{Cl_y}$-family was added to the initial BE-branch (Branch \ref{def:BE_PD}) This integration was not handled prior to the previous model runs (the chemical families are listed in Section \ref{sec:halogen_families_BryClxCly}). 
 
@@ -75,7 +75,9 @@ As the inclusion of $\chem{ClONO2}$ (Reaction \ref{R:clono2}) function purely as
 
 \input{Chapter6_Results/images/ozone_2001_newClyIntegration}
 
-\subsection{Changing $L_{mix}$ in Reaction \ref{R:7}}
+\subsection{Development of Branch \ref{def:BE_PD_noCl}}
+
+\subsubsection{Changing $L_{mix}$ in Reaction \ref{R:7}}
 
 The boundary layer height, $L_{mix}$ and deposition velocity, $v_d$ in the preliminary runs had values listed in Section \ref{sec:impl_multiphase_react}. In an attempt to "kick-start" the bromine explosions $L_{mix}$ was lowered (And corresponding $v_d$ increased) in the \texttt{marikoll\_bromine\_explosion\_noHetChlorine}- branch. 
 
@@ -83,25 +85,25 @@ The boundary layer height, $L_{mix}$ and deposition velocity, $v_d$ in the preli
 
 The first test was executed with $L_{mix} = 25 m$ and $v_d = 0.00824 m/s$. This boundary layer height was chosen due to the height of the second model layer height $995.86 hPa$, with is about $23 m$ higher than the first model layer height at $998.82 hPa$. The low level was chosen to make sure the bromine explosion would indeed occur. This test caused too much bromine explosion for the model to complete the run. $L_{mix}$ was then lowered to $L_{mix} = 100 m$ with $v_d = 0.00667 m/s$. 
 
-\subsection{Lmix = 200}
+\subsubsection{Lmix = 200}
 
-\subsection{Lmix = 100}
+\subsubsection{Lmix = 100}
 
-\subsection{Lmix = 100 After Fix}
+\subsubsection{Lmix = 100 After Fix}
 
 The weighing of Reaction \ref{R:7} was removed (in \texttt{pchemc\_ij.f90}). It was initially weighted with $0.5$ assuming half of the \chem{HOBr} was reacting with \chem{Br} and half with \chem{Cl}, but was removed as the heterogeneous reactions involving \chem{Cl} were removed. Also, $\chem{Br_2}$ was added to the debugging-scaling in \texttt{pchemc\_ij.f90}
 
-\subsection{Lmix = 100, \chem{HBr} Adjusted to 30 ppt}
+\subsubsection{Lmix = 100, \chem{HBr} Adjusted to 30 ppt}
 
 In order to boost the concentration of \chem{HBr}, the concentration was hard-coded to 30 ppt ($= 8.059 \text{molecules}cm^{-3}$ at $273.15 K$) in the first sub-timestep of \texttt{pchemc\_ij.f90}. This worked in the test-run
 
 
-\subsection{Lmix = 200, \chem{HBr} Adjusted to 10 ppt}
+\subsubsection{Lmix = 200, \chem{HBr} Adjusted to 10 ppt}
 
 A test-run of this managed to maintain 10 ppt - concentrations of \chem{HBr}, but longer runs crashed. Because the 10 ppt was maintained, a restart file was kept from the test-run to boost the concentration in a longer run (without hard-coding of the \chem{HBr} concentration)
 
 
-\subsection{Lmix = 100, with new restart file}
+\subsubsection{Lmix = 100, with new restart file}
 
 C3RUN\_BE\_HFOUR\_HBr10ppt\_May
 
@@ -109,7 +111,7 @@ Figur med HOBr og HBr - antikorrelert. Null effekt på ozon, hot spots med Br, B
 
 The anticorrelation of \chem{HOBr} and \chem{HBr} indicates that \chem{HOBr} is titrated from the system, leaving hot spots of \chem{HBr}. 
 
-\subsection{Lmix = 50, with new restart file}
+\subsubsection{Lmix = 50, with new restart file}
 
 Still anti-correlation between \chem{HOBr} and \chem{HBr}. Maybe a bit less $\chem{O_3}$? 
 
@@ -117,14 +119,14 @@ vd = 0.0074
 
 C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix50\_May
 
-\subsection{Lmix = 25, with new restart file}
+\subsubsection{Lmix = 25, with new restart file}
 
 vd = 0.00824
 
 C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix25\_May
 
 
-\subsection{Lmix = 100, cycling of \chem{HOBr} and \chem{HBr} and hard-coded photodissociation rates}
+\subsubsection{Lmix = 100, cycling of \chem{HOBr} and \chem{HBr} and hard-coded photodissociation rates}
 
 C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix100\_ohbr2 - test run with the reaction: 
 
@@ -151,7 +153,7 @@ As well as hard-coded photodissociation rates as it turned out the rates were no
 
 Testen viser bedring, men \chem{HBr} er fortsatt altfor høy- for treig våtavsetning? 
 
-\subsection{Lmix = 100, new Henry's law constants for \chem{HBr} and \chem{HCl}}
+\subsubsection{Lmix = 100, new Henry's law constants for \chem{HBr} and \chem{HCl}}
 
 New values for Henry's law constants were applied to fix the high concentrations seen in \chem{HBr}. The values were taken from \cite{dean1999}:
 
@@ -162,11 +164,21 @@ New values for Henry's law constants were applied to fix the high concentrations
 
 Fin ODE klokka 21 den 29/3! Høye Br og BrO og lav ozon! (fil 88) 
 
+
+\subsubsection{Test at HTWO}
+
+This was with both hard-coded photodissosiation rates and higher Henry coefficient C3RUN\_BE\_HTWO\_HX\_HDP\_MarchApril
+
 \section{Comparison between the PD- and PI-branches}
 
 \section{Comparison with station data}
 
 \section{Comparison with literature}
+
+\cite{Zhao2016} measured BrO column at Eureka in 2011 -- SJekk ut! 
+
+
+\cite{Peterson2016} and \cite{Peterson2015} -- BrO over Barrow -- sjekk ut! 
 
 Measurements of $\chem{Br_2}$, \chem{BrCl} and $\chem{O_3}$ were conducted by \cite{Foster2001} at Alert research station. They found $\chem{Br_2}$ mixing ratios up to $\sim$ 25 \acrshort{ppt} and \chem{BrCl} at mixing ratios up to 35 \acrshort{ppt} between day 40 and 75 in 2001. Ozone was depleted from background values of $\sim$ 30-40 \acrshort{ppb} to below 10 ppb. 
 

@@ -65,7 +65,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% Citations  %%%
-\usepackage[backend=biber, minbibnames=40, style=authoryear,]{biblatex}
+\usepackage[backend=biber, minbibnames=40, maxcitenames=1, style=authoryear,]{biblatex}
 \renewcommand*{\nameyeardelim}{\addcomma\space}
 
 
