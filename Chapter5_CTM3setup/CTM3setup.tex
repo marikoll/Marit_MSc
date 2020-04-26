@@ -1,7 +1,7 @@
 \setcounter{chapter}{6}
 \chapter{Alteration made in the Oslo CTM3}\label{chap:CTM3_Setup}
 
-This chapter describes the setup and altered modules of the Oslo CTM3. 
+This chapter describes the setup and altered modules of the Oslo CTM3. The altered modules that are connected to the theory outlined in Chapter \ref{Chap:CTM3theory_ocean_hetReact} is presented here, whereas many of the technical aspects of setting up the Oslo CTM3 can be found in the appendix. 
 
 \section{Setup of The Model}
 
@@ -10,6 +10,10 @@ A degraded resolution was used for the runs in the CTM3. In the \texttt{Makefile
 \medskip
 
 The stratosphere was turned off in all the branches in order to save CPU time and to avoid conflict with the organic bromide sources (see Section \ref{sec:oceanic_emissions}). How this was performed is explained in Appendix \ref{app:turning_off_the_stratosphere}. 
+
+\medskip
+
+Pre-industrial runs were performed both with the original- and altered CTM3. To perform PI-runs, the methane field was scaled down to PI-values. This process is explained in Appendix \ref{app:PI_run}.
 
 \input{Chapter5_CTM3setup/images/resolution_map}
 

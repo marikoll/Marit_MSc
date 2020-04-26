@@ -11,6 +11,10 @@ The Oslo CTM3 is a three-dimensional global chemical transport model. The model 
 
 The tropospheric chemistry in the CTM3 is a stand-alone module, while the stratosphere module requires the troposphere. Thus, there is a possibility of turning off the stratosphere to better isolate chemical processes occurring in the troposphere. In that case, the tropospheric species that are advected throughout the stratosphere are allowed to do so, but are not affected by any real chemistry. The species that are photolyzed in the stratosphere are instead set to decay at fixed rates, and species that have stratospheric origin (such as ozone and $\chem{NO_x}$) are set to model climatological values (climatological values produced by the CTM3 with stratosphere) (\cite{Sovde2012}).
 
+\section{Transport of Species}\label{sec:CTM3_transport}
+
+The transport time step in the Oslo CTM3 is usually 15 minutes for boundary layer mixing. For species with a much shorter lifetime with this, the concentration may change during the time step. The transport scheme in the CTM3 is therefore divided into transported- and non-transported species (\cite{SovdeManual}).
+
 \medskip
 
 The advection scheme in Oslo CTM3 is the UCI CTM transport core documented by \cite{Prather2008}. This is a 3D isotropic (same second order moment in all directions) advection scheme, where the zonal (U) and meridional (V) metereological fields are used to calculate the vertical field (W). An important feature of the advection scheme is the handling of the transport at the poles. Each polar-"pie" box is combined with it's adjacent lower-latitude box (which conserves all moments) before [U] and [V] transport and restored to individual boxes afterwards, assuming unchanged polar pie air mass (\cite{Sovde2012}). 
