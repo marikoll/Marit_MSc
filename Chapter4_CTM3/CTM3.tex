@@ -1,4 +1,4 @@
-\setcounter{chapter}{5}
+\setcounter{chapter}{3}
 \chapter{Theoretical Background: Oslo CTM3}\label{chapt:OsloCTM3}
 
 This chapter covers some of the functionality of the Oslo CTM3 that is of importance in the implementation of the halogen chemistry (Theory outlined in Chapter \ref{Chap:CTM3theory_ocean_hetReact} and the implementation process outlined in Chapter \ref{chap:CTM3_Setup}).
@@ -28,11 +28,11 @@ The photodissocation rates (J-values) in $[s^{-1}]$ are calculated online using 
 
 When only treating the troposphere, 20 photodissociation rates are calculated, whereas if the stratosphere is included, 51 rates are calculated. This is set automatically in \texttt{cmn\_size.F90} by the variable \texttt{JPPJ}. The reactions with photodissiciation rates associated to them are listed in \texttt{ratj\_oc.d}. 
 
-\section{Solutions of chemical ordinary differential equations}
+\section{Solutions to Chemical Ordinary Differential Equations}
 
 Modelling of the chemical processes in the atmosphere includes solving chemical ordinary differential equations. The method must have the ability to solve a system of equations with large variations in time constants, i.e. the lifetimes of species. A system such as this is known as a stiff system, and the difference in time constants leads to time-step limitations (\cite{AtmModFund}). In the Oslo CTM3, two approaches has been combined to solve these problems, which are the \acrfull{qssa} and the Family solution, which are in the following subsections. 
 
-\subsection{QSSA-integrator}\label{sec:QSSA}
+\subsection{QSSA-Integrator}\label{sec:QSSA}
 
 The \acrshort{qssa} is a method that has the ability to solve a stiff system. It is mathematically quite simple, but has error bounds that are hard to estimate. However, in a global model like the CTM3, the use of a simple approach is necessary as it is computationally cheap, and efficient (\cite{Hesstvedt1978}). 
 
@@ -74,7 +74,7 @@ In which $C_{e} = P/L$ is the photochemical equilibrium concentration. The chara
 
 To obtain satisfactory accuracy with the QSSA method, it is important to use the correct category. Photochemical equilibrium can only be assumed when the lifetime of a given compound is much shorter than the time step (category (i)). If this is not the case, an exponential expression must be applied (category (ii)) (\cite{Hesstvedt1978}). The QSSA scheme is useful and accurate enough for applications in which calculations has to be repeated many times, but can only  be considered mass-conserving for long-lived species (\cite{AtmModFund}). 
 
-\subsection{Family solution to ordinary differential equations}\label{sec:families}
+\subsection{Family Solution to Ordinary Differential Equations}\label{sec:families}
 
 Some groups of gases (families) exist that has atoms transferring quickly among them, but are only slowly lost from the actual family. To obtain a numerically stable solution, it is more beneficial to integrate a family of components as the family is more stable than the members of it. An example of a family is the odd oxygen family which includes: 
 
@@ -104,7 +104,7 @@ And the following families (among others) in the stratosphere:
 The advantage of using families is that is a fast method, and reasonably accurate for moderate- to low stiffness systems. However, the families needs to be carefully designed and validated and the accuracy of the method decreases with increased stiffness (\cite{AtmModFund}).
 
 
-\subsection{O3-NO variable}\label{sec:O3-NO}
+\subsection{O3-NO Variable}\label{sec:O3-NO}
 
 The strong coupling between the Reactions \ref{rqn:ozone}, \ref{rqn:no2hv} and:
 

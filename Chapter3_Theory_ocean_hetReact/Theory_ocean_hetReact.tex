@@ -1,4 +1,4 @@
-\setcounter{chapter}{4} 
+\setcounter{chapter}{2} 
 \chapter{Theoretical Background: Processes Implemented in the CTM3}\label{Chap:CTM3theory_ocean_hetReact}
 
 Some of the processes that are implemented in the Oslo CTM3 requires some further explanation. This chapter covers the theory behind the implementation of emissions of organic halogen species and the heterogeneous reaction surfaces. These processes are essential to achieve the \acrfull{be} episodes causing the \acrfull{ode}s in the polar tropospheric boundary layer (theory covered in Chapter \ref{ch:theoretical_back}).
@@ -56,7 +56,7 @@ This is used in the scaling factor, $f$:
 Emissions are then found according to their latitudinal band, and whether the grid box is located over ocean or the coast (for more information about the actual implementation, see Section \ref{sec:tropchem_oslo}). If the location is above 50 $^o$ North over ocean, for example, the emission is taken to be $0.05\times10^{-13}$ kgm$^{-2}$s$^{-1}\times f$. (The conversion to molecules cm$^{-3}$s$^{-1}$ can be seen in Section \ref{sec:tropchem_oslo}). 
 
 
-\subsection{Emission inventory}
+\subsection{Emission Inventory}
 
 The emission inventory of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ by \cite{Liang2010} was compared against observations and other emission inventories by \cite{Hossaini2013}. The results can be seen in Figures \ref{fig:Hosaini_fig5} and \ref{fig:Hosaini_fig6} in the Appendix. They show a reasonable agreement between the observations and mixing ratios suggested by \cite{Liang2010} for the stations \acrfull{alt}, \acrfull{brw} and Summit (SUM), which are of most relevance in this setting. The inventory, however, is rather simplified as it does not take into account seasonality and agreement with observations outside the polar regions. 
 
@@ -156,7 +156,7 @@ Similarly, there exists a high-pressure limit:
 In which $k_\infty^{300}$ is an estimate of the high-pressure limiting rate constant at 300 K. $m$ is the estimated temperature dependence at the high-pressure limit (for more information, see \cite{JPL}). The high-pressure rate constant is of second order and has units $cm^3\text{molecule}^{-1}s^{-1}$ (\cite{AtmModFund}).
 
 
-\subsection{Photochemical reactions}\label{sec:pchem_reactions}
+\subsection{Photochemical Reactions}\label{sec:pchem_reactions}
 
 Photochemical reactions are unimolecular (one-body), i.e. a molecule is hit by a single photon of radiation and breaks into two or more products (\cite{AtmModFund}):
 
@@ -289,7 +289,7 @@ $\beta$ is the ratio of the total reactive surface (induced by the structure of 
 
 
 
-\section{Wet deposition and Henry's law}\label{sec:wet_dep_henrys_law}
+\section{Wet Deposition and Henry's Law}\label{sec:wet_dep_henrys_law}
 
 Wet deposition is the process in which chemicals are scavenged out out the atmosphere by the means of rain, snow or cloud and fog droplets (collectively denoted as hydrometeors) and subsequently deposited on the Earth's surface. In order for wet deposition to occur, the gas or aerosol species must be in the presence of condensed water, get scavenged by a hydrometeor, and finally get deposited at the surface (\cite{SeinfeldSpyros}). 
 
@@ -335,4 +335,38 @@ In which $\Delta_{sol}H$ is the change in enthalpy of dissolution ($H$ in this c
 \medskip
 
 The Henry's law constants implemented in the CTM3 are presented in Section \ref{sec:scav_wet} in Table \ref{tab:Henrys_law}. 
+
+Henrys law coefficient for any gas is defined as 
+$P(gas) = K_H*X$ 
+where P(gas) is the partial pressure of the gas above the solution and X is the molar fraction of the dissolved gas in the solution: 
+
+$X = n_aq /( n_aq + n_solvent)$
+
+Re-writing to concentration (dividing by volume of solution) we have: 
+
+$X = C_aq /( C_aq + C_solvent)$
+
+and since we always have $C_ap << C_solvent$, this can be approximated
+
+$X = C_aq/C_solvent$
+
+Since the concentration of the solvent (water) is approximately constant, we arrive at the other common form of Henrys law
+
+$P(gas) = k*C_aq$
+
+Units: $k [atm*L(solvent)/mol, P(gas) [atm]$
+
+If k is high, it means the component prefers thermodynamically to be dissolved in the liquid phase
+
+We are interested in calculating $C_aq$ from $P(gas)$ so we introduce
+$HSTAR = 1/k [mol/(atm*L(solvent))]$
+
+so that $C_aq = HSTAR *P(gas)$
+
+
+If we want to apply the concentrations to molar concentration (mol/L) so we change some units: 
+$P(gas) = C_g *R*T$
+
+$J = kg m2/s2 = Pa m3$
+$R = 8.314151 [J/(mol*K)/101325 Pa/atm*1000 L/m3] = 0.0820578 [atm*L/(mol*K)]$
 

@@ -1,7 +1,7 @@
-\setcounter{chapter}{6}
+\setcounter{chapter}{4}
 \chapter{Alteration made in the Oslo CTM3}\label{chap:CTM3_Setup}
 
-This chapter describes the setup and altered modules of the Oslo CTM3. The altered modules that are connected to the theory outlined in Chapter \ref{Chap:CTM3theory_ocean_hetReact} is presented here, whereas many of the technical aspects of setting up the Oslo CTM3 can be found in the appendix. 
+This chapter describes the setup and altered modules of the Oslo CTM3 (for general information concerning the CTM3, see Chapter \ref{chapt:OsloCTM3}). The altered modules that are connected to the theory outlined in Chapter \ref{Chap:CTM3theory_ocean_hetReact} is presented here, whereas many of the technical aspects of setting up the Oslo CTM3 can be found in the appendix. 
 
 \section{Setup of The Model}
 
@@ -23,14 +23,14 @@ Pre-industrial runs were performed both with the original- and altered CTM3. To 
 To run the CTM3, a supercomputer is required. At the beginning of my master thesis the supercomputer Abel (\cite{abel}) was used. In January 2020, Abel was shut down and the Oslo CTM3 migrated to Saga (\cite{saga}). There are some differences between the two  and these differences as well as the setup of the model runs are explained in Appendix \ref{app:supercomputer}. 
 
 
-\section{Wet deposition - \texttt{scavenging\_wet.inp}}\label{sec:scav_wet}
+\section{Wet Deposition - \texttt{scavenging\_wet.inp}}\label{sec:scav_wet}
 
 Wet scavenging rates for \chem{HCl}, \chem{HBr} and $\chem{ClONO_2}$ were added to the wet deposition input table \texttt{scavenging\_wet.inp}. The Henry's law constants are listed in Table \ref{tab:Henrys_law} and the wet deposition and Henry's law is explained in Section \ref{sec:wet_dep_henrys_law}. 
 
 \input{Chapter5_CTM3setup/henrys_law}
 
 
-\section{Implementation of halogen chemistry}
+\section{Implementation of Halogen Chemistry}
 
 In essence, three modules were changed to implement the halogen chemistry. They were \texttt{pchemc\_ij.f90}, \texttt{tropchem\_oslo.f90} and \texttt{chem\_oslo\_rates.f90}. The base for the scripting is the work performed by \cite{Susanne}, which I have continued to alter.  The reactions that were implemented in the various modules can be seen in Table \ref{tab:3}.
 
@@ -66,7 +66,7 @@ end if
 The photolysis rates of $\chem{HOBr}$, $\chem{BrO}$ and $\chem{CH_3Br}$ were already included in \texttt{ratj\_oc.d} and could be declared directly. The photolysis rates of \chem{BrCl} and $\chem{Br_2}$ were set constant as 0.1 $s^{-1}$ as long as the photolysis rate of ozone was higher than 0 (i.e. daylight present)
 
 
-\subsection{Halogen families}\label{sec:halogen_families_BryClxCly}
+\subsection{Halogen Families}\label{sec:halogen_families_BryClxCly}
 
 The halogen chemistry were implemented using the method of families described in Section \ref{sec:families}. The $\chem{Br_y}$-family is the same as the that already was implemented in the CTM3 for the stratosphere, but the $\chem{Cl_x}$- and $\chem{Cl_y}$-families differ. The families were adapted from the family-solutions in the stratosphere (\texttt{pchemc\_str\_ij\_.f90}. 
  
@@ -81,10 +81,10 @@ An iterative scaling is applied before and after the QSSA-calculation
 
 
 
-\subsection{Ozone loss}
+\subsection{Ozone Loss}
 
 
-The loss in $\chem{O_3}$ was added assuming a low-$\chem{NO_x}$ regime explained in Section \ref{sec:O3-NO}.
+The loss in $\chem{O_3}$ was added assuming a low-$\chem{NO_x}$ regime explained in Section \ref{sec:O3-NO}. The reactions leading to ozone production or loss was therefore implemented using the low-$\chem{NO_x}$ regime when integrated.
 
 \subsection{Changes in \texttt{tropchem\_oslo.f90}:}\label{sec:tropchem_oslo}
 
@@ -103,7 +103,7 @@ In the \texttt{I}-direction, \texttt{I} loops from \texttt{MPBLKIB} to \texttt{M
 The modification to the subroutine has led to the following: 
 
 
-\subsubsection{Oceanic emissions of $\chem{CH_2Br_2}$ and $\chem{CHBr_3}$}\label{sec:impl_ocean_source}
+\subsubsection{Oceanic Emissions of $\chem{CH_2Br_2}$ and $\chem{CHBr_3}$}\label{sec:impl_ocean_source}
 
 The addition of an organic bromine ($\chem{CH_2Br_2}$ and $\chem{CHBr_3}$) source from the ocean and coastlines based on the findings of \cite{Liang2010} (see Figure \ref{fig:Liang2010}). For more information concerning the organic halogens and the use of Liangs emission inventory, see Section \ref{sec:oceanic_emissions}.
 
@@ -224,7 +224,7 @@ The temperature- and pressure dependent reaction rates for the troposphere are c
 
 The temperature- and pressure dependent heterogeneous reaction rates (Reactions \ref{R:8} and \ref{R:13}) were also calculated in this subroutine, using the method by \cite{CAO} (See Section \ref{sec:aerosol_react})
 
-\subsubsection{Heterogeneous aerosol reactions}\label{sec:het_aerosol_react_CTM3}
+\subsubsection{Heterogeneous Aerosol Reactions}\label{sec:het_aerosol_react_CTM3}
 
 The heterogeneous reaction set for Reactions \ref{R:13} and \ref{R:8} (process described in Section \ref{sec:aerosol_react}) were implemented in the subroutine \texttt{TCRATE\_TP\_IJ\_TRP}. The implementation of Reaction \ref{R:8} was treated differently from Reaction \ref{R:13} as the uptake coefficient for the hydrolysis of $\chem{BrONO_2}$ was parameterized as $\gamma = 0.06$ as can be seen from the code below. 
 

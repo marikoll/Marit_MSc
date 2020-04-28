@@ -1,4 +1,4 @@
-\setcounter{chapter}{7}
+\setcounter{chapter}{5}
 \chapter{Results}\label{chap:results}
 
 Tentative layout: 
@@ -16,12 +16,16 @@ Figure \ref{fig:CompObsOrigBE} shows results in terms of $\chem{O_3}$-concentrat
 
 \medskip
 
+To verify the results, I have used the measurements of $\chem{O_3}$ and \chem{HBr} available (see Appendix \ref{app:ebas_noaa_data}), as well as \chem{BrO} measurements from literature for comparison. Ozone is used as a proxy as it was reproducability of the ODEs seen in measurements I was interested in. The \chem{HBr} measurements should in theory correspond to elevated concentrations after an ODE according to the box-model results by \cite{CAO}. Finally, \chem{BrO}-concentrations should be anti-correlated with the depletion of ozone (\cite{barrie}). 
+
+\medskip
+
 Branch \ref{def:BE_PD} produces very low concentrations of $\chem{O_3}$, as can be seen from Figure \ref{fig:CompObsOrigBE}. It does not capture the ozone depletion events that can be seen for instance at Alert around the 9th of April. The original CTM3 branch produced $\chem{O_3}$ concentrations more comparable to observations, although without distinct bromine explosion events. 
 
 \input{Chapter6_Results/images/ozone_2001_compObsOrigBE}
 
 
-\section{Test: Removing Heterogeneous Reactions}
+\subsection{Test: Removing Heterogeneous Reactions}
 
 Figure \ref{fig:test_RemoveHetReacts} shows results in terms of $\chem{O_3}$-concentration from attempting to turn off different heterogeneous reactions, namely snow/ice reactions (described in Section \ref{sec:snow_ice_react}), heterogeneous reactions over aerosol surfaces (described in Section \ref{sec:aerosol_react}) as well as heterogeneous reactions involving chlorine and bromine, respectively. The runs were initiated with the same restart file (spin-up) as Branch \ref{def:BE_PD}. For this purpose, four new branches were created (for a full overview of the branches, see Table \ref{tab:branches}). These were:
 
@@ -75,7 +79,9 @@ As the inclusion of $\chem{ClONO2}$ (Reaction \ref{R:clono2}) function purely as
 
 \input{Chapter6_Results/images/ozone_2001_newClyIntegration}
 
-\subsection{Development of Branch \ref{def:BE_PD_noCl}}
+\subsection{Development of Branch \ref{def:BE_PD_noCl} Without Heterogeneous Chlorine Reactions}
+
+
 
 \subsubsection{Changing $L_{mix}$ in Reaction \ref{R:7}}
 
