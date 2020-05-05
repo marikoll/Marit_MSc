@@ -59,7 +59,7 @@ Figure \ref{fig:test_RemoveHetReacts} shows results in terms of $\chem{O_3}$-con
 
 \medskip
 
-Figure \ref{fig:vertHBr_noCl} shows the vertical column above the Alert, Barrow, Summit and Zeppelin of the mixing ratio of \chem{HBr}. The mixing ratio is on the order $10^{-15} \sim 0.001$ ppt. Seen in relation with Figure \ref{fig:polarHBr_noCl}, the concentration in the lowest layer across the Arctic is on the order of $10^{-10} - 10^{-11} g m^{-3}$
+Figure \ref{fig:vertHBr_noCl} shows the vertical column above the Alert, Barrow, Summit and Zeppelin of the mixing ratio of \chem{HBr}. The mixing ratio is on the order $10^{-15} \sim 0.001$ ppt. The vertical distribution appears to be constrained with higher concentration in the lower layers at Alert, whilst increasing with altitude at Zeppelin. Seen in relation with Figure \ref{fig:polarHBr_noCl}, the concentration in the lowest layer across the Arctic is on the order of $10^{-10} - 10^{-11} g m^{-3}$
 
 \medskip
 
@@ -100,12 +100,20 @@ In Figure \ref{fig:polarBrO_noCl}, the vertical column density for the lowermost
 
 \subsubsection{Initializing Branch \ref{def:BE_PD_noCl} With a Higher \chem{HBr} Concentration}
 
+In order to boost the concentration of \chem{HBr}, the concentration was hard-coded to 30 ppt ($= 8.059\cdot10^8 \text{molecules}cm^{-3}$ at $273.15 K$) and 10 ppt ($= 2.69\cdot10^8 \text{molecules}cm^{-3}$ at $273.15 K$), respectively, in the first sub-timestep of \texttt{pchemc\_ij.f90}. Further, a run initialized with a restart file from the 10 ppt run was performed in which the hard-coded concentration of \chem{HBr} was removed.
+
+\medskip
+
 Figure \ref{fig:ozone_noCl_step2} contains results from different attempts to boost the \chem{HBr}-concentration, to see the effect on ozone depletion. The first test, in which the concentration of \chem{HBr} was constantly boosted by hard-coding to maintain 30 ppt (green line), results in mixing ratios of $\chem{O_3}$ comparable to the original CTM3-branch (blue line). In the second test, the \chem{HBr}-concentration was hard-coded to 10 ppt (light green line), which results in concentrations more comparable to the measurements. Lastly, the test in which the run was initiated with a restart file from the previous hard-coded test (\chem{HBr} concentration of 10 ppt) (yellow line) also maintains concentrations comparable in magnitude with the observations. All these tests were ran for a short amount of time. 
 
 
 \medskip
 
-Figure \ref{fig:vertHBr_newRestart} contains the resulting \chem{HBr}-column above Alert, Barrow, Summit and Zeppelin up to approximately $600 hPa$. The mixing ratio is on the order of $25 - 250$ ppt maximum. 
+Figure \ref{fig:vertHBr_newRestart} contains the resulting \chem{HBr}-column above Alert, Barrow, Summit and Zeppelin up to approximately $600 hPa$. The mixing ratio is on the order of $25 - 250$ ppt maximum. The higher concentrations appear to be constrained to the lower layers of the troposphere to various extents. In the lowest layer, Figure \ref{fig:polarHBr_newRestart} shows that the concentrations are on the order of $7.5\cdot10^{-7} - 1.5\cdot10^{-6} gm^{-3}$. 
+
+\medskip
+
+The polar \chem{BrO}-column depicted in Figure \ref{fig:polarBro_newRestart} shows a \acrshort{vcd} on the order of $10^6 \text{molecules } cm^{-2}$. 
 
 \input{Chapter6_Results/images/ozone_noCl_step2}
 
@@ -117,13 +125,14 @@ Figure \ref{fig:vertHBr_newRestart} contains the resulting \chem{HBr}-column abo
 
 
 
-\subsubsection{Changing $L_{mix}$ in Reaction \ref{R:7}}
 
-The boundary layer height, $L_{mix}$ and deposition velocity, $v_d$ in the preliminary runs had values listed in Section \ref{sec:impl_multiphase_react}. In an attempt to "kick-start" the bromine explosions $L_{mix}$ was lowered (And corresponding $v_d$ increased) in the \texttt{marikoll\_bromine\_explosion\_noHetChlorine}- branch. 
+%\subsubsection{Changing $L_{mix}$ in Reaction \ref{R:7}}
 
-\medskip
+%The boundary layer height, $L_{mix}$ and deposition velocity, $v_d$ in the preliminary runs had values listed in Section \ref{sec:impl_multiphase_react}. In an attempt to "kick-start" the bromine explosions $L_{mix}$ was lowered (And corresponding $v_d$ increased) in the \texttt{marikoll\_bromine\_explosion\_noHetChlorine}- branch. 
 
-The first test was executed with $L_{mix} = 25 m$ and $v_d = 0.00824 m/s$. This boundary layer height was chosen due to the height of the second model layer height $995.86 hPa$, with is about $23 m$ higher than the first model layer height at $998.82 hPa$. The low level was chosen to make sure the bromine explosion would indeed occur. This test caused too much bromine explosion for the model to complete the run. $L_{mix}$ was then lowered to $L_{mix} = 100 m$ with $v_d = 0.00667 m/s$. 
+%\medskip
+
+%The first test was executed with $L_{mix} = 25 m$ and $v_d = 0.00824 m/s$. This boundary layer height was chosen due to the height of the second model layer height $995.86 hPa$, with is about $23 m$ higher than the first model layer height at $998.82 hPa$. The low level was chosen to make sure the bromine explosion would indeed occur. This test caused too much bromine explosion for the model to complete the run. $L_{mix}$ was then lowered to $L_{mix} = 100 m$ with $v_d = 0.00667 m/s$. 
 
 %\subsubsection{Lmix = 200}
 
@@ -131,16 +140,15 @@ The first test was executed with $L_{mix} = 25 m$ and $v_d = 0.00824 m/s$. This 
 
 %\subsubsection{Lmix = 100 After Fix}
 
-The weighing of Reaction \ref{R:7} was removed (in \texttt{pchemc\_ij.f90}). It was initially weighted with $0.5$ assuming half of the \chem{HOBr} was reacting with \chem{Br} and half with \chem{Cl}, but was removed as the heterogeneous reactions involving \chem{Cl} were removed. Also, $\chem{Br_2}$ was added to the debugging-scaling in \texttt{pchemc\_ij.f90}
+%The weighing of Reaction \ref{R:7} was removed (in \texttt{pchemc\_ij.f90}). It was initially weighted with $0.5$ assuming half of the \chem{HOBr} was reacting with \chem{Br} and half with \chem{Cl}, but was removed as the heterogeneous reactions involving \chem{Cl} were removed. Also, $\chem{Br_2}$ was added to the debugging-scaling in \texttt{pchemc\_ij.f90}
 
 %\subsubsection{Lmix = 100, \chem{HBr} Adjusted to 30 ppt}
 
-In order to boost the concentration of \chem{HBr}, the concentration was hard-coded to 30 ppt ($= 8.059 \text{molecules}cm^{-3}$ at $273.15 K$) in the first sub-timestep of \texttt{pchemc\_ij.f90}. This worked in the test-run
+%In order to boost the concentration of \chem{HBr}, the concentration was hard-coded to 30 ppt ($= 8.059 \text{molecules}cm^{-3}$ at $273.15 K$) in the first sub-timestep of \texttt{pchemc\_ij.f90}. This worked in the test-run
 
 
 %\subsubsection{Lmix = 200, \chem{HBr} Adjusted to 10 ppt}
 
-A test-run of this managed to maintain 10 ppt - concentrations of \chem{HBr}, but longer runs crashed. Because the 10 ppt was maintained, a restart file was kept from the test-run to boost the concentration in a longer run (without hard-coding of the \chem{HBr} concentration)
 
 
 %\subsubsection{Lmix = 100, with new restart file}
