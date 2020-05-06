@@ -63,7 +63,7 @@ Figure \ref{fig:vertHBr_noCl} shows the vertical column above the Alert, Barrow,
 
 \medskip
 
-In Figure \ref{fig:polarBrO_noCl}, the vertical column density for the lowermost $\sim$ 250 m is plotted. The column density is on the order $10^{5} molecules cm^{-2}$
+In Figure \ref{fig:polarBrO_noCl}, the vertical column density for the lowermost $\sim$ 250 m is plotted. The column density is on the order $10^{6}$ molecules cm$^{-2}$
 
 %In the vertical, the corresponding $\chem{Br_y}$ concentrations to Figure \ref{fig:test_RemoveHetReacts} are shown in Figures \ref{fig:vert_noAer_bry_2001}-\ref{fig:vert_noBr_bry_2001} for the four new branches, Branch \ref{def:BE_PD_noAerosol}-\ref{def:BE_PD_noBr}, respectively (The $\chem{Br_y}$-family is explained in Section \ref{sec:halogen_families_BryClxCly}). 
 
@@ -98,7 +98,7 @@ In Figure \ref{fig:polarBrO_noCl}, the vertical column density for the lowermost
 
 \subsection{Development of Branch \ref{def:BE_PD_noCl} Without Heterogeneous Chlorine Reactions}
 
-\subsubsection{Initializing Branch \ref{def:BE_PD_noCl} With a Higher \chem{HBr} Concentration}
+\subsubsection{Initializing Branch \ref{def:BE_PD_noCl} With a Higher \chem{HBr} Concentration}\label{sec:step2_result}
 
 In order to boost the concentration of \chem{HBr}, the concentration was hard-coded to 30 ppt ($= 8.059\cdot10^8 \text{molecules}cm^{-3}$ at $273.15 K$) and 10 ppt ($= 2.69\cdot10^8 \text{molecules}cm^{-3}$ at $273.15 K$), respectively, in the first sub-timestep of \texttt{pchemc\_ij.f90}. Further, a run initialized with a restart file from the 10 ppt run was performed in which the hard-coded concentration of \chem{HBr} was removed.
 
@@ -106,25 +106,95 @@ In order to boost the concentration of \chem{HBr}, the concentration was hard-co
 
 Figure \ref{fig:ozone_noCl_step2} contains results from different attempts to boost the \chem{HBr}-concentration, to see the effect on ozone depletion. The first test, in which the concentration of \chem{HBr} was constantly boosted by hard-coding to maintain 30 ppt (green line), results in mixing ratios of $\chem{O_3}$ comparable to the original CTM3-branch (blue line). In the second test, the \chem{HBr}-concentration was hard-coded to 10 ppt (light green line), which results in concentrations more comparable to the measurements. Lastly, the test in which the run was initiated with a restart file from the previous hard-coded test (\chem{HBr} concentration of 10 ppt) (yellow line) also maintains concentrations comparable in magnitude with the observations. All these tests were ran for a short amount of time. 
 
-
-\medskip
-
-Figure \ref{fig:vertHBr_newRestart} contains the resulting \chem{HBr}-column above Alert, Barrow, Summit and Zeppelin up to approximately $600 hPa$. The mixing ratio is on the order of $25 - 250$ ppt maximum. The higher concentrations appear to be constrained to the lower layers of the troposphere to various extents. In the lowest layer, Figure \ref{fig:polarHBr_newRestart} shows that the concentrations are on the order of $7.5\cdot10^{-7} - 1.5\cdot10^{-6} gm^{-3}$. 
-
-\medskip
-
-The polar \chem{BrO}-column depicted in Figure \ref{fig:polarBro_newRestart} shows a \acrshort{vcd} on the order of $10^6 \text{molecules } cm^{-2}$. 
-
 \input{Chapter6_Results/images/ozone_noCl_step2}
+
+\medskip
+
+Figure \ref{fig:vertHBr_newRestart} contains the resulting \chem{HBr}-column above Alert, Barrow, Summit and Zeppelin up to approximately $600$ hPa. The mixing ratio is on the order of $25 - 250$ ppt maximum. The higher concentrations appear to be constrained to the lower layers of the troposphere to various extents. In the lowest layer, Figure \ref{fig:polarHBr_newRestart} shows that the concentrations are on the order of $7.5\times10^{-7} - 1.5\times10^{-6}$gm$^{-3}$. Seen in relation with Figure \ref{fig:polarHOBr_newRestart}, \ref{fig:polarHBr_newRestart} is very anti-correlated. 
+
 
 \input{Chapter6_Results/images/vertHBr_newRestart}
 
 \input{Chapter6_Results/images/polarHBr_newRestart}
 
+\input{Chapter6_Results/images/polarHOBR_newRestart}
+
+\medskip
+
+The polar \chem{BrO}-column depicted in Figure \ref{fig:polarBro_newRestart} shows a \acrshort{vcd} on the order of $10^7 \text{molecules }$ cm$^{-2}$. 
+
+
 \input{Chapter6_Results/images/polarBrO_newRestart}
 
 
+\subsubsection{Hard-Coding Photodissociation and Adjusting the Henry'Law Coefficient}\label{sec:res_HDP_H}
 
+Figure \ref{fig:ozone_2001_step3} contains the modelled results from four new tests, whereas the original CTM3-run and the New Restart run was maintained from the previous section. Firstly, the Hard-coded P test was performed by hard-coding the photodissociation rates in \texttt{pchemc\_ij.f90}. In addition to this, two reactions were added in an attempt to better cycle the \chem{HOBr} and \chem{HBr} to avoid the anti-correlation seen in Figures \ref{fig:polarHBr_newRestart}-\ref{fig:polarHOBr_newRestart}:  
+
+\begin{reaction}
+    \chem{Br_2} + \chem{OH} \rightarrow \chem{HOBr} + \chem{Br}
+    \label{rqn:oh_br2}
+\end{reaction}
+
+
+\begin{reaction}
+    \chem{HBr} + \chem{OH} \rightarrow \chem{H_2O} + \chem{Br}
+    \label{rqn:oh_hbr}
+\end{reaction}
+
+The hard-coded photodissociation rates had not previously calculated for Reactions \ref{R:18}, \ref{R:20} and \ref{R:12}. These were previously set to be solved by the fast-JX method (see Section \ref{sec:CTM3_photochemistry}), but this had not worked. Instead, these were hard-coded as was done previously (by \cite{Susanne}) for Reactions \ref{R:19} and \ref{R:1}. The photodissociation rates were set to: 
+
+\begin{itemize}
+    \item $3\cdot10^{-4} s^{-1}$ for Reaction \ref{R:18} (value from \cite{CAO})
+    \item $0.014 s^{-1}$ for Reaction \ref{R:20}(value from \cite{CAO})
+    \item $0.05\cdot10^{-8} s^{-1}$ for Reaction \ref{R:12} (value from \cite{Papanastasiou2013}, Arctic spring dissociation rate, Figure 2, p. 3022)
+\end{itemize}
+
+
+%Testen viser bedring, men \chem{HBr} er fortsatt altfor høy- for treig våtavsetning? 
+
+In the subsequent tests, the hard-coded photodissociation rates were included. These were concerning the Henry-coefficient (see Section \ref{sec:wet_dep_henrys_law}) which was initially implemented with the wrong units. The New H - low test was performed with: 
+
+
+\begin{itemize}
+    \item \chem{HBr}: $7.2\cdot 10^{-1} [M/amt]$, $6100 K$ (Taken from: \cite{Chameides1992})
+    \item \chem{HCl}: $1.9\cdot10^1 [M/atm]$, $600 K$ (Taken from: \cite{dean1999})
+\end{itemize}
+
+The New H- high test was performed with:  
+
+\begin{itemize}
+    \item \chem{HBr}: $2.5 \cdot 10^{1} [M/amt]$, $370 K$ (Taken from: \cite{dean1999})
+    \item \chem{HCl}: $1.9\cdot10^1 [M/atm]$, $600 K$ (Taken from: \cite{dean1999})
+\end{itemize}
+
+Finally, the latter was tested with a higher resolution (HTWO). 
+
+\medskip
+
+Figure \ref{fig:ozone_2001_step3} shows that the new tests ozone produce a lower mixing ratio than both the original CTM3 and the New Restart-test from the previous section. They also produce lower ozone concentrations at the stations compared to measurements. 
+
+%Fin ODE klokka 21 den 29/3! Høye Br og BrO og lav ozon! (fil 88) 
+
+
+\input{Chapter6_Results/images/ozone_2001_step3}
+
+\medskip
+
+\ref{fig:vertHBr_HFOUR_step3} and \ref{fig:vertHBr_HTWO_step3} contains the vertical column of the \chem{HBr} mixing ratio at \texttt{HFOUR} and \texttt{HTWO} resolution, respectively. The mixing ratio remains around $3\times10^{-10}$ mol mol$^{-1} \sim 300 ppt$ for both the tests. Likewise, Figures \ref{fig:polarHBr_HFOUR_step3}-\ref{fig:polarHBr_HTWO_step3} contains concentrations of \chem{HBr} on the order of $6\times10^{-6} $g m$^{-3}$
+
+\input{Chapter6_Results/images/vertHBr_HFOUR_step3}
+\input{Chapter6_Results/images/vertHBr_HTWO_step3}
+
+\input{Chapter6_Results/images/polarHBr_HFOUR_step3}
+\input{Chapter6_Results/images/polarHBr_HTWO_step3}
+
+\medskip
+
+
+
+\input{Chapter6_Results/images/polarBrO_HFOUR_step3}
+\input{Chapter6_Results/images/polarBrO_HTWO_step3}
 
 %\subsubsection{Changing $L_{mix}$ in Reaction \ref{R:7}}
 
@@ -153,69 +223,34 @@ The polar \chem{BrO}-column depicted in Figure \ref{fig:polarBro_newRestart} sho
 
 %\subsubsection{Lmix = 100, with new restart file}
 
-C3RUN\_BE\_HFOUR\_HBr10ppt\_May
+%C3RUN\_BE\_HFOUR\_HBr10ppt\_May
 
-Figur med HOBr og HBr - antikorrelert. Null effekt på ozon, hot spots med Br, BrO og Br2. 
+%Figur med HOBr og HBr - antikorrelert. Null effekt på ozon, hot spots med Br, BrO og Br2. 
 
-The anticorrelation of \chem{HOBr} and \chem{HBr} indicates that \chem{HOBr} is titrated from the system, leaving hot spots of \chem{HBr}. 
+%The anticorrelation of \chem{HOBr} and \chem{HBr} indicates that \chem{HOBr} is titrated from the system, leaving hot spots of \chem{HBr}. 
 
 %\subsubsection{Lmix = 50, with new restart file}
 
-Still anti-correlation between \chem{HOBr} and \chem{HBr}. Maybe a bit less $\chem{O_3}$? 
+%Still anti-correlation between \chem{HOBr} and \chem{HBr}. Maybe a bit less $\chem{O_3}$? 
 
-vd = 0.0074 
+%vd = 0.0074 
 
-C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix50\_May
+%C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix50\_May
 
-\subsubsection{Lmix = 25, with new restart file}
+%\subsubsection{Lmix = 25, with new restart file}
 
-vd = 0.00824
+%vd = 0.00824
 
-C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix25\_May
-
-
-\subsubsection{Lmix = 100, cycling of \chem{HOBr} and \chem{HBr} and hard-coded photodissociation rates}
-
-C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix100\_ohbr2 - test run with the reaction: 
-
-\begin{reaction}
-    \chem{Br_2} + \chem{OH} \rightarrow \chem{HOBr} + \chem{Br}
-    \label{rqn:oh_br2}
-\end{reaction}
-
-C3RUN\_BE\_HFOUR\_HDP\_MarchMay - long run with the reaction: 
-
-\begin{reaction}
-    \chem{HBr} + \chem{OH} \rightarrow \chem{H_2O} + \chem{Br}
-    \label{rqn:oh_hbr}
-\end{reaction}
-
-As well as hard-coded photodissociation rates as it turned out the rates were not previously calculated for Reactions \ref{R:18}, \ref{R:20} and \ref{R:12}. These were previously set to be solved by the fast-JX method (see Section \ref{sec:CTM3_photochemistry}), but this had not worked. Instead, these were hard-coded as was done previously (by \cite{Susanne}) for Reactions \ref{R:19} and \ref{R:1}. The photodissociation rates were set to: 
-
-\begin{itemize}
-    \item $3\cdot10^{-4} s^{-1}$ for Reaction \ref{R:18} (value from \cite{CAO})
-    \item $0.014 s^{-1}$ for Reaction \ref{R:20}(value from \cite{CAO})
-    \item $0.05\cdot10^{-8} s^{-1}$ for Reaction \ref{R:12} (value from \cite{Papanastasiou2013}, Arctic spring dissociation rate, Figure 2, p. 3022)
-\end{itemize}
+%C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix25\_May
 
 
-Testen viser bedring, men \chem{HBr} er fortsatt altfor høy- for treig våtavsetning? 
+%\subsubsection{Lmix = 100, cycling of \chem{HOBr} and \chem{HBr} and hard-coded photodissociation rates}
 
-\subsubsection{Lmix = 100, new Henry's law constants for \chem{HBr} and \chem{HCl}}\label{sec:new_henrys_law}
+%C3RUN\_BE\_HFOUR\_HBr10ppt\_Lmix100\_ohbr2 - test run with the reaction: 
 
-New values for Henry's law constants were applied to fix the high concentrations seen in \chem{HBr}. The values were taken from \cite{dean1999}:
+%\subsubsection{Test at HTWO}
 
-\begin{itemize}
-    \item \chem{HBr}: $2.5 \cdot 10^{1} [M/amt]$, $370 K$
-    \item \chem{HCl}: $1.9\cdot10^1 [M/atm]$, $600 K$ 
-\end{itemize}
-
-Fin ODE klokka 21 den 29/3! Høye Br og BrO og lav ozon! (fil 88) 
-
-
-\subsubsection{Test at HTWO}
-
-This was with both hard-coded photodissosiation rates and higher Henry coefficient C3RUN\_BE\_HTWO\_HX\_HDP\_MarchApril
+%This was with both hard-coded photodissosiation rates and higher Henry coefficient C3RUN\_BE\_HTWO\_HX\_HDP\_MarchApril
 
 \section{Comparison between the PD- and PI-branches}
 
