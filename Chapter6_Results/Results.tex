@@ -12,7 +12,7 @@ Test-runs are between 14- and 20 (model) days, production runs are 1-3 (model) m
 
 \subsection{A First Look}
 
-Figure \ref{fig:CompObsOrigBE} shows results in terms of $\chem{O_3}$-concentration from preliminary model runs with the chemistry described in Chapter \ref{Chap:CTM3theory_ocean_hetReact} and the branches listed in Section \ref{sec:code_availability}. 
+Figure \ref{fig:CompObsOrigBE} shows results in terms of $\chem{O_3}$-concentration from preliminary model runs with the chemistry described in Chapter \ref{Chap:CTM3theory_ocean_hetReact} and the branches listed in Section \ref{sec:code_availability}. The model runs were compared to the station measurements available for 2001, which were Alert (210 m.a.s.l., therefore ground level was plotted), Barrow (11 m.a.s.l., therefore ground level was plotted), Summit (3238 m.a.s.l., therefore pressure level at 787.23 hPa was plotted) and Zeppelin (474 m.a.s.l., therefore pressure level at 966.35 hPa was plotted). 
 
 \medskip
 
@@ -96,9 +96,9 @@ In Figure \ref{fig:polarBrO_noCl}, the vertical column density for the lowermost
 
 %\input{Chapter6_Results/images/ozone_2001_newClyIntegration}
 
-\subsection{Development of Branch \ref{def:BE_PD_noCl} Without Heterogeneous Chlorine Reactions}
+\subsection{Development of Branch \ref{def:BE_PD_noCl} Without Heterogeneous Chlorine Reactions}\label{sec:res_noHetCl}
 
-\subsubsection{Initializing Branch \ref{def:BE_PD_noCl} With a Higher \chem{HBr} Concentration}\label{sec:step2_result}
+\subsubsection{Initializing Branch \ref{def:BE_PD_noCl} With a Higher \chem{HBr} Concentration}\label{sec:res_step2}
 
 In order to boost the concentration of \chem{HBr}, the concentration was hard-coded to 30 ppt ($= 8.059\cdot10^8 \text{molecules}cm^{-3}$ at $273.15 K$) and 10 ppt ($= 2.69\cdot10^8 \text{molecules}cm^{-3}$ at $273.15 K$), respectively, in the first sub-timestep of \texttt{pchemc\_ij.f90}. Further, a run initialized with a restart file from the 10 ppt run was performed in which the hard-coded concentration of \chem{HBr} was removed.
 
@@ -127,7 +127,7 @@ The polar \chem{BrO}-column depicted in Figure \ref{fig:polarBro_newRestart} sho
 \input{Chapter6_Results/images/polarBrO_newRestart}
 
 
-\subsubsection{Hard-Coding Photodissociation and Adjusting the Henry'Law Coefficient}\label{sec:res_HDP_H}
+\subsubsection{Hard-Coding Photodissociation and Adjusting the Henry'Law Coefficient}\label{sec:res_step3}
 
 Figure \ref{fig:ozone_2001_step3} contains the modelled results from four new tests, whereas the original CTM3-run and the New Restart run was maintained from the previous section. Firstly, the Hard-coded P test was performed by hard-coding the photodissociation rates in \texttt{pchemc\_ij.f90}. In addition to this, two reactions were added in an attempt to better cycle the \chem{HOBr} and \chem{HBr} to avoid the anti-correlation seen in Figures \ref{fig:polarHBr_newRestart}-\ref{fig:polarHOBr_newRestart}:  
 
@@ -145,9 +145,9 @@ Figure \ref{fig:ozone_2001_step3} contains the modelled results from four new te
 The hard-coded photodissociation rates had not previously calculated for Reactions \ref{R:18}, \ref{R:20} and \ref{R:12}. These were previously set to be solved by the fast-JX method (see Section \ref{sec:CTM3_photochemistry}), but this had not worked. Instead, these were hard-coded as was done previously (by \cite{Susanne}) for Reactions \ref{R:19} and \ref{R:1}. The photodissociation rates were set to: 
 
 \begin{itemize}
-    \item $3\cdot10^{-4} s^{-1}$ for Reaction \ref{R:18} (value from \cite{CAO})
-    \item $0.014 s^{-1}$ for Reaction \ref{R:20}(value from \cite{CAO})
-    \item $0.05\cdot10^{-8} s^{-1}$ for Reaction \ref{R:12} (value from \cite{Papanastasiou2013}, Arctic spring dissociation rate, Figure 2, p. 3022)
+    \item $3\times10^{-4}$ s$^{-1}$ for Reaction \ref{R:18} (value from \cite{CAO})
+    \item $0.014$ s$^{-1}$ for Reaction \ref{R:20}(value from \cite{CAO})
+    \item $0.05\times10^{-8}$ s$^{-1}$ for Reaction \ref{R:12} (value from \cite{Papanastasiou2013}, Arctic spring dissociation rate, Figure 2, p. 3022)
 \end{itemize}
 
 
@@ -181,19 +181,22 @@ Figure \ref{fig:ozone_2001_step3} shows that the new tests ozone produce a lower
 
 \medskip
 
-\ref{fig:vertHBr_HFOUR_step3} and \ref{fig:vertHBr_HTWO_step3} contains the vertical column of the \chem{HBr} mixing ratio at \texttt{HFOUR} and \texttt{HTWO} resolution, respectively. The mixing ratio remains around $3\times10^{-10}$ mol mol$^{-1} \sim 300 ppt$ for both the tests. Likewise, Figures \ref{fig:polarHBr_HFOUR_step3}-\ref{fig:polarHBr_HTWO_step3} contains concentrations of \chem{HBr} on the order of $6\times10^{-6} $g m$^{-3}$
+Figure \ref{fig:vertHBr_HTWO_step3} contains the vertical column of the \chem{HBr} mixing ratio at \texttt{HTWO} resolution. The mixing ratio remains around $3\times10^{-10}$ mol mol$^{-1} \sim 300 ppt$ for both the tests. Likewise, Figure \ref{fig:polarHBr_HTWO_step3} contains concentrations of \chem{HBr} on the order of $6\times10^{-6} $g m$^{-3}$. The concentration of \chem{HOBr} is shown in Figure \ref{fig:polarHOBr_HTWO_step3}. The same anti-correlation is shown between \chem{HBr} and \chem{HOBr} as in the previous section. 
 
-\input{Chapter6_Results/images/vertHBr_HFOUR_step3}
+%\input{Chapter6_Results/images/vertHBr_HFOUR_step3}
 \input{Chapter6_Results/images/vertHBr_HTWO_step3}
 
-\input{Chapter6_Results/images/polarHBr_HFOUR_step3}
+%\input{Chapter6_Results/images/polarHBr_HFOUR_step3}
 \input{Chapter6_Results/images/polarHBr_HTWO_step3}
+
+\input{Chapter6_Results/images/polarHOBr_HTWO_step3}
+
 
 \medskip
 
+The \chem{BrO} \acrshort{vcd} is shown in Figure \ref{fig:polarBrO_HTWO_step3}. The  \acrshort{vcd} now has a maximum of about $3\times10^8$ molecules cm$^{-2}$. 
 
-
-\input{Chapter6_Results/images/polarBrO_HFOUR_step3}
+%\input{Chapter6_Results/images/polarBrO_HFOUR_step3}
 \input{Chapter6_Results/images/polarBrO_HTWO_step3}
 
 %\subsubsection{Changing $L_{mix}$ in Reaction \ref{R:7}}
@@ -252,29 +255,29 @@ Figure \ref{fig:ozone_2001_step3} shows that the new tests ozone produce a lower
 
 %This was with both hard-coded photodissosiation rates and higher Henry coefficient C3RUN\_BE\_HTWO\_HX\_HDP\_MarchApril
 
-\section{Comparison between the PD- and PI-branches}
+%\section{Comparison between the PD- and PI-branches}
 
-\section{Comparison with station data}
+%\section{Comparison with station data}
 
-\section{Comparison with literature}
+%\section{Comparison with literature}
 
-\cite{Zhao2016} measured BrO column at Eureka in 2011 -- SJekk ut! 
+%\cite{Zhao2016} measured BrO column at Eureka in 2011 -- SJekk ut! 
 
 
-\cite{Peterson2016} and \cite{Peterson2015} -- BrO over Barrow -- sjekk ut! 
+%\cite{Peterson2016} and \cite{Peterson2015} -- BrO over Barrow -- sjekk ut! 
 
-Measurements of $\chem{Br_2}$, \chem{BrCl} and $\chem{O_3}$ were conducted by \cite{Foster2001} at Alert research station. They found $\chem{Br_2}$ mixing ratios up to $\sim$ 25 \acrshort{ppt} and \chem{BrCl} at mixing ratios up to 35 \acrshort{ppt} between day 40 and 75 in 2001. Ozone was depleted from background values of $\sim$ 30-40 \acrshort{ppb} to below 10 ppb. 
+%Measurements of $\chem{Br_2}$, \chem{BrCl} and $\chem{O_3}$ were conducted by \cite{Foster2001} at Alert research station. They found $\chem{Br_2}$ mixing ratios up to $\sim$ 25 \acrshort{ppt} and \chem{BrCl} at mixing ratios up to 35 \acrshort{ppt} between day 40 and 75 in 2001. Ozone was depleted from background values of $\sim$ 30-40 \acrshort{ppb} to below 10 ppb. 
 
-\medskip
+%\medskip
 
-\cite{Simpson2017} investigated the \chem{BrO} column using \acrlong{maxdoas} instrumentation near Barrow in 2012.
+%\cite{Simpson2017} investigated the \chem{BrO} column using \acrlong{maxdoas} instrumentation near Barrow in 2012.
 
-\medskip
+%\medskip
 
-\cite{Luo2018} also investigated the \chem{BrO} column using \acrshort{maxdoas} in Ny Ålesund in 2015. 
+%\cite{Luo2018} also investigated the \chem{BrO} column using \acrshort{maxdoas} in Ny Ålesund in 2015. 
 
-\medskip
+%\medskip
 
-\cite{Thomas2012} and \cite{Thomas2011} about the mechanism behind ODEs at Summit, Greenland. 
+%\cite{Thomas2012} and \cite{Thomas2011} about the mechanism behind ODEs at Summit, Greenland. 
 
-\section{Calculation of radiative forcing using PD- and PI model results}
+%\section{Calculation of radiative forcing using PD- and PI model results}

@@ -9,14 +9,87 @@ The Oslo CTM3 is documented by \cite{SovdeManual} and the documentation in the c
 
 \subsection{A First Look}
 
-In Figure \ref{fig:CompObsOrigBE} (in Section \ref{sec:results_code_development}) the ozone observations at Alert, Barrow, Summit and Zeppelin were compared to model results using the original CTM3 branch (Branch \ref{def:origCTM3_PD}) and the bromine explosion branch (Branch \ref{def:BE_PD}). The latter produced far too low $\chem{O_3}$-concentrations. In order to examine the reason why, a test where the different types of heterogeneous reactions were removed was performed. This is explained in the next section. 
+In Figure \ref{fig:CompObsOrigBE} (in Section \ref{sec:results_code_development}) the ozone observations at Alert, Barrow, Summit and Zeppelin were compared to model results using the original CTM3 branch (Branch \ref{def:origCTM3_PD}) and the bromine explosion branch (Branch \ref{def:BE_PD}). The latter produced far too low $\chem{O_3}$-concentrations even though the bromine content was too low to justify the low ozone-concentration (not shown here). In order to examine the reason why, a test where the different types of heterogeneous reactions were removed was performed. This is explained in the next section. 
 
 \subsection{Test: Removing Heterogeneous Reactions}
 
-Branch \ref{def:BE_PD_noAerosol}-\ref{def:BE_PD_noBr} were created as an attempt to see which process may have caused the problems in the initial BE-branch (Branch \ref{def:BE_PD}). The resulting modelled ozone along with ozone measurements are shown in Figure \ref{fig:test_RemoveHetReacts}. This had to be seen in the context of the modelled bromine content as there generally was not enough bromine to create such low values of ozone. 
+Branch \ref{def:BE_PD_noAerosol}-\ref{def:BE_PD_noBr} were created as an attempt to see which process may have caused the problems in the initial BE-branch (Branch \ref{def:BE_PD}). The resulting modelled ozone along with ozone measurements are shown in Figure \ref{fig:test_RemoveHetReacts}. When the heterogeneous reactions over ice surfaces were removed, the resulting modelled ozone content became similar to what was produced originally (by Branch \ref{def:BE_PD}), indicating that the problem had to be elsewhere. The other three branches produced ozone with comparable mixing ratios as the observed ozone content. Branches \ref{def:BE_PD_noAerosol} and \ref{def:BE_PD_noBr} resembles each other concerning the ozone-concentration, whereas Branch \ref{def:BE_PD_noCl} deviates and shows more sign of having some ozone-depletion patterns (e.g. around the 9th of April at Zeppelin). 
+
+\medskip
+
+The branch without heterogeneous chlorine reactions (Branch \ref{def:BE_PD_noCl}) was chosen for further development as this was considered less invasive to the halogen-chemistry than to exclude the heterogeneous bromine chemistry or the heterogeneous aerosol chemistry. 
+
+\medskip
+
+Figures \ref{fig:vertHBr_noCl}-\ref{fig:polarHBr_noCl} shows the mixing ratio in the vertical and the concentration in the Arctic at the first model layer, respectively. Compared to the measurements of filterable bromine, \chem{f-Br}, performed by \cite{barrie}, the concentration shown in Figure \ref{fig:polarHBr_noCl} is too low (see Figure \ref{fig:Barrie_1988} in the Appendix). The same applies for the \chem{BrO} \acrshort{vcd} over the lowermost $\sim 250$ m shown in Figure \ref{fig:polarBrO_noCl}. Compared to the \acrshort{maxdoas}-measurements performed by \cite{Peterson2015} (see Figure \ref{fig:Peterson_2015} in Appendix) these are about a factor of $10^7$ too low. These low concentrations were focused upon in the further development of the branch. 
+%This had to be seen in the context of the modelled bromine content as there generally was not enough bromine to create such low values of ozone. 
 
 
-no chlorine branch chosen because it was less invasive to adjust this, even though the branches without aerosol reactions and het. bromine reactions were much closer to the original in terms of ozone. 
+
+\subsection{Development of Branch \ref{def:BE_PD_noCl} Without Heterogeneous Chlorine Reactions}
+
+
+\subsubsection{Initializing Branch \ref{def:BE_PD_noCl} With a Higher \chem{HBr} Concentration}\label{sec:disc_step2}
+
+Figure \ref{fig:ozone_noCl_step2} contains the resulting ozone mixing ratio at the four different stations with ozone measurements from 2001 after performing the following tests on Branch \ref{def:BE_PD_noCl}: 
+
+\begin{itemize}
+    \item Hard-coding the \chem{HBr}-concentration to being constantly 30 ppt 
+    \item Hard-coding the \chem{HBr}-concentration to being constantly 10 ppt
+    \item Initializing the run with a restart file (spin-up) from the run above (\chem{HBr}-concentration hard-coded to 10 ppt)
+\end{itemize}
+
+The first two tests were performed for the purpose of investigating whether a forced high concentration of \chem{HBr} would have any effect on the content of reactive bromine species and therefore possibly the production of \acrshort{ode}s. From Figure \ref{fig:ozone_noCl_step2} it is clear that the concentration of ozone is affected, with especially the forced 10 ppt-run following the measured $\chem{O_3}$ to a larger extent than before. 
+
+\medskip
+
+The run initialized with a restart file from the 10 ppt-\chem{HBr} concentration run was performed to allow the system to run in a more physical sense (i.e. avoid hard-coding) although containing more bromine. This run generally produced ozone concentrations that were slightly higher than measured. The \chem{HBr}-mixing ratio and concentration seen in Figures \ref{fig:vertHBr_newRestart}-\ref{fig:polarHBr_newRestart}, respectively, show that the content is about an order of magnitude to high compared to what was seen in Figure \ref{fig:Barrie_1988}. Thus, the bromine content has been boosted by the new initialization, but without any clear effects on the ozone concentrations. 
+
+\medskip
+
+The \chem{HBr}- and \chem{HOBr}-concentrations are closely linked and anti-correlated, as can be seen from Figures \ref{fig:polarHBr_newRestart}-\ref{fig:polarHOBr_newRestart}. A hypothesis for this behaviour was that the \chem{HOBr} was titrated from the system, leaving hot spots of \chem{HBr}. The subsequent testing thus included two more reactions (Reactions \ref{rqn:oh_br2} and \ref{rqn:oh_hbr}) in order to cycle these species more efficiently. 
+
+\medskip
+
+The \chem{BrO}-\acrshort{vcd} shown in Figure \ref{fig:polarBro_newRestart} is still about 6 orders of magnitude too low compared to what could be expected from Figure \ref{fig:Peterson_2015}. The areas of elevated \chem{BrO} are, however related to areas of elevated \chem{HOBr} in Figure \ref{fig:polarHOBr_newRestart}, indicating that Reaction \ref{R:7} is indeed working. The low content could then be related to the inefficient cycling of \chem{HOBr}. 
+
+
+\subsubsection{Hard-Coding Photodissociation and Adjusting the Henry'Law Coefficient}\label{sec:disc_step3}
+
+Figure \ref{fig:ozone_2001_step3} contains the modelled results of four new tests, as well as the observational data, the original CTM3 and the last test from the previous section initialized with a \chem{HBr}-concentration of 10 ppt. The new tests included: 
+
+\begin{itemize}
+    \item Hard-coded photodissociation rates (Hard-coded P) as it turned out the photolysis of the following reactions were in fact not working prior to this
+    \begin{itemize}
+        \item $3\times10^{-4}$ s$^{-1}$ for Reaction \ref{R:18} (value from \cite{CAO})
+        \item $0.014$ s$^{-1}$ for Reaction \ref{R:20}(value from \cite{CAO})
+        \item $0.05\times10^{-8}$ s$^{-1}$ for Reaction \ref{R:12} (value from \cite{Papanastasiou2013}, Arctic spring dissociation rate, Figure 2, p. 3022)
+    \end{itemize}
+    The rest of the tests contained this hard-coded rates. 
+    \item A new Henry's law coefficient, as it turned out the previous coefficient I implemented had the wrong unit. The low Henry coefficient refers to:
+    \begin{itemize}
+        \item \chem{HBr}: $7.2\cdot 10^{-1} [M/amt]$, $6100 K$ (Taken from: \cite{Chameides1992})
+    \end{itemize}   
+    \item The high Henry's law coefficient refers to: 
+    \begin{itemize}
+        \item \chem{HBr}: $2.5 \cdot 10^{1} [M/amt]$, $370 K$ (Taken from: \cite{dean1999})
+    \end{itemize}
+    \item The higher Henry's law coefficient was finally kept in my final version of the CTM3, and was therefore used in the \texttt{HTWO}-test
+\end{itemize}
+
+The resulting modelled ozone mixing ratios from these runs are lower than the previous tests, although with variations (as opposed to the first run using Branch \ref{def:BE_PD} in Figure \ref{fig:CompObsOrigBE}). It could be expected that these tests produced lower ozone-concentrations, as especially the photodissociation rates are a key point in the ozone depletion at the point of Arctic spring, causing halogens to become reactive. The change in the Henry's law coefficient was essential as the previous implementation was wrong, but the high- and low coefficient produce quite similar $\chem{O_3}$-mixing ratios. 
+
+\medskip
+
+The mixing ratio of \chem{HBr} in the vertical and the Artcic concentration in Figure \ref{fig:vertHBr_HTWO_step3} and \ref{fig:polarHBr_HTWO_step3}, respectively shows that the \chem{HBr} concentration is still an order of magnitude too high compared to the findings by \cite{barrie} in Figure \ref{fig:Barrie_1988}. Furthermore, the anti-correlation between \chem{HBr} and \chem{HOBr} can still be seen in Figures \ref{fig:polarHBr_HTWO_step3} and \ref{fig:polarHOBr_HTWO_step3}. Thus, \chem{HOBr} is possibly still being titrated from the system. 
+
+\medskip
+
+Figure \ref{fig:polarBrO_HTWO_step3} shows that the \chem{BrO}-\acrshort{vcd} is still about five orders of magnitude lower than what was found by \cite{Peterson2015} (see Figure \ref{fig:Peterson_2015} in the Appendix). Thus, the \acrshort{vcd} has increased compared to the previous tests, but is still not quite the magnitude it should be, compared to litterature. 
+
+\medskip
+
+There are indications of a possible relation between the high \chem{HOBr}-concentrations at Alert and the low ozone mixing ratio seen at the same time period in Figure \ref{fig:ozone_2001_step3}. It can also be seen from \ref{fig:polarBrO_HTWO_step3} that there is an elevated \acrshort{vcd} of \chem{BrO} at Alert in the same.  time-period
 
 
 \section{Future work}
