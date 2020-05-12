@@ -5,24 +5,24 @@ This chapter covers some of the functionality of the Oslo CTM3 that is of import
 
 \section{The Oslo CTM3}
 
-The Oslo CTM3 is a three-dimensional global chemical transport model. The model was developed at the Department of Geosciences at the University of Oslo and later at \acrfull{cicero} (\cite{SovdeManual}). It operates offline driven by historical weather data from the \acrfull{ecmwf} \acrfull{openifs} model. The meteorological data is updated (offline) and stored every 3rd hour. The model spin-up time is 12h starting from an analysis at noon the day before (\cite{Sovde2012}). 
+The Oslo CTM3 is a three-dimensional global chemical transport model. The model was developed at the Department of Geosciences at the University of Oslo and later at \acrfull{cicero} (\cite{SovdeManual}). It operates offline, driven by historical weather data from the \acrfull{ecmwf} \acrfull{openifs} model. The meteorological data is updated (offline) and stored every 3rd hour. The model spin-up time is 12h starting from an analysis at noon the day before (\cite{Sovde2012}). 
 
 \medskip
 
-The tropospheric chemistry in the CTM3 is a stand-alone module, while the stratosphere module requires the troposphere. Thus, there is a possibility of turning off the stratosphere to better isolate chemical processes occurring in the troposphere. In that case, the tropospheric species that are advected throughout the stratosphere are allowed to do so, but are not affected by any real chemistry. The species that are photolyzed in the stratosphere are instead set to decay at fixed rates, and species that have stratospheric origin (such as ozone and $\chem{NO_x}$) are set to model climatological values (climatological values produced by the CTM3 with stratosphere) (\cite{Sovde2012}).
+The tropospheric chemistry in the CTM3 is a stand-alone module, while the stratosphere module requires the troposphere. Thus, there is a possibility of turning off the stratosphere to better isolate chemical processes occurring in the troposphere. In that case, the tropospheric species that are advected throughout the stratosphere are allowed to do so. The species are, however, not affected by any real chemistry but rather parameterized at the top of the troposphere based on their climatology. The species that are photolyzed in the stratosphere are instead set to decay at fixed rates, and species that have stratospheric origin (such as ozone and $\chem{NO_x}$) are set to model climatological values (climatological values produced by the CTM3 with stratosphere) (\cite{Sovde2012}).
 
 \section{Transport of Species}\label{sec:CTM3_transport}
 
-The transport time step in the Oslo CTM3 is usually 15 minutes for boundary layer mixing. For species with a much shorter lifetime with this, the concentration may change during the time step. The transport scheme in the CTM3 is therefore divided into transported- and non-transported species (\cite{SovdeManual}).
+The transport time step in the Oslo CTM3 is usually 15 minutes for boundary layer mixing. For species with a much shorter lifetime than this, the concentration may change during the time step. The transport scheme in the CTM3 is therefore divided into transported- and non-transported species (\cite{SovdeManual}).
 
 \medskip
 
-The advection scheme in Oslo CTM3 is the UCI CTM transport core documented by \cite{Prather2008}. This is a 3D isotropic (same second order moment in all directions) advection scheme, where the zonal (U) and meridional (V) metereological fields are used to calculate the vertical field (W). An important feature of the advection scheme is the handling of the transport at the poles. Each polar-"pie" box is combined with it's adjacent lower-latitude box (which conserves all moments) before [U] and [V] transport and restored to individual boxes afterwards, assuming unchanged polar pie air mass (\cite{Sovde2012}). 
+The advection scheme in Oslo CTM3 is the UCI CTM transport core documented by \cite{Prather2008}. This is a 3D isotropic (same second order moment in all directions) advection scheme, where the zonal (U) and meridional (V) metereological fields are used to calculate the vertical field (W). An important feature of the advection scheme is the handling of the transport at the poles. Each polar-"pie" box is combined with its adjacent lower-latitude box (which conserves all moments) before [U] and [V] transport and restored to individual boxes afterwards, assuming unchanged polar pie air mass (\cite{Sovde2012}). 
 
 
 \section{Photochemistry}\label{sec:CTM3_photochemistry}
 
-The photodissocation rates (J-values) in $[s^{-1}]$ are calculated online using the fast-JX method, version 6.7c (\cite{FastJX}, \cite{SovdeManual}). The method calculates the photolysis rates (\texttt{J}-values) in the troposphere and the stratosphere from the surface to 60 km (\cite{Sovde2012}). 
+The photodissocation rates (J-values) in $[s^{-1}]$ are calculated online using the fast-JX method, version 6.7c (\cite{FastJX}, \cite{SovdeManual}). The method calculates the photolysis rates (\texttt{J}-values) in the troposphere and the stratosphere from the surface up to 60 km altitude (\cite{Sovde2012}). 
 
 \medskip
 
@@ -34,7 +34,7 @@ Modelling of the chemical processes in the atmosphere includes solving chemical 
 
 \subsection{QSSA-Integrator}\label{sec:QSSA}
 
-The \acrshort{qssa} is a method that has the ability to solve a stiff system. It is mathematically quite simple, but has error bounds that are hard to estimate. However, in a global model like the CTM3, the use of a simple approach is necessary as it is computationally cheap, and efficient (\cite{Hesstvedt1978}). 
+The \acrshort{qssa} is a method that has the ability to solve a stiff system. It is mathematically quite simple, but has error bounds that are hard to estimate. However, in a global model like the CTM3, the use of a simple approach is necessary as it is computationally cheap and efficient (\cite{Hesstvedt1978}). 
 
 \medskip
 
@@ -59,13 +59,13 @@ In which $P$ and $LC$ are the photochemical production and loss terms, respectiv
 In which $C_{e} = P/L$ is the photochemical equilibrium concentration. The characteristic time of variation (or photochemical lifetime) is defined as $\tau = 1/L$. According to $\tau$, the components in the system may be defined in the following three categories: 
 
 \begin{enumerate}[label=(\roman*)]
-    \item If $\tau < \Delta t/10$, the species' lifetime is considered short, and it's concentration is calculated with the steady-state equation (assuming instant equilibrium with any other species):
+    \item If $\tau < \Delta t/10$, the species' lifetime is considered short, and its concentration is calculated with the steady-state equation (assuming instant equilibrium with any other species):
     \begin{equation}
         C_{t + \Delta t} = \frac{P_{t + \Delta t}}{L_{t + \Delta t}}
         \label{eq:a}
     \end{equation}
-    \item If $\Delta t \leq \tau \leq 100\Delta t$, the species' lifetime is considered moderate, and it's concentration is calculated according to Equation \ref{eq:analyt_soltn}
-    \item If $\tau \gg \Delta t$, the species' lifetime is considered long, and it's concentration is calculated according to the simple Euler formula: 
+    \item If $\Delta t \leq \tau \leq 100\Delta t$, the species' lifetime is considered moderate, and its concentration is calculated according to Equation \ref{eq:analyt_soltn}
+    \item If $\tau \gg \Delta t$, the species' lifetime is considered long, and its concentration is calculated according to the simple Euler formula: 
     \begin{equation}
         C_{t + \Delta t} = C_t + (P_t - L_tC_t)\Delta t
         \label{eq:b}
@@ -76,7 +76,7 @@ To obtain satisfactory accuracy with the QSSA method, it is important to use the
 
 \subsection{Family Solution to Ordinary Differential Equations}\label{sec:families}
 
-Some groups of gases (families) exist that has atoms transferring quickly among them, but are only slowly lost from the actual family. To obtain a numerically stable solution, it is more beneficial to integrate a family of components as the family is more stable than the members of it. An example of a family is the odd oxygen family which includes: 
+Some groups of gases (families) has atoms transferring quickly among them, but are only slowly lost from the actual family. To obtain a numerically stable solution, it is more beneficial to integrate a family of components, as the family is more stable than the members of it. An example of a family is the odd oxygen family which includes: 
 
 \begin{equation*}
     [\chem{O_T}] = [\chem{O}] + [\chem{O(^1D})] + [\chem{O_3}] + [\chem{NO_2}]
@@ -101,22 +101,22 @@ And the following families (among others) in the stratosphere:
     \chem{Cl_y} & = \chem{Cl_x} + \chem{HCl}
 \end{align*}
 
-The advantage of using families is that is a fast method, and reasonably accurate for moderate- to low stiffness systems. However, the families needs to be carefully designed and validated and the accuracy of the method decreases with increased stiffness (\cite{AtmModFund}).
+The advantages of using families are that is a fast method, and reasonably accurate for moderate- to low stiffness systems. However, the families needs to be carefully designed and validated, and the accuracy of the method decreases with increased stiffness (\cite{AtmModFund}).
 
 
 \subsection{O3-NO Variable}\label{sec:O3-NO}
 
-The strong coupling between the Reactions \ref{rqn:ozone}, \ref{rqn:no2hv} and:
+The strong coupling between the Reactions \ref{rqn:ozone}, \ref{rqn:no2hv} and Reaction \ref{rqn:o3no} cause numerical instability problems when choosing time steps that are too long (\cite{Hesstvedt1978}).
 
 \begin{reaction}
     \chem{O_3} + \chem{NO} \rightarrow \chem{NO_2} + \chem{O_2}
     \label{rqn:o3no}
 \end{reaction}
 
-cause numerical instability problems when choosing time steps that are too long (\cite{Hesstvedt1978}). To avoid these instabilities, a new variable is defined: 
+To avoid these instabilities, a new variable is defined: 
 
 \begin{equation}
     x = [\chem{O_3}] - [\chem{NO}]
 \end{equation}
 
-The Euler expansion formula is then applied to calculate $x$. Next, the concentration of $\chem{O_3}$ or \chem{NO} may be calculated, depending on which is smaller, according to \textbf{i)}, \textbf{ii)} or \textbf{iii)}. 
+The Euler expansion formula is then applied to calculate $x$. Next, the concentration of $\chem{O_3}$ or \chem{NO} may be calculated, depending on which is smaller, according to \textbf{i)}, \textbf{ii)} or \textbf{iii)} (\cite{Hesstvedt1978}). 

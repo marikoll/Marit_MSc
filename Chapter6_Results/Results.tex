@@ -16,11 +16,11 @@ Figure \ref{fig:CompObsOrigBE} shows results in terms of $\chem{O_3}$-concentrat
 
 \medskip
 
-To verify the results, I have used the measurements of $\chem{O_3}$ and \chem{HBr} available (see Appendix \ref{app:ebas_noaa_data}), as well as \chem{BrO} measurements from literature for comparison. Ozone is used as a proxy as it was reproducability of the ODEs seen in measurements I was interested in. The \chem{HBr} measurements should in theory correspond to elevated concentrations after an ODE according to the box-model results by \cite{CAO}. Finally, \chem{BrO}-concentrations should be anti-correlated with the depletion of ozone (\cite{barrie}). 
+To verify the results, the measurements of $\chem{O_3}$ and \chem{HBr} available were used (see Appendix \ref{app:ebas_noaa_data}), as well as \chem{BrO} measurements from literature for comparison. Ozone was used as a proxy as it was reproducability of the ODEs seen in measurements. The \chem{HBr} measurements should in theory correspond to elevated concentrations after an ODE according to the box-model results by \cite{CAO}. Finally, \chem{BrO}-concentrations should be anti-correlated with the depletion of ozone (\cite{barrie}). 
 
 \medskip
 
-The from the developing are presented with an ozone-plot to compare the different tests done in the the same test-step. Following the ozone-figure, there will be a presentation of the mixing ratio of \chem{HBr}, the concentration of \chem{HBr} (comparable with e.g. \cite{barrie} and EBAS-measurements) \acrlong{vcd} of \chem{BrO} (according to e.g. \cite{Peterson2015} and \cite{Simpson2017}).
+The results from the developing are presented with an ozone-plot to compare the different tests done in the the same test-step. Following the ozone-figure, there will be a presentation of the mixing ratio of \chem{HBr}, the concentration of \chem{HBr} (comparable with e.g. \cite{barrie} and EBAS-measurements) \acrlong{vcd} of \chem{BrO} (according to e.g. \cite{Peterson2015} and \cite{Simpson2017}).
 
 \medskip
 
@@ -59,7 +59,7 @@ Figure \ref{fig:test_RemoveHetReacts} shows results in terms of $\chem{O_3}$-con
 
 \medskip
 
-Figure \ref{fig:vertHBr_noCl} shows the vertical column above the Alert, Barrow, Summit and Zeppelin of the mixing ratio of \chem{HBr}. The mixing ratio is on the order $10^{-15} \sim 0.001$ ppt. The vertical distribution appears to be constrained with higher concentration in the lower layers at Alert, whilst increasing with altitude at Zeppelin. Seen in relation with Figure \ref{fig:polarHBr_noCl}, the concentration in the lowest layer across the Arctic is on the order of $10^{-10} - 10^{-11} g m^{-3}$
+Figure \ref{fig:vertHBr_noCl} shows the vertical column above the Alert, Barrow, Summit and Zeppelin of the mixing ratio of \chem{HBr}. The mixing ratio is on the order $10^{-15}$ (0.001 ppt). The vertical distribution appears to be constrained with higher concentration in the lower layers at Alert, whilst increasing with altitude at Zeppelin. Seen in relation with Figure \ref{fig:polarHBr_noCl}, the concentration in the lowest layer across the Arctic is on the order of $10^{-10} - 10^{-11} g m^{-3}$
 
 \medskip
 
@@ -104,7 +104,7 @@ In order to boost the concentration of \chem{HBr}, the concentration was hard-co
 
 \medskip
 
-Figure \ref{fig:ozone_noCl_step2} contains results from different attempts to boost the \chem{HBr}-concentration, to see the effect on ozone depletion. The first test, in which the concentration of \chem{HBr} was constantly boosted by hard-coding to maintain 30 ppt (green line), results in mixing ratios of $\chem{O_3}$ comparable to the original CTM3-branch (blue line). In the second test, the \chem{HBr}-concentration was hard-coded to 10 ppt (light green line), which results in concentrations more comparable to the measurements. Lastly, the test in which the run was initiated with a restart file from the previous hard-coded test (\chem{HBr} concentration of 10 ppt) (yellow line) also maintains concentrations comparable in magnitude with the observations. All these tests were ran for a short amount of time. 
+Figure \ref{fig:ozone_noCl_step2} contains results from different attempts to boost the \chem{HBr}-concentration, to see the effect on ozone depletion. The first test, in which the concentration of \chem{HBr} was constantly boosted by hard-coding to maintain 30 ppt (green line), results in mixing ratios of $\chem{O_3}$ comparable to the original CTM3-branch (blue line). In the second test, the \chem{HBr}-concentration was hard-coded to 10 ppt (light green line), which results in concentrations more comparable to the measurements. Lastly, the test in which the run was initiated with a restart file from the previous hard-coded test (\chem{HBr} concentration of 10 ppt) (yellow line) also maintains concentrations comparable in magnitude with the observations. All these tests were ran for a short amount of time (2 weeks to a month, model time)
 
 \input{Chapter6_Results/images/ozone_noCl_step2}
 
@@ -142,7 +142,7 @@ Figure \ref{fig:ozone_2001_step3} contains the modelled results from four new te
     \label{rqn:oh_hbr}
 \end{reaction}
 
-The hard-coded photodissociation rates had not previously calculated for Reactions \ref{R:18}, \ref{R:20} and \ref{R:12}. These were previously set to be solved by the fast-JX method (see Section \ref{sec:CTM3_photochemistry}), but this had not worked. Instead, these were hard-coded as was done previously (by \cite{Susanne}) for Reactions \ref{R:19} and \ref{R:1}. The photodissociation rates were set to: 
+The hard-coded photodissociation rates had not previously calculated for Reactions \ref{R:18}, \ref{R:20} and \ref{R:12}. These were previously set to be solved by the fast-JX method (see Section \ref{sec:CTM3_photochemistry}), but did not work. Thus, these were hard-coded as was done previously (by \cite{Susanne}) for Reactions \ref{R:19} and \ref{R:1}. The photodissociation rates were then set to: 
 
 \begin{itemize}
     \item $3\times10^{-4}$ s$^{-1}$ for Reaction \ref{R:18} (value from \cite{CAO})
@@ -181,7 +181,7 @@ Figure \ref{fig:ozone_2001_step3} shows that the new tests ozone produce a lower
 
 \medskip
 
-Figure \ref{fig:vertHBr_HTWO_step3} contains the vertical column of the \chem{HBr} mixing ratio at \texttt{HTWO} resolution. The mixing ratio remains around $3\times10^{-10}$ mol mol$^{-1} \sim 300 ppt$ for both the tests. Likewise, Figure \ref{fig:polarHBr_HTWO_step3} contains concentrations of \chem{HBr} on the order of $6\times10^{-6} $g m$^{-3}$. The concentration of \chem{HOBr} is shown in Figure \ref{fig:polarHOBr_HTWO_step3}. The same anti-correlation is shown between \chem{HBr} and \chem{HOBr} as in the previous section. 
+Figure \ref{fig:vertHBr_HTWO_step3} contains the vertical column of the \chem{HBr} mixing ratio at \texttt{HTWO} resolution. The mixing ratio remains around $3\times10^{-10}$ mol mol$^{-1}$ (300 ppt) for both the tests. Likewise, Figure \ref{fig:polarHBr_HTWO_step3} contains concentrations of \chem{HBr} on the order of $6\times10^{-6} $g m$^{-3}$. The concentration of \chem{HOBr} is shown in Figure \ref{fig:polarHOBr_HTWO_step3}. The same anti-correlation is shown between \chem{HBr} and \chem{HOBr} as in the previous section. 
 
 %\input{Chapter6_Results/images/vertHBr_HFOUR_step3}
 \input{Chapter6_Results/images/vertHBr_HTWO_step3}

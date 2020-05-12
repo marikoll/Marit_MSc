@@ -6,11 +6,11 @@ Some of the processes that are implemented in the Oslo CTM3 requires some furthe
 \section{Oceanic Emissions of Halocarbons}\label{sec:oceanic_emissions}
 
 
-The ocean is a natural source of gaseous halocarbons, and is needed for the bromine explosion to occur (\cite{Schmidt} and references therein)(theory covered in Section \ref{sec:halogen_sources}). Methyl halides ($\chem{CH_3X}$) and polyhalogenated species ($\chem{CHBr_3}$, $\chem{CH_2Br_2}$) are released from the ocean, and methyl halides (particularly $\chem{CH_3Br}$) may also be emitted by biomass burning (\cite{SeinfeldSpyros}). 
+The ocean is a natural source of gaseous halocarbons, which are precursors for the reactive \chem{Br}-species that are essential for the bromine explosion to occur (\cite{Schmidt} and references therein)(theory covered in Section \ref{sec:halogen_sources}). Methyl halides ($\chem{CH_3X}$) and polyhalogenated species ($\chem{CHBr_3}$, $\chem{CH_2Br_2}$) are released from the ocean. Methyl halides (particularly $\chem{CH_3Br}$) may also be emitted by biomass burning (\cite{SeinfeldSpyros}). 
 
 \medskip
 
-Natural marine sources of bromoform ($\chem{CHBr_3}$) and dibromomethane ($\chem{CH_2Br_2}$) were used as sources of bromine in this implementation. The component mapping methyl bromide ($\chem{CH_3Br}$) was already included in the Oslo CTM3, which would only be used by the model when the stratosphere was activated (which was not the case in my runs. The setup is explained in Section \ref{chap:CTM3_Setup}). In order to further simplify my implementation, the $\chem{CH_3Br}$-component was used to denote the combined emissions of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$. As the halogen-induced ODE is the scope of this thesis, it was not considered necessary to implement explicit emissions of these polyhalogenated species, but rather ensure a source of reactive bromine (Equation \ref{R:10}-\ref{R:12}).
+Natural marine sources of bromoform ($\chem{CHBr_3}$) and dibromomethane ($\chem{CH_2Br_2}$) were used as sources of bromine in this implementation. The component mapping methyl bromide ($\chem{CH_3Br}$) was already included in the Oslo CTM3, which would only be used by the model when the stratosphere was activated \footnote{This was not the case in my runs. The setup is explained in Section \ref{chap:CTM3_Setup}}. In order to further simplify the alterations made in the model, the $\chem{CH_3Br}$-component was used to denote the combined emissions of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$. As the halogen-induced ODE is the scope of this thesis, it was not considered necessary to implement explicit emissions of these polyhalogenated species, but rather ensure a source of reactive bromine (Equation \ref{R:10}-\ref{R:12}).
 
 
 \medskip
@@ -22,6 +22,7 @@ The anthropogenic signal of methyl halides was not taken into consideration in t
 
 Bromoform, $\chem{CHBr_3}$, was added as a source from the ocean based on the emission scenario suggested by \cite{Liang2010} (scenario A, Figure \ref{fig:Liang2010}). This scenario was chosen as it has latitudinal-dependent emission field covering the whole globe. The global emissions estimated by \cite{Liang2010}, scenario A, were 425 Ggyr$^{-1}$ of $\chem{CHBr_3}$ and 57 Ggyr$^{-1}$ of $\chem{CH_2Br_2}$, respectively. $\chem{CH_2Br_2}$ was added to the emission scheme in Figure \ref{fig:Liang2010} by a scaling factor based on the global emissions. The scaling factor is derived below.
 
+\input{Chapter3_Theory_ocean_hetReact/images/liang_2010}
 \medskip
 
 The scaling factor was calculated by finding the yield of bromine from both $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ based on reactions \ref{R:10} and \ref{R:11}, and expressing this in terms of $\chem{CHBr_3}$. 
@@ -58,15 +59,13 @@ Emissions are then found according to their latitudinal band, and whether the gr
 
 \subsection{Emission Inventory}
 
-The emission inventory of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ by \cite{Liang2010} was compared against observations and other emission inventories by \cite{Hossaini2013}. The results can be seen in Figures \ref{fig:Hosaini_fig5} and \ref{fig:Hosaini_fig6} in the Appendix. They show a reasonable agreement between the observations and mixing ratios suggested by \cite{Liang2010} for the stations \acrfull{alt}, \acrfull{brw} and Summit (SUM), which are of most relevance in this setting. The inventory, however, is rather simplified as it does not take into account seasonality and agreement with observations outside the polar regions. 
+The emission inventory of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ by \cite{Liang2010} was compared against observations and other emission inventories by \cite{Hossaini2013}. The results can be seen in Figures \ref{fig:Hosaini_fig5} and \ref{fig:Hosaini_fig6} in the Appendix. They show a reasonable agreement between the observations and mixing ratios suggested by \cite{Liang2010} for the stations \acrfull{alt}, \acrfull{brw} and Summit (SUM), which are of most relevance in this case. The inventory, however, is rather simplified as it does not take into account seasonality and agreement with observations outside the polar regions. 
 
-
-\input{Chapter3_Theory_ocean_hetReact/images/liang_2010}
 
 
 \section{Chemical Kinetics and Photoprocesses}\label{sec:chem_kinetics}
 
-This section contains a description of the rate expressions for bimolecular and 3-body reactions as well as photolysis reactions. The reaction rate constants for the bimolecular, and 3-body reactions implemented in the troposphere can be seen in Table \ref{tab:2b_and_3b_reactions} and the photochemical reactions are listed in Table \ref{tab:photolysis_reactions}.
+This section contains a description of the rate expressions for bimolecular and 3-body reactions as well as photolysis reactions. The reaction rate constants for the bimolecular and 3-body reactions implemented in the troposphere can be seen in Table \ref{tab:2b_and_3b_reactions}, and the photochemical reactions are listed in Table \ref{tab:photolysis_reactions}.
 
 \input{Chapter3_Theory_ocean_hetReact/2body_and_3body_reactions}
 
@@ -118,7 +117,7 @@ Three-body reactions are reactions in which two chemical species, \chem{A} and \
 \end{equation*}
 
 
-The third body, $M$, is an inert molecule (generally $\chem{N_2}$ or $\chem{O_2}$ in the atmosphere) that removes excess energy from the excited species $\chem{AB*}$ leaving the product species \chem{AB} in it's unexcited state (\cite{Jacob1999}).
+The third body, $M$, is an inert molecule (generally $\chem{N_2}$ or $\chem{O_2}$ in the atmosphere) that removes excess energy from the excited species $\chem{AB*}$ leaving the product species \chem{AB} in its unexcited state (\cite{Jacob1999}).
 
 
 \medskip
@@ -142,7 +141,7 @@ The rate coefficients for 3-body reactions can be pressure dependent, and theref
     \label{eq:3b_low_pressure}
 \end{equation}
 
-In which $k_0^{300}$ is an estimate of the low-pressure limiting rate constant at 300 K. $n$ is the estimated temperature dependence at the low-pressure limit (for more information, see \cite{JPL}). The low pressure rate constants is of third order and has units $cm^6\text{molecule}^{-1}s^{-1}$ (\cite{AtmModFund}).
+In which $k_0^{300}$ is an estimate of the low-pressure limiting rate constant at 300 K and $n$ is the estimated temperature dependence at the low-pressure limit (for more information, see \cite{JPL}). The low pressure rate constants is of third order and has units $cm^6\text{molecule}^{-1}s^{-1}$ (\cite{AtmModFund}).
 
 \medskip
 
@@ -153,7 +152,7 @@ Similarly, there exists a high-pressure limit:
     \label{eq:3b_high_pressure}
 \end{equation}
 
-In which $k_\infty^{300}$ is an estimate of the high-pressure limiting rate constant at 300 K. $m$ is the estimated temperature dependence at the high-pressure limit (for more information, see \cite{JPL}). The high-pressure rate constant is of second order and has units $cm^3\text{molecule}^{-1}s^{-1}$ (\cite{AtmModFund}).
+In which $k_\infty^{300}$ is an estimate of the high-pressure limiting rate constant at 300 K and $m$ is the estimated temperature dependence at the high-pressure limit (for more information, see \cite{JPL}). The high-pressure rate constant is of second order and has units $cm^3\text{molecule}^{-1}s^{-1}$ (\cite{AtmModFund}).
 
 
 \subsection{Photochemical Reactions}\label{sec:pchem_reactions}
@@ -175,7 +174,7 @@ In which $J$ is the first-order photolysis rate coefficient of \chem{A} in $s^{-
 
 \section{Heterogeneous Chemistry}\label{sec:het_chem}
 
-Heterogeneous reactions occurs a reactant in the gas phase diffuses on the surface of a particle (\cite{DAVIES2018}). This section contains the theory behind the implementation of heterogeneous reactions at aerosol surfaces (Section \ref{sec:aerosol_react}) and over snow/ice surfaces (Section \ref{sec:snow_ice_react}). The heterogeneous reactions that were implemented can be seen in Table \ref{tab:het_reactions}. 
+Heterogeneous reactions occur when a reactant in the gas phase diffuses on the surface of a particle (\cite{DAVIES2018}). This section contains the theory behind the implementation of heterogeneous reactions at aerosol surfaces (Section \ref{sec:aerosol_react}) and over snow/ice surfaces (Section \ref{sec:snow_ice_react}). The heterogeneous reactions that were implemented can be seen in Table \ref{tab:het_reactions}. 
 
 \include{Chapter3_Theory_ocean_hetReact/Heterogeneous_reactions}
 
@@ -191,7 +190,7 @@ The explanation for Reaction \ref{R:8} will be for $\chem{X} = \chem{Br}$, but t
     \frac{d}{dt}[\chem{Br_2}] = -\frac{d}{dt}[\chem{HOBr}] = k[\chem{HOBr}]
 \end{equation*}
 
-which has the first-order reaction-rate constant which is dependent on the concentration of \chem{HBr}: 
+which has a first-order reaction-rate constant dependent on the concentration of \chem{HBr}: 
 
 \begin{equation}
     k = \big(\frac{a}{D_g} + \frac{4}{v_{therm}\gamma}\big)^{-1}\alpha_{eff}
@@ -245,13 +244,13 @@ Lastly, $f(q)$ in Equation \ref{eq:upt_coeff} is determined by:
     f(q) = \coth{q} -\frac{1}{q} = \frac{1}{\tanh{q}} -\frac{1}{q}
 \end{equation}
 
-where $q = a\sqrt{\frac{k_{liq}^I}{D_{liq}}}$, is a dimensionless quantity called the diffuso-reactive parameter. This is used to calculate the uptake rates (\cite{Hanson1994}). 
+where $q = a\sqrt{\frac{k_{liq}^I}{D_{liq}}}$ is a dimensionless quantity called the diffuso-reactive parameter. This is used to calculate the uptake rates (\cite{Hanson1994}). 
 
 
 \subsection{Heterogeneous Reactions Over Snow and Ice Surfaces (Reactions \ref{R:7})}\label{sec:snow_ice_react}
 
 
-The implementation of the heterogeneous reactions over snow/ice surfaces also follows the method by \cite{CAO}. 
+Lik the heterogeneous aerosol reactions, the implementation of the heterogeneous reactions over snow/ice surfaces also follows the method by \cite{CAO}. 
 
 \medskip
 
@@ -274,12 +273,12 @@ Thus, the deposition-rate constant depends on the deposition velocity, $v_d$, at
 The deposition velocity, $v_d = (r_a + r_b + r_c)^{-1}$, is dependent on three resistances. The values from \cite{CAO} were used to calculate the value of the deposition velocity. The resistances and their corresponding values are: 
 
 \begin{itemize}
-    \item The aerodynamic resistance, $r_a$. This is the resistance of the turbulent transport to bring the gas from the atmosphere to the surface, approximated as: $1/(u\kappa^2)(\ln(z/z_0))^2$, where $u = 8 ms^{-1}$ is the wind speed, $\kappa = 0.4$ is the Von Karman constant, $z$ is the surface layer height, approximated as the lower $10\%$ of the boundary layer, i.e. $z = 0.1L_{mix}$, and $z_0$ is the surface roughness length which is approximated as $10^{-5} m$ for ice surfaces. $r_a$ is therefore dependent on local properties, but in this thesis, the parameterization by \cite{CAO} was used. 
+    \item The aerodynamic resistance, $r_a$. This is the resistance of the turbulent transport to bring the gas from the atmosphere to the surface. It is approximated as: $1/(u\kappa^2)(\ln(z/z_0))^2$, where $u = 8 ms^{-1}$ is the wind speed, $\kappa = 0.4$ is the Von Karman constant, $z$ is the surface layer height (approximated as the lower $10\%$ of the boundary layer, i.e. $z = 0.1 L_{mix}$) and $z_0$ is the surface roughness length (approximated as $10^{-5} m$ for ice surfaces). $r_a$ is therefore dependent on local properties, but in this thesis, the parameterization by \cite{CAO} was used. 
     \item The quasi-laminar layer resistance, $r_b$, is the ability of molecular diffusion to transfer gas across a liquid-laminar layer above the surface. It is thus given as $r_b = z_0/D_g$
     \item The resistance due to the reaction loss, $r_c$ is given as $r_c = 4/v_{therm}\gamma$. The uptake coefficient is taken as $\gamma = 0.06$ including the assumption that the source of $\chem{H^+}$ and halogen ions are limitless at the snow/ice surface. This is not a realistic assumption, but is thought to be fair, as the reaction will self-terminate by the lack of \chem{HOBr} when the ozone is depleted. 
 \end{itemize}
 
-$L_{mix}$ denotes the typical stable boundary layer height which may, in Polar regions, range from near-zero up to approximately 1000 m depending on. Consequently, the deposition velocities vary.
+$L_{mix}$ denotes the typical stable boundary layer height which may, in Polar regions, range from near-zero up to approximately 1000 m depending on local atmospheric conditions. Consequently, the deposition velocities may vary.
 
 \medskip
 
@@ -291,7 +290,7 @@ $\beta$ is the ratio of the total reactive surface (induced by the structure of 
 
 \section{Wet Deposition and Henry's Law}\label{sec:wet_dep_henrys_law}
 
-Wet deposition is the process in which chemicals are scavenged out out the atmosphere by the means of rain, snow or cloud and fog droplets (collectively denoted as hydrometeors) and subsequently deposited on the Earth's surface. In order for wet deposition to occur, the gas or aerosol species must be in the presence of condensed water, get scavenged by a hydrometeor, and finally get deposited at the surface (\cite{SeinfeldSpyros}). 
+Wet deposition is the process in which chemicals are scavenged out of the atmosphere by the means of rain, snow or cloud and fog droplets (collectively denoted as hydrometeors) and subsequently deposited on the Earth's surface. In order for wet deposition to occur, the gas or aerosol species must be in the presence of condensed water, get scavenged by a hydrometeor, and finally get deposited at the surface (\cite{SeinfeldSpyros}). 
 
 \medskip
 
@@ -312,7 +311,7 @@ In which $p_A$ is the partial pressure (atm) of \chem{A(g)}, and $[\chem{A(aq)}]
 
 \medskip
 
-In this context, and widely used by atmospheric chemists, the Henry solubility, $H^{cp}$ is applied (\cite{Sander2015}). Rearranging Equation \ref{eq:Henryslaw} gives: 
+In the context of this thesis, and widely used by atmospheric chemists, the Henry solubility, $H^{cp}$ is applied (\cite{Sander2015}). Rearranging Equation \ref{eq:Henryslaw} gives: 
 
 \begin{equation}
     H^{cp} \equiv \frac{[\chem{A(aq)}]}{p_A}
@@ -336,37 +335,37 @@ In which $\Delta_{sol}H$ is the change in enthalpy of dissolution ($H$ in this c
 
 The Henry's law constants implemented in the CTM3 are presented in Section \ref{sec:scav_wet} in Table \ref{tab:Henrys_law}. 
 
-Henrys law coefficient for any gas is defined as 
-$P(gas) = K_H*X$ 
-where P(gas) is the partial pressure of the gas above the solution and X is the molar fraction of the dissolved gas in the solution: 
+%Henrys law coefficient for any gas is defined as 
+%$P(gas) = K_H*X$ 
+%where P(gas) is the partial pressure of the gas above the solution and X is the molar fraction of the dissolved gas in the solution: 
 
-$X = n_aq /( n_aq + n_solvent)$
+%$X = n_aq /( n_aq + n_solvent)$
 
-Re-writing to concentration (dividing by volume of solution) we have: 
+%Re-writing to concentration (dividing by volume of solution) we have: 
 
-$X = C_aq /( C_aq + C_solvent)$
+%$X = C_aq /( C_aq + C_solvent)$
 
-and since we always have $C_ap << C_solvent$, this can be approximated
+%and since we always have $C_ap << C_solvent$, this can be approximated
 
-$X = C_aq/C_solvent$
+%$X = C_aq/C_solvent$
 
-Since the concentration of the solvent (water) is approximately constant, we arrive at the other common form of Henrys law
+%Since the concentration of the solvent (water) is approximately constant, we arrive at the other common form of Henrys law
 
-$P(gas) = k*C_aq$
+%$P(gas) = k*C_aq$
 
-Units: $k [atm*L(solvent)/mol, P(gas) [atm]$
+%Units: $k [atm*L(solvent)/mol, P(gas) [atm]$
 
-If k is high, it means the component prefers thermodynamically to be dissolved in the liquid phase
+%If k is high, it means the component prefers thermodynamically to be dissolved in the liquid phase
 
-We are interested in calculating $C_aq$ from $P(gas)$ so we introduce
-$HSTAR = 1/k [mol/(atm*L(solvent))]$
+%We are interested in calculating $C_aq$ from $P(gas)$ so we introduce
+%$HSTAR = 1/k [mol/(atm*L(solvent))]$
 
-so that $C_aq = HSTAR *P(gas)$
+%so that $C_aq = HSTAR *P(gas)$
 
 
-If we want to apply the concentrations to molar concentration (mol/L) so we change some units: 
-$P(gas) = C_g *R*T$
+%If we want to apply the concentrations to molar concentration (mol/L) so we change some units: 
+%$P(gas) = C_g *R*T$
 
-$J = kg m2/s2 = Pa m3$
-$R = 8.314151 [J/(mol*K)/101325 Pa/atm*1000 L/m3] = 0.0820578 [atm*L/(mol*K)]$
+%$J = kg m2/s2 = Pa m3$
+%$R = 8.314151 [J/(mol*K)/101325 Pa/atm*1000 L/m3] = 0.0820578 [atm*L/(mol*K)]$
 

@@ -1,11 +1,11 @@
 \setcounter{chapter}{4}
 \chapter{Alteration made in the Oslo CTM3}\label{chap:CTM3_Setup}
 
-This chapter describes the setup and altered modules of the Oslo CTM3 (for general information concerning the CTM3, see Chapter \ref{chapt:OsloCTM3}). The altered modules that are connected to the theory outlined in Chapter \ref{Chap:CTM3theory_ocean_hetReact} is presented here, whereas many of the technical aspects of setting up the Oslo CTM3 can be found in the appendix. 
+The Oslo CTM3 was altered for the purpose of reproducing the observed \acrshort{ode}s occuring in the Arctic during polar spring. This chapter describes the setup and altered modules of the model (for general information concerning the CTM3, see Chapter \ref{chapt:OsloCTM3}). The affected modules connected to the theory outlined in Chapter \ref{Chap:CTM3theory_ocean_hetReact} are presented here, whereas many of the technical aspects of setting up the Oslo CTM3 can be found in the appendix (Appendices \ref{app:running_CTM3} - \ref{app:PI_run}).
 
 \section{Setup of The Model}
 
-A degraded resolution was used for the runs in the CTM3. In the \texttt{Makefile} it is possible to degrade the horizontal resolution by combining several boxes into one. The setting used for running the model was \texttt{HWINDOW=HFOUR}, i.e. a combination of four native boxes and thus a $4.5^o \times 4.5^o$ resolution (Illustrated in Figure \ref{fig:res_map}). In the vertical, 60 layers were used. The setup of the \texttt{Makefile} is explained more in Appendix \ref{subsubsec:makefile}. 
+A degraded resolution was used for the runs in the CTM3. In the \texttt{Makefile} it is possible to degrade the horizontal resolution by combining several grid-boxes into one. The setting used for running the model was \texttt{HWINDOW=HFOUR}, i.e. a combination of four native boxes and thus a $4.5^o \times 4.5^o$ resolution (Illustrated in Figure \ref{fig:res_map}). In the vertical, 60 layers were used. The setup of the \texttt{Makefile} is explained more in Appendix \ref{subsubsec:makefile}. 
 
 \medskip
 
@@ -20,19 +20,19 @@ Pre-industrial runs were performed both with the original- and altered CTM3. To 
 
 \medskip
 
-To run the CTM3, a supercomputer is required. At the beginning of my master thesis the supercomputer Abel (\cite{abel}) was used. In January 2020, Abel was shut down and the Oslo CTM3 migrated to Saga (\cite{saga}). There are some differences between the two  and these differences as well as the setup of the model runs are explained in Appendix \ref{app:supercomputer}. 
+To run the CTM3, a supercomputer is required. When my master thesis work began, the supercomputer Abel (\cite{abel}) was used. In January 2020, Abel was shut down and the Oslo CTM3 migrated to Saga (\cite{saga}). There are some differences between the two  and these differences as well as the setup of the model runs are explained in Appendix \ref{app:supercomputer}. 
 
 
 \section{Wet Deposition - \texttt{scavenging\_wet.inp}}\label{sec:scav_wet}
 
-Wet scavenging rates for \chem{HCl}, \chem{HBr} and $\chem{ClONO_2}$ were added to the wet deposition input table \texttt{scavenging\_wet.inp}. The Henry's law constants are listed in Table \ref{tab:Henrys_law} and the wet deposition and Henry's law is explained in Section \ref{sec:wet_dep_henrys_law}. 
+Wet scavenging rates for \chem{HCl}, \chem{HBr} and $\chem{ClONO_2}$ were added to the wet deposition input table \texttt{scavenging\_wet.inp}. The Henry's law constants are listed in Table \ref{tab:Henrys_law}. The wet deposition and Henry's law is explained in Section \ref{sec:wet_dep_henrys_law}. 
 
 \input{Chapter5_CTM3setup/henrys_law}
 
 
 \section{Implementation of Halogen Chemistry}
 
-In essence, three modules were changed to implement the halogen chemistry. They were \texttt{pchemc\_ij.f90}, \texttt{tropchem\_oslo.f90} and \texttt{chem\_oslo\_rates.f90}. The base for the scripting is the work performed by \cite{Susanne}, which I have continued to alter.  The reactions that were implemented in the various modules can be seen in Table \ref{tab:3}.
+In essence, three modules were changed to implement the halogen chemistry. They were \texttt{pchemc\_ij.f90}, \texttt{tropchem\_oslo.f90} and \texttt{chem\_oslo\_rates.f90}. The base for the scripting is the work performed by \cite{Susanne}. The reactions that were implemented in the various modules can be seen in Table \ref{tab:3}.
 
 
 %Some of the problems that occurred during this process, how these were tested and attemptedly solved, can be seen in Section \ref{chap:problem_solving}.
@@ -45,7 +45,7 @@ In essence, three modules were changed to implement the halogen chemistry. They 
 
 \subsubsection{Photolysis- and Chemical Reaction Rates}
 
-The phytolysis- and chemical reaction rates were set at the very beginning of the loop of the tropospheric column. As the oceanic source of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (see Section \ref{sec:impl_ocean_source}) and multiphase reactions (see Section \ref{sec:impl_multiphase_react}) only apply at the surface, this was declared at the beginning:
+The phytolysis- and chemical reaction rates were set at the very beginning of the loop of the tropospheric column. The oceanic source of $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$ (see Section \ref{sec:impl_ocean_source}) and multiphase reactions (see Section \ref{sec:impl_multiphase_react}) were declared at the beginning, as they only apply at the surface.
 
 \begin{lstlisting}
 !// Adding a bromine (CHBr3 and CH2Br2) source 
@@ -68,7 +68,7 @@ The photolysis rates of $\chem{HOBr}$, $\chem{BrO}$ and $\chem{CH_3Br}$ were alr
 
 \subsection{Halogen Families}\label{sec:halogen_families_BryClxCly}
 
-The halogen chemistry were implemented using the method of families described in Section \ref{sec:families}. The $\chem{Br_y}$-family is the same as the that already was implemented in the CTM3 for the stratosphere, but the $\chem{Cl_x}$- and $\chem{Cl_y}$-families differ. The families were adapted from the family-solutions in the stratosphere (\texttt{pchemc\_str\_ij\_.f90}. 
+The halogen chemistry were implemented using the method of families described in Section \ref{sec:families}. The $\chem{Br_y}$-family is the same as what's already used in the CTM3 for the stratosphere, but the $\chem{Cl_x}$- and $\chem{Cl_y}$-families differ. The families were adapted from the family-solutions in the stratosphere (\texttt{pchemc\_str\_ij\_.f90}. 
  
 \begin{align*}
     \chem{Br_y} &= \chem{Br} + \chem{BrO} + \chem{BrONO_2} + \chem{HOBr} + \chem{HBr} + 2\chem{Br_2} + \chem{BrCl} \\
@@ -77,14 +77,14 @@ The halogen chemistry were implemented using the method of families described in
     \chem{Cl_y} &= \chem{Cl_x} + \chem{HCl}
 \end{align*}
 
-An iterative scaling is applied before and after the QSSA-calculation
+In the CTM3, an iterative scaling of these families is applied before and after the QSSA-calculation (the QSSA method is described in Section \ref{sec:QSSA}).
 
 
 
 \subsection{Ozone Loss}
 
 
-The loss in $\chem{O_3}$ was added assuming a low-$\chem{NO_x}$ regime explained in Section \ref{sec:O3-NO}. The reactions leading to ozone production or loss was therefore implemented using the low-$\chem{NO_x}$ regime when integrated.
+The loss in $\chem{O_3}$ was added assuming a low-$\chem{NO_x}$ regime explained in Section \ref{sec:O3-NO}. The integration of the reactions leading to ozone production or loss was therefore implemented using the low-$\chem{NO_x}$ regime.
 
 \subsection{Changes in \texttt{tropchem\_oslo.f90}:}\label{sec:tropchem_oslo}
 
@@ -100,12 +100,12 @@ In the \texttt{I}-direction, \texttt{I} loops from \texttt{MPBLKIB} to \texttt{M
 
 \medskip
 
-The modification to the subroutine has led to the following: 
+The modifications to the subroutine are explained in the sections below.
 
 
 \subsubsection{Oceanic Emissions of $\chem{CH_2Br_2}$ and $\chem{CHBr_3}$}\label{sec:impl_ocean_source}
 
-The addition of an organic bromine ($\chem{CH_2Br_2}$ and $\chem{CHBr_3}$) source from the ocean and coastlines based on the findings of \cite{Liang2010} (see Figure \ref{fig:Liang2010}). For more information concerning the organic halogens and the use of Liangs emission inventory, see Section \ref{sec:oceanic_emissions}.
+The addition of an organic bromine ($\chem{CH_2Br_2}$ and $\chem{CHBr_3}$) source from the ocean and coastlines was added according to latitudinal bands and the presence of ocean or coast. The sources are based on the findings of \cite{Liang2010} (see Figure \ref{fig:Liang2010}). For more information concerning the organic halogens and the use of Liangs emission inventory, see Section \ref{sec:oceanic_emissions}.
 
 \medskip
 
@@ -113,7 +113,7 @@ The ocean or coast is determined by an if-test that finds the latitude (\texttt{
 
 \medskip
 
-\texttt{POLL\_CHBr3} is the concentration of $\chem{CH_2Br_2}$ and $\chem{CHBr_3}$ in one location (grid box). The calculation is based on an emission inventory  (units: kgm$^{-2}$s$^{-1}$)and later converted to concentrations (in molecules cm$^-{3}$s$^{-1}$). \texttt{tropchem\_oslo} calls \texttt{OSLO\_CHEM} (explained in the section above), where \texttt{POLL\_CHBr3} is added to the first layer of the tropopause. The syntax can be seen below:
+\texttt{POLL\_CHBr3} is the concentration of $\chem{CH_2Br_2}$ and $\chem{CHBr_3}$ in one grid box. The calculation is based on an emission inventory  (units: kgm$^{-2}$s$^{-1}$)and later converted to concentrations (in molecules cm$^-{3}$s$^{-1}$). \texttt{tropchem\_oslo} calls \texttt{OSLO\_CHEM} (explained in the section above), where \texttt{POLL\_CHBr3} is added to the first layer of the tropopause. The syntax can be seen below:
 
 
 \begin{lstlisting}
@@ -170,11 +170,11 @@ end if !//(abs(YDGRD(J)) .gt. 50._r8) then
 
 \subsubsection{Heterogeneous Reaction over Ice Surfaces}\label{sec:impl_multiphase_react}
 
-Parameterization of \chem{HOBr}-deposition on sea ice (Reactions \ref{R:7} and \ref{R:8}). According to \cite{CAO}, the change in concentration of \chem{HOBr} depends on the deposition velocity, $v_d$, the boundary layer height, $L_{mix}$ and the total reactive surface area offered by the snow/ice surface, $\beta$ (described further in Section \ref{sec:het_chem}). Following \cite{CAO}, the boundary layer height $L_{mix} = 200 m$ was chosen, with  the deposition velocity $v_d = 0.0065 m/s$ set accordingly. $\beta = 1.4$ was chosen to ensure a big enough reactive surface area. 
+The parameterization of \chem{HOBr}-deposition on sea ice and aerosols (Reactions \ref{R:7} and \ref{R:8}) was added according to the method outlined by \cite{CAO}. In his box model-experiment, the change in concentration of \chem{HOBr} depended on the deposition velocity, $v_d$, the boundary layer height, $L_{mix}$ and the total reactive surface area offered by the snow/ice surface, $\beta$ (described further in Section \ref{sec:het_chem}). Following \cite{CAO}, the boundary layer height $L_{mix} = 200 m$ was chosen, with  the deposition velocity $v_d = 0.0065 m/s$ set accordingly. $\beta = 1.4$ was chosen to ensure a big enough reactive surface area. 
 
 \medskip 
 
-In order to ensure that there is a sea ice surface that the heterogeneous reaction may occur upon, the meteorological variable \texttt{CI}(sea-ice cover) from \texttt{cmn\_met.f90} is applied. The \texttt{CI}-field takes on a value between 0 $\rightarrow$ no ice or 1 $\rightarrow$ full ice cover (\cite{SovdeManual}). Thus, the \chem{HOBr}-depostition is determined as follows: 
+In order to ensure the presence of a sea ice surface that the heterogeneous reaction may occur upon, the meteorological variable \texttt{CI}(sea-ice cover) from \texttt{cmn\_met.f90} is applied. The \texttt{CI}-field takes on a value between 0 $\rightarrow$ no ice and 1 $\rightarrow$ full ice cover (\cite{SovdeManual}). Thus, the \chem{HOBr}-depostition is determined as follows: 
 
 \begin{lstlisting}
 r_hobr_dep = 0._r8
@@ -192,7 +192,7 @@ elseif (CI(I,J) .gt. 0.7_r8) then
 end if
 \end{lstlisting}
 
-This is a simplification of the black carbon on sea ice-parameterization of Amund Søvde (module: \texttt{bcoc\_oslo.f90}, subroutine: \texttt{bcsnow\_seaice\_ij}). 
+This is a simplification of the \acrshort{bc} on sea ice-parameterization of Amund Søvde (module: \texttt{bcoc\_oslo.f90}, subroutine: \texttt{bcsnow\_seaice\_ij}). 
 
 \medskip 
 
@@ -205,12 +205,12 @@ The pressure- and temperature dependent multiphase reactions occurring on aeroso
 
 
 
-\texttt{chem\_oslo\_rates} is a module that contains the chemical reaction rates for both the troposphere and the stratosphere. It contains several subroutines, and the modified ones are: 
+\texttt{chem\_oslo\_rates} is a module that contains the chemical reaction rates for both the troposphere and the stratosphere. The modified subroutines are described in the sections below.
 
 
 \subsubsection{Temperature Dependent Reaction Rates}\label{sec:temp_depend_react_rates}
 
-The constant- and the temperature dependent reaction rates for the troposphere and the stratosphere are found in the subroutine \texttt{TCRATE\_CONS2}. Some reactions were already declared in the stratosphere (by Amund Søvde, \cite{SovdeManual}), and therefore included in the troposphere. This applied to the bimolecular Reactions \ref{R:2} (for both chlorine and bromine),  \ref{R:4}, \ref{R:6}, \ref{R:17}, \ref{R:15}, \ref{R:16} and \ref{R:14}. Reaction \ref{R:10} was also added. The Arrhenius factor for these reactions were taken from \cite{JPL}. 
+The constant- and the temperature dependent reaction rates for the troposphere and the stratosphere are found in the subroutine \texttt{TCRATE\_CONS2}. Some reactions were already declared in the stratosphere (by Amund Søvde, \cite{SovdeManual}), and therefore included in the troposphere. The already declared reactions were the bimolecular Reactions \ref{R:2} (for both chlorine and bromine),  \ref{R:4}, \ref{R:6}, \ref{R:17}, \ref{R:15}, \ref{R:16} and \ref{R:14}. Reaction \ref{R:10} was also added. The Arrhenius factor for these reactions were taken from \cite{JPL}. 
 
 \medskip
 
@@ -218,7 +218,7 @@ An overview of the reactions and their reaction rates can be found in Table \ref
 
 \subsubsection{Temperature- and Pressure Dependent Reaction Rates}\label{sec:temp_press_dependent_react_rates}
 
-The temperature- and pressure dependent reaction rates for the troposphere are calculated in the subroutine \texttt{TCRATE\_TP\_IJ\_TRP}. The Reactions \ref{R:9} and \ref{R:cl_ch4} were moved to this subroutine, from the stratosphere. Their reaction rates are calculated using the function \texttt{RATE3B} (see \cite{SovdeManual}) with values from \cite{JPL}. A description of 3-body reaction chemistry can be read in Section \ref{sec:3body_reactions}. An overview of the reactions and their reaction rates can be found in Table \ref{tab:2b_and_3b_reactions}. 
+The temperature- and pressure dependent reaction rates for the troposphere are calculated in the subroutine \texttt{TCRATE\_TP\_IJ\_TRP}. The Reactions \ref{R:9} and \ref{R:cl_ch4} were moved to this subroutine from the stratosphere. Their reaction rates are calculated using the function \texttt{RATE3B} (see \cite{SovdeManual}) with values from \cite{JPL}. A description of 3-body reaction chemistry can be read in Section \ref{sec:3body_reactions}. An overview of the reactions and their reaction rates can be found in Table \ref{tab:2b_and_3b_reactions}. 
 
 \medskip
 
@@ -226,7 +226,7 @@ The temperature- and pressure dependent heterogeneous reaction rates (Reactions 
 
 \subsubsection{Heterogeneous Aerosol Reactions}\label{sec:het_aerosol_react_CTM3}
 
-The heterogeneous reaction set for Reactions \ref{R:13} and \ref{R:8} (process described in Section \ref{sec:aerosol_react}) were implemented in the subroutine \texttt{TCRATE\_TP\_IJ\_TRP}. The implementation of Reaction \ref{R:8} was treated differently from Reaction \ref{R:13} as the uptake coefficient for the hydrolysis of $\chem{BrONO_2}$ was parameterized as $\gamma = 0.06$ as can be seen from the code below. 
+The heterogeneous reaction set for Reactions \ref{R:13} and \ref{R:8} (process described in Section \ref{sec:aerosol_react}) were implemented in the subroutine \texttt{TCRATE\_TP\_IJ\_TRP}. The implementation of Reaction \ref{R:8} was treated differently from Reaction \ref{R:13} as the uptake coefficient for the hydrolysis of $\chem{BrONO_2}$ was parameterized as $\gamma = 0.06$, as can be seen from the code below. 
 
 
 \begin{lstlisting}

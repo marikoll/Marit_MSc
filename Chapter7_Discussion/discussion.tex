@@ -3,7 +3,7 @@
 
 \section{Code Development}\label{sec:discussion_code_development}
 
-The Oslo CTM3 is documented by \cite{SovdeManual} and the documentation in the code itself. The branches I developed were based on the work already performed by \cite{Susanne} in her master thesis from 2016. The process was slowed down by quite some time due to the lack of documentation in the new code and my ability to interpret it. Also, due to the change of super computers in January 2020, some problems arose concerning how to optimize the model runs in technical terms (see Section \ref{app:supercomputer}). This led to the decision to perform the model runs at \texttt{HFOUR}-resolution instead of \texttt{HTWO} and shorten the time of the spin-up and the model runs to three months (model time). 
+The Oslo CTM3 is documented by \cite{SovdeManual} and the documentation in the code. The branches developed in this thesis were based on the work done by \cite{Susanne} in her master thesis from 2016. The process was slowed down by quite some time due to the lack of documentation in the new code and my ability to interpret it. Also, due to the change of super computers in January 2020, some problems arose concerning how to optimize the model runs in technical terms (see Section \ref{app:supercomputer}). This led to the decision to perform the model runs at \texttt{HFOUR}-resolution instead of \texttt{HTWO} and shorten the time of the spin-up and the model runs to three months (model time). 
 
 
 
@@ -47,7 +47,7 @@ The run initialized with a restart file from the 10 ppt-\chem{HBr} concentration
 
 \medskip
 
-The \chem{HBr}- and \chem{HOBr}-concentrations are closely linked and anti-correlated, as can be seen from Figures \ref{fig:polarHBr_newRestart}-\ref{fig:polarHOBr_newRestart}. A hypothesis for this behaviour was that the \chem{HOBr} was titrated from the system, leaving hot spots of \chem{HBr}. The subsequent testing thus included two more reactions (Reactions \ref{rqn:oh_br2} and \ref{rqn:oh_hbr}) in order to cycle these species more efficiently. 
+The \chem{HBr}- and \chem{HOBr}-concentrations are closely linked and anti-correlated, as can be seen from Figures \ref{fig:polarHBr_newRestart}-\ref{fig:polarHOBr_newRestart}. A hypothesis for this behaviour could be that the \chem{HOBr} was titrated from the system, leaving hot spots of \chem{HBr}. The subsequent testing thus included two more reactions (Reactions \ref{rqn:oh_br2} and \ref{rqn:oh_hbr}) in order to cycle these species more efficiently. 
 
 \medskip
 
@@ -66,7 +66,7 @@ Figure \ref{fig:ozone_2001_step3} contains the modelled results of four new test
         \item $0.05\times10^{-8}$ s$^{-1}$ for Reaction \ref{R:12} (value from \cite{Papanastasiou2013}, Arctic spring dissociation rate, Figure 2, p. 3022)
     \end{itemize}
     The rest of the tests contained this hard-coded rates. 
-    \item A new Henry's law coefficient, as it turned out the previous coefficient I implemented had the wrong unit. The low Henry coefficient refers to:
+    \item A new Henry's law coefficient, as it turned out the previous coefficient had the wrong unit. The low Henry coefficient refers to:
     \begin{itemize}
         \item \chem{HBr}: $7.2\cdot 10^{-1} [M/amt]$, $6100 K$ (Taken from: \cite{Chameides1992})
     \end{itemize}   
@@ -74,14 +74,14 @@ Figure \ref{fig:ozone_2001_step3} contains the modelled results of four new test
     \begin{itemize}
         \item \chem{HBr}: $2.5 \cdot 10^{1} [M/amt]$, $370 K$ (Taken from: \cite{dean1999})
     \end{itemize}
-    \item The higher Henry's law coefficient was finally kept in my final version of the CTM3, and was therefore used in the \texttt{HTWO}-test
+    \item The higher Henry's law coefficient was finally kept in the final version of the CTM3, and was therefore used in the \texttt{HTWO}-test
 \end{itemize}
 
 The resulting modelled ozone mixing ratios from these runs are lower than the previous tests, although with variations (as opposed to the first run using Branch \ref{def:BE_PD} in Figure \ref{fig:CompObsOrigBE}). It could be expected that these tests produced lower ozone-concentrations, as especially the photodissociation rates are a key point in the ozone depletion at the point of Arctic spring, causing halogens to become reactive. The change in the Henry's law coefficient was essential as the previous implementation was wrong, but the high- and low coefficient produce quite similar $\chem{O_3}$-mixing ratios. 
 
 \medskip
 
-The mixing ratio of \chem{HBr} in the vertical and the Artcic concentration in Figure \ref{fig:vertHBr_HTWO_step3} and \ref{fig:polarHBr_HTWO_step3}, respectively shows that the \chem{HBr} concentration is still an order of magnitude too high compared to the findings by \cite{barrie} in Figure \ref{fig:Barrie_1988}. Furthermore, the anti-correlation between \chem{HBr} and \chem{HOBr} can still be seen in Figures \ref{fig:polarHBr_HTWO_step3} and \ref{fig:polarHOBr_HTWO_step3}. Thus, \chem{HOBr} is possibly still being titrated from the system. 
+The mixing ratio of \chem{HBr} in the vertical and the Artcic concentration in Figure \ref{fig:vertHBr_HTWO_step3} and \ref{fig:polarHBr_HTWO_step3}, respectively shows that the \chem{HBr} concentration is still an order of magnitude too high compared to the findings by \cite{barrie} in Figure \ref{fig:Barrie_1988}. Furthermore, the anti-correlation between \chem{HBr} and \chem{HOBr} can still be seen in Figures \ref{fig:polarHBr_HTWO_step3} and \ref{fig:polarHOBr_HTWO_step3}. This suggests that \chem{HOBr} is still being titrated from the system. 
 
 \medskip
 
@@ -89,7 +89,7 @@ Figure \ref{fig:polarBrO_HTWO_step3} shows that the \chem{BrO}-\acrshort{vcd} is
 
 \medskip
 
-There are indications of a possible relation between the high \chem{HOBr}-concentrations at Alert and the low ozone mixing ratio seen at the same time period in Figure \ref{fig:ozone_2001_step3}. It can also be seen from \ref{fig:polarBrO_HTWO_step3} that there is an elevated \acrshort{vcd} of \chem{BrO} at Alert in the same.  time-period
+There are indications of a possible relation between the high \chem{HOBr}-concentrations at Alert and the low ozone mixing ratio seen at the same time period in Figure \ref{fig:ozone_2001_step3}. It can also be seen from \ref{fig:polarBrO_HTWO_step3} that there is an elevated \acrshort{vcd} of \chem{BrO} at Alert in the same  time-period
 
 
 \section{Future work}
