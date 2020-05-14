@@ -91,6 +91,19 @@ Figure \ref{fig:polarBrO_HTWO_step3} shows that the \chem{BrO}-\acrshort{vcd} is
 
 There are indications of a possible relation between the high \chem{HOBr}-concentrations at Alert and the low ozone mixing ratio seen at the same time period in Figure \ref{fig:ozone_2001_step3}. It can also be seen from \ref{fig:polarBrO_HTWO_step3} that there is an elevated \acrshort{vcd} of \chem{BrO} at Alert in the same  time-period
 
+\subsection{Higher Henry's Law Coefficient and Higher Photodissociation of \chem{HOBr}}\label{sec:disc_step4}
+
+Originally, the Henry coefficient from the previous section was intended to be the one used in the final version. However, in order to perform the final runs in a way that would be reasonable to compare against the original version of the CTM3 as well as use in calculations of RF, the restart file provided from \cite{StefaniePersonal} (see Section \ref{subsec:restart_files}) was to be used for the 6 months runs at \texttt{HTWO} for all versions (Pre - industrial with original CTM3 version and \acrshort{BE}-version, present - day with original CTM3 version and \acrshort{BE}-version). The model crashed when running the final version of the \acrshort{be}-branch, obtaining negative values of \texttt{ISOR1} (a radical species) after 17 hours run time (i.e. not model time). After analyzing the results that the model was able to produce before crashing, I decided to attempt increasing the wet deposition of \chem{HBr} (increasing Henry's law coefficient) as well as increasing the photodissociation of \chem{HOBr}. 
+
+% Skriv inn hva det endte opp med her med kilder
+
+The pre-industrial \acrshort{be}-version had been able to run with the version from the section above, but experienced the same problem when running with the version in this section. Thus, the 6-month run from the previous section was kept. This does not serve as a good basis for calculating a trustworthy RF, but due to time limitations, this was what was used. 
+
+\medskip
+
+The original version of the CTM3 was able produce the model runs as planned. 
+
+\section{Radiative Forcing Calculations}
 
 \section{Future work}
 
