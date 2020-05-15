@@ -5,7 +5,15 @@
 
 The Oslo CTM3 is documented by \cite{SovdeManual} and the documentation in the code. The branches developed in this thesis were based on the work done by \cite{Susanne} in her master thesis from 2016. The process was slowed down by quite some time due to the lack of documentation in the new code and my ability to interpret it. Also, due to the change of super computers in January 2020, some problems arose concerning how to optimize the model runs in technical terms (see Section \ref{app:supercomputer}). This led to the decision to perform the model runs at \texttt{HFOUR}-resolution instead of \texttt{HTWO} and shorten the time of the spin-up and the model runs to three months (model time). 
 
+\medskip
 
+Throughout the developing section, results will be compared against some proxy measurements, which are: 
+
+\begin{itemize}
+    \item Ozone measurements from EBAS for the stations with available data for 2001 (Alert, Barrow, Summit and Zeppelin) (see Figure \ref{ebas_noaa_data_taken})
+    \item Filterable \chem{BrO} (\chem{f-Br}) measurements from Alert (see Figure \ref{fig:Barrie_1988} taken from \cite{barrie})
+    \item \chem{BrO}-\acrlong{vcd} measurements from Barrow (see Figure \ref{fig:Peterson_2015} taken from \cite{Peterson2015})
+\end{itemize}
 
 \subsection{A First Look}
 
@@ -101,7 +109,12 @@ The pre-industrial \acrshort{be}-version had been able to run with the version f
 
 \medskip
 
-The original version of the CTM3 was able produce the model runs as planned. 
+The original version of the CTM3 was able produce the model runs as planned, both for present-day- and pre-industrial runs. 
+
+\subsubsection{Analysis of the Results Against the Proxy Measurements}
+
+Figure \ref{fig:ozone_2001_step4} shows the resulting ozone mixing at the four different stations. The final version (green line) is the version 
+
 
 \section{Radiative Forcing Calculations}
 
