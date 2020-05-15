@@ -96,6 +96,8 @@ In Figure \ref{fig:polarBrO_noCl}, the vertical column density for the lowermost
 
 %\input{Chapter6_Results/images/ozone_2001_newClyIntegration}
 
+\clearpage
+
 \subsection{Development of Branch \ref{def:BE_PD_noCl} Without Heterogeneous Chlorine Reactions}\label{sec:res_noHetCl}
 
 \subsubsection{Initializing Branch \ref{def:BE_PD_noCl} With a Higher \chem{HBr} Concentration}\label{sec:res_step2}
@@ -123,10 +125,10 @@ Figure \ref{fig:vertHBr_newRestart} contains the resulting \chem{HBr}-column abo
 
 The polar \chem{BrO}-column depicted in Figure \ref{fig:polarBro_newRestart} shows a \acrshort{vcd} on the order of $10^7 \text{molecules }$ cm$^{-2}$. 
 
-
+\clearpage
 \input{Chapter6_Results/images/polarBrO_newRestart}
 
-
+\clearpage
 \subsubsection{Hard-Coding Photodissociation and Adjusting the Henry'Law Coefficient}\label{sec:res_step3}
 
 Figure \ref{fig:ozone_2001_step3} contains the modelled results from four new tests, whereas the original CTM3-run and the New Restart run was maintained from the previous section. Firstly, the Hard-coded P test was performed by hard-coding the photodissociation rates in \texttt{pchemc\_ij.f90}. In addition to this, two reactions were added in an attempt to better cycle the \chem{HOBr} and \chem{HBr} to avoid the anti-correlation seen in Figures \ref{fig:polarHBr_newRestart}-\ref{fig:polarHOBr_newRestart}:  
@@ -198,6 +200,52 @@ The \chem{BrO} \acrshort{vcd} is shown in Figure \ref{fig:polarBrO_HTWO_step3}. 
 
 %\input{Chapter6_Results/images/polarBrO_HFOUR_step3}
 \input{Chapter6_Results/images/polarBrO_HTWO_step3}
+
+\clearpage
+\subsubsection{Changing Henry's law coefficient and photodissociation of \chem{HOBr}}
+
+Due to issues regarding making a final production run (i.e. running the CTM3 for 6 months) (the problems and discussion concerning this are outlined in the Discussion Section \ref{sec:disc_step4}), Branch \ref{def:BE_PD_noCl} was altered yet again with a new Henry's law constant for the wet deposition of \chem{HBr} taken from \cite{Sander99}: 
+
+\begin{itemize}
+    \item $1.3\times10^9/K_\text{A} [M/atm]$, $10 000 K$ (Taken from: \cite{Brimblecombe1988TheSA})
+    \item The acid dissociation constant, $K_\text{A}$, was taken as $\ln{K_\text{A}} \approx 9.8$ (\cite{Levanov})
+\end{itemize}
+
+As well as a new photodissociation rate for \chem{HOBr}:
+
+\begin{itemize}
+    \item $3\times10^{-3}$ s$^{-1}$ for Reaction \ref{R:18} (based on value from \cite{CAO}, but an order of 10 faster)
+\end{itemize}
+
+This branch was initialized with the restart file provided from \cite{StefaniePersonal} (see Section \ref{subsec:restart_files}) and ran for 6 months runs at \texttt{HTWO} resolution. The resulting ozone mixing ratio at the four stations can be seen in Figure \ref{fig:ozone_2001_step4}. The ozone concentration in the final version starts out lower than what was measured at the different stations, and lower than the other model runs. At the end of the period, the concentration in the final version increases. %Naturlig at det tar litt tid for at det skal stabilisere seg, fordi restartfila har helt forskjellig kjemi --> burde hatt en spin up både for HTWO og ny kjemi
+
+
+\input{Chapter6_Results/images/ozone_2001_step4}
+\medskip
+
+Figure \ref{fig:vertHBr_step4} contains the vertical profile of \chem{HBr} above the fours stations up to 600 hPa. The concentration is on the order of $10^{-15}$ mol/mol ($10^{-3}$ ppt). The polar concentration in the first model layer is shown in Figure \ref{fig:polarHBr_step4}. The concentration is on the order of $10^{-7}$ gm$^{-3}$. 
+
+\medskip
+
+
+\input{Chapter6_Results/images/vertHBr_step4}
+\input{Chapter6_Results/images/polarHBr_step4}
+\input{Chapter6_Results/images/polarHOBr_step4}
+
+\medskip
+
+The corresponding \chem{HOBr}-concentration can be seen in Figure \ref{fig:polarHOBr_step4}. Seen in relation with Figure \ref{fig:polarHBr_step4}, there is still an anti-correlation present between the \chem{HBr} and \chem{HOBr}.
+
+\input{Chapter6_Results/images/polarO3_step4}
+
+\medskip
+
+In Figure \ref{fig:polarO3_step4}, it is evident that the low $\chem{O_3}$-concentration higher \chem{HBpassing over Barrow r}-concentration to the right of Barrow 
+
+\input{Chapter6_Results/images/polarBrO_step4}
+
+
+
 
 %\subsubsection{Changing $L_{mix}$ in Reaction \ref{R:7}}
 
