@@ -217,7 +217,11 @@ As well as a new photodissociation rate for \chem{HOBr}:
     \item $3\times10^{-3}$ s$^{-1}$ for Reaction \ref{R:18} (based on value from \cite{CAO}, but an order of 10 faster)
 \end{itemize}
 
-This branch was initialized with the restart file provided from \cite{StefaniePersonal} (see Section \ref{subsec:restart_files}) and ran for 6 months runs at \texttt{HTWO} resolution. The resulting ozone mixing ratio at the four stations can be seen in Figure \ref{fig:ozone_2001_step4}. The black and blue line represents the measured ozone and the results from the original CTM3, respectively. The turquoise line represents the result maintained from the section above, which was ran at \texttt{HTWO}-resolution and was supposed to be the basis for the final production run. Finally, the green line represents the actual production run, in which the differences are explained above. The ozone concentration in the final version starts out lower than what was measured at the different stations, and lower than the other model runs. At the end of the period, the concentration in the final version increases. %Naturlig at det tar litt tid for at det skal stabilisere seg, fordi restartfila har helt forskjellig kjemi --> burde hatt en spin up både for HTWO og ny kjemi
+This branch was initialized with the restart file provided from \cite{StefaniePersonal} (see Section \ref{subsec:restart_files}) and ran for 6 months runs at \texttt{HTWO} resolution. 
+
+\medskip
+
+The resulting ozone mixing ratio at the four stations can be seen in Figure \ref{fig:ozone_2001_step4}. The black and blue line represents the measured ozone and the results from the original CTM3, respectively. The turquoise line represents the result maintained from the section above, which was ran at \texttt{HTWO}-resolution and was supposed to be the basis for the final production run. Finally, the green line represents the actual production run, in which the differences are explained above. In the first time period, the ozone mixing ratio produced by the final version is quite a lot lower than the observations. Toward the end of April, the content seems to stabilize more with mixing ratios comparable to measurements at Alert and Barrow, and to some extents at Zeppelin, but much lower than what's measured at Summit. 
 
 
 \input{Chapter6_Results/images/ozone_2001_step4}
