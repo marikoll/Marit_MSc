@@ -6,11 +6,9 @@ Tentative layout:
 
 \section{Code Development}\label{sec:results_code_development}
 
-This section contains some results 
+This section and Appendix \ref{app:CTM3_dev} contains some results used in the process of developing the halogen branch. When testing the model, the runs were approximately 14 to 20 (model) days, and the production runs were about 3 to 6 (model) months.
 
-Test-runs are between 14- and 20 (model) days, production runs are 1-3 (model) months
-
-\subsection{A First Look}
+\medskip
 
 Figure \ref{fig:CompObsOrigBE} shows results in terms of $\chem{O_3}$-concentration from preliminary model runs with the chemistry described in Chapter \ref{Chap:CTM3theory_ocean_hetReact} and the branches listed in Section \ref{sec:code_availability}. The model runs were compared to the station measurements available for 2001, which were Alert (210 m.a.s.l., therefore ground level was plotted), Barrow (11 m.a.s.l., therefore ground level was plotted), Summit (3238 m.a.s.l., therefore pressure level at 787.23 hPa was plotted) and Zeppelin (474 m.a.s.l., therefore pressure level at 966.35 hPa was plotted). 
 
@@ -59,19 +57,15 @@ Figure \ref{fig:test_RemoveHetReacts} shows results in terms of $\chem{O_3}$-con
 
 \medskip
 
-Figure \ref{fig:vertHBr_noCl} shows the vertical column above the Alert, Barrow, Summit and Zeppelin of the mixing ratio of \chem{HBr}. The mixing ratio is on the order $10^{-15}$ (0.001 ppt). The vertical distribution appears to be constrained with higher concentration in the lower layers at Alert, whilst increasing with altitude at Zeppelin. Seen in relation with Figure \ref{fig:polarHBr_noCl}, the concentration in the lowest layer across the Arctic is on the order of $10^{-10} - 10^{-11} g m^{-3}$
+Figure \ref{fig:vertHBr_noCl} (see Appendix \ref{app:CTM3_dev}) shows the vertical column above the Alert, Barrow, Summit and Zeppelin of the mixing ratio of \chem{HBr}. The mixing ratio is on the order $10^{-15}$ (0.001 ppt). The vertical distribution appears to be constrained with higher concentration in the lower layers at Alert, whilst increasing with altitude at Zeppelin. Seen in relation with Figure \ref{fig:polarHBr_noCl} (see Appendix \ref{app:CTM3_dev}), the concentration in the lowest layer across the Arctic is on the order of $10^{-10} - 10^{-11} g m^{-3}$
 
 \medskip
 
-In Figure \ref{fig:polarBrO_noCl}, the vertical column density for the lowermost $\sim$ 250 m is plotted. The column density is on the order $10^{6}$ molecules cm$^{-2}$
+In Figure \ref{fig:polarBrO_noCl} (see Appendix \ref{app:CTM3_dev}), the vertical column density for the lowermost $\sim$ 250 m is plotted. The column density is on the order $10^{6}$ molecules cm$^{-2}$
 
 %In the vertical, the corresponding $\chem{Br_y}$ concentrations to Figure \ref{fig:test_RemoveHetReacts} are shown in Figures \ref{fig:vert_noAer_bry_2001}-\ref{fig:vert_noBr_bry_2001} for the four new branches, Branch \ref{def:BE_PD_noAerosol}-\ref{def:BE_PD_noBr}, respectively (The $\chem{Br_y}$-family is explained in Section \ref{sec:halogen_families_BryClxCly}). 
 
-\input{Chapter6_Results/images/vertHBr_noCl}
 
-\input{Chapter6_Results/images/polarHBr_noCl}
-
-\input{Chapter6_Results/images/polarBrO_noCl}
 
 %\input{Chapter6_Results/images/vertical_noAerosol_2001_bry}
 
@@ -96,7 +90,6 @@ In Figure \ref{fig:polarBrO_noCl}, the vertical column density for the lowermost
 
 %\input{Chapter6_Results/images/ozone_2001_newClyIntegration}
 
-\clearpage
 
 \subsection{Development of Branch \ref{def:BE_PD_noCl} Without Heterogeneous Chlorine Reactions}\label{sec:res_noHetCl}
 
@@ -112,23 +105,14 @@ Figure \ref{fig:ozone_noCl_step2} contains results from different attempts to bo
 
 \medskip
 
-Figure \ref{fig:vertHBr_newRestart} contains the resulting \chem{HBr}-column above Alert, Barrow, Summit and Zeppelin up to approximately $600$ hPa. The mixing ratio is on the order of $25 - 250$ ppt maximum. The higher concentrations appear to be constrained to the lower layers of the troposphere to various extents. In the lowest layer, Figure \ref{fig:polarHBr_newRestart} shows that the concentrations are on the order of $7.5\times10^{-7} - 1.5\times10^{-6}$gm$^{-3}$. Seen in relation with Figure \ref{fig:polarHOBr_newRestart}, \ref{fig:polarHBr_newRestart} is very anti-correlated. 
+Figure \ref{fig:vertHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) contains the resulting \chem{HBr}-column above Alert, Barrow, Summit and Zeppelin up to approximately $600$ hPa. The mixing ratio is on the order of $25 - 250$ ppt maximum. The higher concentrations appear to be constrained to the lower layers of the troposphere to various extents. In the lowest layer, Figure \ref{fig:polarHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) shows that the concentrations are on the order of $7.5\times10^{-7} - 1.5\times10^{-6}$gm$^{-3}$. Seen in relation with Figure \ref{fig:polarHOBr_newRestart} (see Appendix \ref{app:CTM3_dev}), \ref{fig:polarHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) is very anti-correlated. 
 
 
-\input{Chapter6_Results/images/vertHBr_newRestart}
-
-\input{Chapter6_Results/images/polarHBr_newRestart}
-
-\input{Chapter6_Results/images/polarHOBR_newRestart}
 
 \medskip
 
 The polar \chem{BrO}-column depicted in Figure \ref{fig:polarBro_newRestart} shows a \acrshort{vcd} on the order of $10^7 \text{molecules }$ cm$^{-2}$. 
 
-\clearpage
-\input{Chapter6_Results/images/polarBrO_newRestart}
-
-\clearpage
 \subsubsection{Hard-Coding Photodissociation and Adjusting the Henry'Law Coefficient}\label{sec:res_step3}
 
 Figure \ref{fig:ozone_2001_step3} contains the modelled results from four new tests, whereas the original CTM3-run and the New Restart run was maintained from the previous section. Firstly, the Hard-coded P test was performed by hard-coding the photodissociation rates in \texttt{pchemc\_ij.f90}. In addition to this, two reactions were added in an attempt to better cycle the \chem{HOBr} and \chem{HBr} to avoid the anti-correlation seen in Figures \ref{fig:polarHBr_newRestart}-\ref{fig:polarHOBr_newRestart}:  
@@ -185,21 +169,14 @@ Figure \ref{fig:ozone_2001_step3} shows that the new tests ozone produce a lower
 
 Figure \ref{fig:vertHBr_HTWO_step3} contains the vertical column of the \chem{HBr} mixing ratio at \texttt{HTWO} resolution. The mixing ratio remains around $3\times10^{-10}$ mol mol$^{-1}$ (300 ppt) for both the tests. Likewise, Figure \ref{fig:polarHBr_HTWO_step3} contains concentrations of \chem{HBr} on the order of $6\times10^{-6} $g m$^{-3}$. The concentration of \chem{HOBr} is shown in Figure \ref{fig:polarHOBr_HTWO_step3}. The same anti-correlation is shown between \chem{HBr} and \chem{HOBr} as in the previous section. 
 
-%\input{Chapter6_Results/images/vertHBr_HFOUR_step3}
-\input{Chapter6_Results/images/vertHBr_HTWO_step3}
 
-%\input{Chapter6_Results/images/polarHBr_HFOUR_step3}
-\input{Chapter6_Results/images/polarHBr_HTWO_step3}
-
-\input{Chapter6_Results/images/polarHOBr_HTWO_step3}
 
 
 \medskip
 
 The \chem{BrO} \acrshort{vcd} is shown in Figure \ref{fig:polarBrO_HTWO_step3}. The  \acrshort{vcd} now has a maximum of about $3\times10^8$ molecules cm$^{-2}$. 
 
-%\input{Chapter6_Results/images/polarBrO_HFOUR_step3}
-\input{Chapter6_Results/images/polarBrO_HTWO_step3}
+
 
 \clearpage
 \subsubsection{Changing Henry's law coefficient and photodissociation of \chem{HOBr}}\label{sec:res_step4}
@@ -307,9 +284,14 @@ In Figure \ref{fig:polarBrO_step4}, the resulting  \chem{BrO}-\acrshort{vcd} is 
 
 %This was with both hard-coded photodissosiation rates and higher Henry coefficient C3RUN\_BE\_HTWO\_HX\_HDP\_MarchApril
 
-%\section{Comparison between the PD- and PI-branches}
+\section{Analysis of the Final Version of the Halogen Branch}\label{sec:res_final_Version}
 
-%\section{Comparison with station data}
+\input{Chapter6_Results/images/ozone_2001_step5}
+\input{Chapter6_Results/images/ozone_2001_AprMay_step5}
+
+\input{Chapter6_Results/images/scatter_feb_apr}
+\input{Chapter6_Results/images/scatter_april_june}
+
 
 %\section{Comparison with literature}
 

@@ -4,13 +4,13 @@
 \section{CTM3 specifications}\label{app:CTM3}
 \input{Appendix/PLAND}
 
+\input{Appendix/images/resolution_map_global}
+
 \section{Supporting Figures From Litterature}\label{app:supp_fig}
 
 \input{Appendix/images/Hossaini_fig5}
 
 \input{Appendix/images/Hossaini_fig6}
-
-\input{Appendix/images/resolution_map_global}
 
 \input{Appendix/images/Barrie_1988}
 
@@ -179,7 +179,7 @@ The EBAS and NOAA data were provided in units $\mu g m^{-3}$, and were thus chan
     \chem{X_{VMR}} = \frac{\chem{M_X}}{\chem{M_{air}}}\frac{\chem{X_{\mu g/cm^{3}}}}{\chem{\rho_{air}}}
 \end{equation}
 
-Density of air was taken as 1.204 kgm$^{-3}$ (at 293.15 K). This density was used in the EBAS-database files to convert
+Density of air was taken as 1.204 kgm$^{-3}$ (at 293.15 K). 
 
 
 \section{Unit Conversion Using cdo}\label{sec:cdo}
@@ -199,9 +199,34 @@ The \acrshort{cdo}-scripts were adapted from scripts provided by \cite{StefanieP
     \item \texttt{./"cdo file" "Full path"} 
 \end{itemize}
 
-\cleardoublepage
 
-
-\chapter{Figures}
 %\addcontentsline{toc}{chapter}{Appendix B: Additional figures}
 \cleardoublepage
+
+\chapter{Additional Results}\label{chap:add_res}
+
+\subsection{CTM3 Developement}\label{app:CTM3_dev}
+
+\input{Chapter6_Results/images/vertHBr_noCl}
+
+\input{Chapter6_Results/images/polarHBr_noCl}
+
+\input{Chapter6_Results/images/polarBrO_noCl}
+
+\input{Chapter6_Results/images/vertHBr_newRestart}
+
+\input{Chapter6_Results/images/polarHBr_newRestart}
+
+\input{Chapter6_Results/images/polarHOBR_newRestart}
+
+\input{Chapter6_Results/images/polarBrO_newRestart}
+
+%\input{Chapter6_Results/images/vertHBr_HFOUR_step3}
+\input{Chapter6_Results/images/vertHBr_HTWO_step3}
+
+%\input{Chapter6_Results/images/polarHBr_HFOUR_step3}
+\input{Chapter6_Results/images/polarHBr_HTWO_step3}
+
+\input{Chapter6_Results/images/polarHOBr_HTWO_step3}
+%\input{Chapter6_Results/images/polarBrO_HFOUR_step3}
+\input{Chapter6_Results/images/polarBrO_HTWO_step3}
