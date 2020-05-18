@@ -105,7 +105,7 @@ Figure \ref{fig:ozone_noCl_step2} contains results from different attempts to bo
 
 \medskip
 
-Figure \ref{fig:vertHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) contains the resulting \chem{HBr}-column above Alert, Barrow, Summit and Zeppelin up to approximately $600$ hPa. The mixing ratio is on the order of $25 - 250$ ppt maximum. The higher concentrations appear to be constrained to the lower layers of the troposphere to various extents. In the lowest layer, Figure \ref{fig:polarHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) shows that the concentrations are on the order of $7.5\times10^{-7} - 1.5\times10^{-6}$gm$^{-3}$. Seen in relation with Figure \ref{fig:polarHOBr_newRestart} (see Appendix \ref{app:CTM3_dev}), \ref{fig:polarHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) is very anti-correlated. 
+Figure \ref{fig:vertHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) contains the resulting \chem{HBr}-column above Alert, Barrow, Summit and Zeppelin up to approximately $600$ hPa. The mixing ratio is on the order of $25 - 250$ ppt maximum. The higher concentrations appear to be constrained to the lower layers of the troposphere to various extents. In the lowest layer, Figure \ref{fig:polarHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) shows that the concentrations are on the order of $7.5\times10^{-7} - 1.5\times10^{-6}$gm$^{-3}$. Seen in relation with Figure \ref{fig:polarHOBr_newRestart}, \ref{fig:polarHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) is very anti-correlated. 
 
 
 
@@ -113,6 +113,7 @@ Figure \ref{fig:vertHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) contains t
 
 The polar \chem{BrO}-column depicted in Figure \ref{fig:polarBro_newRestart} shows a \acrshort{vcd} on the order of $10^7 \text{molecules }$ cm$^{-2}$. 
 
+\clearpage
 \subsubsection{Hard-Coding Photodissociation and Adjusting the Henry'Law Coefficient}\label{sec:res_step3}
 
 Figure \ref{fig:ozone_2001_step3} contains the modelled results from four new tests, whereas the original CTM3-run and the New Restart run was maintained from the previous section. Firstly, the Hard-coded P test was performed by hard-coding the photodissociation rates in \texttt{pchemc\_ij.f90}. In addition to this, two reactions were added in an attempt to better cycle the \chem{HOBr} and \chem{HBr} to avoid the anti-correlation seen in Figures \ref{fig:polarHBr_newRestart}-\ref{fig:polarHOBr_newRestart}:  
@@ -167,18 +168,12 @@ Figure \ref{fig:ozone_2001_step3} shows that the new tests ozone produce a lower
 
 \medskip
 
-Figure \ref{fig:vertHBr_HTWO_step3} contains the vertical column of the \chem{HBr} mixing ratio at \texttt{HTWO} resolution. The mixing ratio remains around $3\times10^{-10}$ mol mol$^{-1}$ (300 ppt) for both the tests. Likewise, Figure \ref{fig:polarHBr_HTWO_step3} contains concentrations of \chem{HBr} on the order of $6\times10^{-6} $g m$^{-3}$. The concentration of \chem{HOBr} is shown in Figure \ref{fig:polarHOBr_HTWO_step3}. The same anti-correlation is shown between \chem{HBr} and \chem{HOBr} as in the previous section. 
-
-
-
+Figure \ref{fig:vertHBr_HTWO_step3} (see Appendix \ref{app:CTM3_dev}) contains the vertical column of the \chem{HBr} mixing ratio at \texttt{HTWO} resolution. The mixing ratio remains around $3\times10^{-10}$ mol mol$^{-1}$ (300 ppt) for both the tests. Likewise, Figure \ref{fig:polarHBr_HTWO_step3} (see Appendix \ref{app:CTM3_dev}) contains concentrations of \chem{HBr} on the order of $6\times10^{-6} $g m$^{-3}$. The concentration of \chem{HOBr} is shown in Figure \ref{fig:polarHOBr_HTWO_step3} (see Appendix \ref{app:CTM3_dev}). The same anti-correlation is shown between \chem{HBr} and \chem{HOBr} as in the previous section. 
 
 \medskip
 
 The \chem{BrO} \acrshort{vcd} is shown in Figure \ref{fig:polarBrO_HTWO_step3}. The  \acrshort{vcd} now has a maximum of about $3\times10^8$ molecules cm$^{-2}$. 
 
-
-
-\clearpage
 \subsubsection{Changing Henry's law coefficient and photodissociation of \chem{HOBr}}\label{sec:res_step4}
 
 Due to issues regarding making a final production run (i.e. running the CTM3 for 6 months) (the problems and discussion concerning this are outlined in the Discussion Section \ref{sec:disc_step4}), Branch \ref{def:BE_PD_noCl} was altered yet again with a new Henry's law constant for the wet deposition of \chem{HBr} taken from \cite{Sander99}: 
@@ -198,7 +193,7 @@ This branch was initialized with the restart file provided from \cite{StefaniePe
 
 \medskip
 
-The resulting ozone mixing ratio at the four stations can be seen in Figure \ref{fig:ozone_2001_step4}. The black and blue line represents the measured ozone and the results from the original CTM3, respectively. The turquoise line represents the result maintained from the section above, which was ran at \texttt{HTWO}-resolution and was supposed to be the basis for the final production run. Finally, the green line represents the actual production run, in which the differences are explained above. In the first time period, the ozone mixing ratio produced by the final version is quite a lot lower than the observations. Toward the end of April, the content seems to stabilize more with mixing ratios comparable to measurements at Alert and Barrow, and to some extents at Zeppelin, but much lower than what's measured at Summit. 
+The resulting ozone mixing ratio at the four stations can be seen in Figure \ref{fig:ozone_2001_step4}. The black and blue line represents the measured ozone and the results from the original CTM3, respectively. The turquoise line represents the result maintained from the section above, which was ran at \texttt{HTWO}-resolution and was supposed to be the basis for the final production run. Finally, the green line represents the actual production run, in which the differences are explained above. The final version initially produces mixing ratios comparable to both the original CTM3 and the observations. Over the course of February to mid-April, however, the ozone mixing ratio produced by the final version is quite a lot lower than the observations. Towards the end of April, the content seems to stabilize more with mixing ratios comparable to measurements at Alert and Barrow, and to some extents at Zeppelin, but much lower than what's measured at Summit. 
 
 
 \input{Chapter6_Results/images/ozone_2001_step4}
@@ -283,11 +278,22 @@ In Figure \ref{fig:polarBrO_step4}, the resulting  \chem{BrO}-\acrshort{vcd} is 
 %\subsubsection{Test at HTWO}
 
 %This was with both hard-coded photodissosiation rates and higher Henry coefficient C3RUN\_BE\_HTWO\_HX\_HDP\_MarchApril
+\clearpage
 
 \section{Analysis of the Final Version of the Halogen Branch}\label{sec:res_final_Version}
 
-\input{Chapter6_Results/images/ozone_2001_step5}
+This section contains the analysis of the final version of the halogen branch (Branch \ref{def:BE_PD_noCl} presented in Section \ref{sec:res_step4} above)(from now on called the BE-branch) and the original CTM3-branch (Branch \ref{def:origCTM3_PD}). A 6-month production run was made for both the BE-branch and the original CTM3-branch, both initiated from Stefanie Falk's restart file (\cite{StefaniePersonal}). 
+
+\medskip
+
+Figure \ref{fig:ozone_2001_step4} in the previous section contains the full time series of the ozone mixing ratio with the BE-branch, the original CTM3 branch and observational data from Alert, Barrow, Summit and Zeppelin. Figure \ref{fig:AprMar_step5} contains the same branches (except the test-branch in Figure \ref{fig:ozone_2001_step4}), although zoomed in on the end of April through June, as the BE-branch seemingly stabilized in this period. It is clear form this figure that the BE-branch produces lower ozone mixing ratios than the original CTM3-branch. Also, the measurements are generally higher than what's produced by the BE-branch. The exceptions are at the beginning of May at Alert,  and the end of April/beginning of May at Barrow.
+
+%\input{Chapter6_Results/images/ozone_2001_step5}
 \input{Chapter6_Results/images/ozone_2001_AprMay_step5}
+
+\medskip 
+
+Figure \ref{fig:scatter_FebApr} and \ref{fig:scatter_AprMay} contains scatterplots to visualise agreements between the original CTM3, the BE-branch and the observational data. They are divided into two periods to separate the BE-branch results before stabilization and after, respectively. 
 
 \input{Chapter6_Results/images/scatter_feb_apr}
 \input{Chapter6_Results/images/scatter_april_june}
