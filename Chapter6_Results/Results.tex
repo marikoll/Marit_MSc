@@ -24,7 +24,7 @@ The results from the developing are presented with an ozone-plot to compare the 
 
 Branch \ref{def:BE_PD} produces very low concentrations of $\chem{O_3}$, as can be seen from Figure \ref{fig:CompObsOrigBE}. It does not capture the ozone depletion events that can be seen for instance at Alert around the 9th of April. The original CTM3 branch produced $\chem{O_3}$ concentrations more comparable to observations, although without distinct bromine explosion events. 
 
-\input{Chapter6_Results/images/ozone_2001_compObsOrigBE}
+\input{Chapter6_Results/images/ozone_stationComp_2001/ozone_2001_compObsOrigBE}
 
 
 
@@ -52,7 +52,7 @@ Figure \ref{fig:test_RemoveHetReacts} shows results in terms of $\chem{O_3}$-con
 \input{Chapter6_Results/branches}
 
 
-\input{Chapter6_Results/images/ozone_2001_testRemoveHetReacts}
+\input{Chapter6_Results/images/ozone_stationComp_2001/ozone_2001_testRemoveHetReacts}
 
 
 \medskip
@@ -101,7 +101,7 @@ In order to boost the concentration of \chem{HBr}, the concentration was hard-co
 
 Figure \ref{fig:ozone_noCl_step2} contains results from different attempts to boost the \chem{HBr}-concentration, to see the effect on ozone depletion. The first test, in which the concentration of \chem{HBr} was constantly boosted by hard-coding to maintain 30 ppt (green line), results in mixing ratios of $\chem{O_3}$ comparable to the original CTM3-branch (blue line). In the second test, the \chem{HBr}-concentration was hard-coded to 10 ppt (light green line), which results in concentrations more comparable to the measurements. Lastly, the test in which the run was initiated with a restart file from the previous hard-coded test (\chem{HBr} concentration of 10 ppt) (yellow line) also maintains concentrations comparable in magnitude with the observations. All these tests were ran for a short amount of time (2 weeks to a month, model time)
 
-\input{Chapter6_Results/images/ozone_noCl_step2}
+\input{Chapter6_Results/images/ozone_stationComp_2001/ozone_noCl_step2}
 
 \medskip
 
@@ -164,7 +164,7 @@ Figure \ref{fig:ozone_2001_step3} shows that the new tests ozone produce a lower
 %Fin ODE klokka 21 den 29/3! Høye Br og BrO og lav ozon! (fil 88) 
 
 
-\input{Chapter6_Results/images/ozone_2001_step3}
+\input{Chapter6_Results/images/ozone_stationComp_2001/ozone_2001_step3}
 
 \medskip
 
@@ -196,7 +196,7 @@ This branch was initialized with the restart file provided from \cite{StefaniePe
 The resulting ozone mixing ratio at the four stations can be seen in Figure \ref{fig:ozone_2001_step4}. The black and blue line represents the measured ozone and the results from the original CTM3, respectively. The turquoise line represents the result maintained from the section above, which was ran at \texttt{HTWO}-resolution and was supposed to be the basis for the final production run. Finally, the green line represents the actual production run, in which the differences are explained above. The final version initially produces mixing ratios comparable to both the original CTM3 and the observations. Over the course of February to mid-April, however, the ozone mixing ratio produced by the final version is quite a lot lower than the observations. Towards the end of April, the content seems to stabilize more with mixing ratios comparable to measurements at Alert and Barrow, and to some extents at Zeppelin, but much lower than what's measured at Summit. 
 
 
-\input{Chapter6_Results/images/ozone_2001_step4}
+\input{Chapter6_Results/images/ozone_stationComp_2001/ozone_2001_step4}
 \medskip
 
 Figure \ref{fig:vertHBr_step4} contains the vertical profile of \chem{HBr} above the fours stations up to 600 hPa. The concentration is on the order of $10^{-11}$ mol/mol (10 ppt). The polar concentration in the first model layer is shown in Figure \ref{fig:polarHBr_step4}. The concentration is on the order of $10^{-7}$ gm$^{-3}$. 
@@ -204,21 +204,21 @@ Figure \ref{fig:vertHBr_step4} contains the vertical profile of \chem{HBr} above
 \medskip
 
 
-\input{Chapter6_Results/images/vertHBr_step4}
-\input{Chapter6_Results/images/polarHBr_step4}
-\input{Chapter6_Results/images/polarHOBr_step4}
+\input{Chapter6_Results/images/Vert_StationComp_2001/vertHBr_step4}
+\input{Chapter6_Results/images/Polar_StationComp_2001/HBr/polarHBr_step4}
+\input{Chapter6_Results/images/Polar_StationComp_2001/HOBr/polarHOBr_step4}
 
 \medskip
 
 The corresponding \chem{HOBr}-concentration can be seen in Figure \ref{fig:polarHOBr_step4}. Seen in relation with Figure \ref{fig:polarHBr_step4}, the anti-correlation between the \chem{HBr} and \chem{HOBr} seems to be gone, and there is practically no \chem{HOBr} in this layer. The corresponding $\chem{O_3}$-concentration can be seen in Figure \ref{fig:polarO3_step4}.
 
-\input{Chapter6_Results/images/polarO3_step4}
+\input{Chapter6_Results/images/Polar_StationComp_2001/O3/polarO3_step4}
 
 \medskip
 
 In Figure \ref{fig:polarBrO_step4}, the resulting  \chem{BrO}-\acrshort{vcd} is on the order of $10^{8}$ molecules cm$^{-2}$. 
 
-\input{Chapter6_Results/images/polarBrO_step4}
+\input{Chapter6_Results/images/Polar_StationComp_2001/BrO/polarBrO_step4}
 
 
 
@@ -289,7 +289,7 @@ This section contains the analysis of the final version of the halogen branch (B
 Figure \ref{fig:ozone_2001_step4} in the previous section contains the full time series of the ozone mixing ratio with the BE-branch, the original CTM3 branch and observational data from Alert, Barrow, Summit and Zeppelin. Figure \ref{fig:AprMar_step5} contains the same branches (except the test-branch in Figure \ref{fig:ozone_2001_step4}), although zoomed in on the end of April through June, as the BE-branch seemingly stabilized in this period. It is clear form this figure that the BE-branch produces lower ozone mixing ratios than the original CTM3-branch. Also, the measurements are generally higher than what's produced by the BE-branch. The exceptions are at the beginning of May at Alert,  and the end of April/beginning of May at Barrow.
 
 %\input{Chapter6_Results/images/ozone_2001_step5}
-\input{Chapter6_Results/images/ozone_2001_AprMay_step5}
+\input{Chapter6_Results/images/ozone_stationComp_2001/ozone_2001_AprMay_step5}
 
 \medskip 
 
@@ -299,12 +299,12 @@ Figure \ref{fig:joint_FebApr} and \ref{fig:joint_AprMay} contains distributions 
 
 In Figures \ref{fig:BE_origPD_vmr_FebMarch} - \ref{fig:BE_origPD_vmr_AprJun}, the monthly mean mixing ratio (in ppb) from the first model layer of the BE-branch is subtracted from the first model layer of the CTM3-branch and the difference is shown globally and for the Arctic (above 68$^o$N) for the months February through June in 2001. In February (Figure \ref{fig:BE_origPD_vmr_FebMarch}), the BE-branch produces a higher 
 
-\input{Chapter6_Results/images/jointplot_FebApr_O3_2001}
-\input{Chapter6_Results/images/jointplot_AprJune_O3_2001}
+\input{Chapter6_Results/images/Orig_BE_comp/jointplot_FebApr_O3_2001}
+\input{Chapter6_Results/images/Orig_BE_comp/jointplot_AprJune_O3_2001}
 
 
-\input{Chapter6_Results/images/BE_origPD_vmr_FebMarch}
-\input{Chapter6_Results/images/BE_origPD_vmr_AprJun}
+\input{Chapter6_Results/images/Orig_BE_comp/BE_origPD_vmr_lev0_FebApr_2001}
+\input{Chapter6_Results/images/Orig_BE_comp/BE_origPD_vmr_lev0_AprJune_2001}
 %\section{Comparison with literature}
 
 %\cite{Zhao2016} measured BrO column at Eureka in 2011 -- SJekk ut! 
