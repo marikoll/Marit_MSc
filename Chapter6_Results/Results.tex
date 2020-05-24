@@ -1,7 +1,7 @@
 \setcounter{chapter}{5}
 \chapter{Results}\label{chap:results}
 
-Tentative layout: 
+The result-section is divided into three main sections which are: Code Developement (Section \ref{sec:results_code_development}), Analysis of the Final Version of the Halogen Branch (Section \ref{sec:res_final_Version}) and Radiative Forcing (Section \ref{sec:res_RF}. The reason for the larger part concerning code developing than intended is that it took a great deal longer time than foreseen. 
 
 
 \section{Code Development}\label{sec:results_code_development}
@@ -344,10 +344,13 @@ In Period 2, the distribution of the BE-branch and Original CTM3 against observa
 \input{Chapter6_Results/images/Orig_BE_comp/jointplot_AprJune_ZEPBRW_O3_2001}
 
 \medskip
+\medskip
 
-In Figures \ref{fig:BE_origPD_vmrperc_FebApr} - \ref{fig:BE_origPD_vmrperc_AprJune}, the monthly mean mixing ratio (in ppb) from the first model layer of the BE-branch is subtracted from the first model layer of the CTM3-branch and the difference is shown globally and for the Arctic (above 68$^o$N) for the months February through June in 2001.
+Figures \ref{fig:BE_origPD_vmrperc_FebApr} - \ref{fig:BE_origPD_vmrperc_AprJune} shows the monthly mean mixing ratio (in ppb) in the first model layer, where the BE-branch results are subtracted from the CTM3-branch (left columns) and the percentage difference between the CTM3-branch and the BE-branch in the Arctic (above 68$^o$N) for Period 1 (February-April) and Period 2 (April-June) in 2001. \footnote{For global figures, see Appendix \ref{app:final_version}. Figures \ref{fig:BE_origPD_vmr_lev0_FebApr}-\ref{fig:BE_origPD_vmr_lev0_AprJun} contains the global difference (Original CTM3 - BE-branch) in mixing ratio, and Figures \ref{fig:BE_origPD_percent_FebApr}-\ref{fig:BE_origPD_percent_AprJun} contains the percentage difference.} Figure \ref{fig:BE_origPD_vmrperc_FebApr} contains the results from Period 1. From the mixing ratio column, it is evident that the Original CTM3 produces higher mixing ratios than the BE-branch in general, with an exception in Northern Canada in February (top row). The percentage difference shows that in February, the Original CTM3 more or less produces about 120\% higher ozone mixing ratios over Greenland, parts of Svalbard and over the ocean. The monthly means in March and April shows that the BE-branch produce lower mixing ratios in the first model layer than the Original CTM3. The percentage difference is above 100\% in March, and is maximum 96 \% in April over the ocean.
 
+\medskip
 
+In Figure \ref{fig:BE_origPD_vmrperc_AprJune}, the monthly mean difference in mixing ratio and percentage difference is drawn for Period 2. Over the course of these months, the difference between the Original CTM3 and the BE-branch both in mixing ratio and percentage difference decreases. In June, the highest percentage difference can be seen over Greenland and over the ocean towards the Bering Strait (lower right).
 
 
 \input{Chapter6_Results/images/Orig_BE_comp/polar_VMRperc_FebApr_2001}
@@ -375,10 +378,33 @@ In Figures \ref{fig:BE_origPD_vmrperc_FebApr} - \ref{fig:BE_origPD_vmrperc_AprJu
 
 %\section{Calculation of radiative forcing using PD- and PI model results}
 \clearpage
-\section{Radiative forcing}
+\section{Radiative forcing}\label{sec:res_RF}
+
+The radiative forcing was calculated by running both the BE-branch and the Original CTM3 with a \acrlong{pd}-setup, and a \acrlong{pi}-setup (for the year 1850). The monthly averaged ozone concentration (in gm$^{-3}$) was converted to \acrlong{du} (in each model layer up to the model tropopause). The concentration in DU was then multiplied with a normalized RF-field (in mWm$^{-2}$DU$^{-1}$) (provided by \cite{MariannePersonal}). Equation \ref{eqn:RF} sums up the calculation.
+
+\begin{equation}
+    RF_{\chem{O_3}} = (M_{PD} - M_{PI})*\text{netNRF}
+    \label{eqn:RF}
+\end{equation}
+
+In which $RF_{\chem{O_3}}$ is the \acrshort{rf} due to ozone, $M_{PD}$ and $M_{PI}$ is the monthly averaged modelled ozone (in DU) for a present-day run and a pre-industrial run, respectively. The normalized RF-field contains both a short-wave and long-wave component, such that netNRF = SW + LW.
+
+\medskip
+
+\textbf{NOTE:} the BE-branch \acrshort{pd}- and \acrshort{pi}-runs were ran from different model setups. The Henry's law coefficient and photodissociation rates in the PD-run were set as in the final version (explained in Section \ref{sec:res_step4}) whereas the PI-run was set up with the values used in the previous version (\ref{sec:res_step3} with the high Henry's law constant). This became the solution as the model produced negative values of a radical (\texttt{ISOR1}) when the other setup was applied to the PD- and PI-branches. 
+
+\medskip
+
+Figures \ref{fig:BEorig_RF_global_FebApr_2001}-\ref{fig:BEorig_RF_global_AprJune_2001} contain the RF due to ozone in the whole tropospheric column calculated for the BE-branch (left columns) and the RF calculated by the Original CTM3 minus the RF by the BE-branch (right columns) in the Arctic\footnote{A figure containing the global RF from the BE-branch can be found in Appendix \ref{app:RF}, Figure \ref{fig:BE_RF_global_2001}}. 
+\medskip 
+
+Period 1 is shown in Figure \ref{fig:BEorig_RF_global_FebApr_2001}. The BE-branch ozone-induced RF in February is quite homogeneous, and reads approximately $0-2.5\times10^{-5}$ Wm$^{-2}$ across the Arctic, and slightly higher over Svalbard and the Barents Sea. 
+
 
 \input{Chapter6_Results/images/RF/BEOrig_RF_polar_FebApr_2001}
 \input{Chapter6_Results/images/RF/BEOrig_RF_polar_AprJune_2001}
+
+\input{Chapter6_Results/RF_table}
 
 \input{Chapter6_Results/images/RF/vert_RF_FebApr_2001}
 \input{Chapter6_Results/images/RF/vert_RF_AprJune_2001}
