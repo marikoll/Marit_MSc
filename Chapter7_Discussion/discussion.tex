@@ -101,9 +101,18 @@ There are indications of a possible relation between the high \chem{HOBr}-concen
 
 \subsection{Higher Henry's Law Coefficient and Higher Photodissociation of \chem{HOBr}}\label{sec:disc_step4}
 
-Originally, the Henry coefficient from the previous section was intended to be the one used in the final version. However, in order to perform the final runs in a way that would be reasonable to compare against the original version of the CTM3 as well as use in calculations of RF, the restart file provided from \cite{StefaniePersonal} (see Section \ref{subsec:restart_files}) was to be used for the 6 months runs at \texttt{HTWO} for all versions (Pre - industrial with original CTM3 version and \acrshort{be}-version, present - day with original CTM3 version and \acrshort{be}-version). The model crashed when running the final version of the \acrshort{be}-branch, obtaining negative values of \texttt{ISOR1} (a radical species) after 17 hours run time (i.e. not model time). After analyzing the results that the model was able to produce before crashing, I decided to attempt increasing the wet deposition of \chem{HBr} (increasing Henry's law coefficient) as well as increasing the photodissociation of \chem{HOBr}. 
+Originally, the Henry coefficient from the previous section was intended to be the one used in the final version. However, in order to perform the final runs in a way that would be reasonable to compare against the original version of the CTM3 as well as use in calculations of RF, the restart file provided from \cite{StefaniePersonal} (see Section \ref{subsec:restart_files}) was to be used for the 6 months runs at \texttt{HTWO} for all versions (Pre - industrial with original CTM3 version and \acrshort{be}-version, present - day with original CTM3 version and \acrshort{be}-version). The model crashed when running the final version of the \acrshort{be}-branch, obtaining negative values of \texttt{ISOR1} (a radical species) after 17 hours run time (i.e. not model time). After analyzing the results that the model was able to produce before crashing, I decided to attempt increasing the wet deposition of \chem{HBr} (increasing Henry's law coefficient) as well as increasing the photodissociation of \chem{HOBr}. The new Henry's law constant for the wet deposition of \chem{HBr} was taken from \cite{Sander99}: 
 
-% Skriv inn hva det endte opp med her med kilder
+\begin{itemize}
+    \item $1.3\times10^9/K_\text{A} [M/atm]$, $10 000 K$ (Taken from: \cite{Brimblecombe1988TheSA})
+    \item The acid dissociation constant, $K_\text{A}$, was taken as $\ln{K_\text{A}} \approx 9.8$ (\cite{Levanov})
+\end{itemize}
+
+And the new photodissociation rate for \chem{HOBr} became:
+
+\begin{itemize}
+    \item $3\times10^{-3}$ s$^{-1}$ for Reaction \ref{R:18} (based on value from \cite{CAO}, but an order of 10 faster)
+\end{itemize}
 
 The pre-industrial \acrshort{be}-version had been able to run with the version from the section above, but experienced the same problem when running with the version in this section. Thus, the 6-month run from the previous section was kept. This does not serve as a good basis for calculating a trustworthy RF, but due to time limitations, this was what was used. 
 
@@ -111,13 +120,24 @@ The pre-industrial \acrshort{be}-version had been able to run with the version f
 
 The original version of the CTM3 was able produce the model runs as planned, both for present-day- and pre-industrial runs. 
 
-\subsubsection{Analysis of the Results Against the Proxy Measurements}
+\subsubsection{Analysis of the Final Branch}\label{sec:disc_finalBRanch}
 
-Figure \ref{fig:ozone_2001_step4} shows the resulting ozone mixing at the four different stations. The final version (green line) is the version that will be used for further analysis. The initial lower mixing ratio values produced by the final version could be due to the need for spin up, as the restart file initializing the model contains a chemistry that differs from what I have implemented. The stabilization of the ozone mixing ratio around 10-20 ppb is a bit low at all stations, but comparable to what was measured at Alert and Barrow, however with less oscillations. At Summit, the mixing ratio is about 30 ppb too low. Seen in relation with Figure \ref{fig:vertHBr_step4}, there is an increase in \chem{HBr} at about 800 hPa on the 5th of Mar followed by a decrease and minimum at around the 10th of May. This could correspond to the decrease in ozone followed by an increase in approximately the same time period in Figure \ref{fig:ozone_2001_step4}. At Zeppelin, the  %Naturlig at det tar litt tid for at det skal stabilisere seg, fordi restartfila har helt forskjellig kjemi --> burde hatt en spin up både for HTWO og ny kjemi
+
+Figure \ref{fig:ozone_2001_step4} shows the resulting ozone mixing at the four different stations. The final version (green line) is the version that will be used for further analysis. The initial lower mixing ratio values produced by the final version could be due to the need for spin up, as the restart file initializing the model contains a chemistry that differs from what I have implemented. Due to the need for spin-up, January has been left out of the following analysis, as it is assumed to be corrupted by different chemistry. I will come back to this in the later sections. The stabilization of the ozone mixing ratio around 10-20 ppb is a bit low at all stations. It is comparable to what was measured at Alert and Barrow, however with less oscillations. At Summit, the mixing ratio is about 30 ppb too low throughout the time period.
+
+
+\medskip
+
+In Figure \ref{fig:polarHBr_step4}, the \chem{HBr}-concentration in the first model layer (in gm$^{-3}$) is comparable to what was found by \cite{barrie}. It seems, however, from Figure \ref{fig:polarHOBr_step4} that \chem{HOBr} is still being titrated from the system, with only patches of concentrations reaching $1.0\times10^{-7}$ gm$^{-3}$. The polar ozone concentration (in Figure \ref{fig:polarO3_step4}) does seem to correspond well with the \chem{HBr}-concentration with lower concentrations towards the Bering Strait on the 8th of May moving eastward, and higher concentrations East of Svalbard moving westward. This also corresponds to the higher \chem{BrO}-vcd seen on the 10th of May (Figure \ref{fig:polarBrO_step4}), which is situated more or less above the patch of low $\chem{O_3}$ concentrations seen towards Barrow and Siberia on the 10th of May.\footnote{Keep in mind that Figures \ref{fig:vertHBr_step4}-\ref{fig:polarBrO_step4} are only snapshots of the state of the atmosphere used to verify the halogen-implementation}
 
 \section{Analysis of the Final Version of the Halogen Branch}\label{sec:disc_final_Version}
 
+Due to the noise appearing in the final version of the halogen chemistry implemented in the CTM3 (henceforth called the BE-branch) seen in the ozone results in Figure \ref{fig:polarO3_step4}, January was assumed to be too affected by the diverging chemistry in the restart-file used to be taken into consideration, and was therefore discarded. Ideally, I should have had a longer spin-up when using this restart-file, but unfortunately, I ran out of time. Thus, the resulting data was split up into two periods, Period 1 (February 1st-April 24th) and Period 2 (April 24th-June 30th) as shown in Figure \ref{fig:2p_step5}. This was done because Period 1 and 2 seems to be affected by different regimes with lower ozone mixing ratios in Period 1 and higher in Period 2.
+
 \subsection{Analysis of the Two Periods February-April and April-June}\label{sec:disc_twoPeriods}
+
+It seems from Figures \ref{fig:vert_ALT}-\ref{fig:vert_ZEP} that \chem{HBr} is the main halogen species controlling the ozone content. 
+
 
 \subsection{Analysis of the Difference Between the Final BE-Branch and the Original CTM3}\label{sec:disc_origBE}
 
