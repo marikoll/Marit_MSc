@@ -282,27 +282,72 @@ In Figure \ref{fig:polarBrO_step4}, the resulting  \chem{BrO}-\acrshort{vcd} is 
 
 \section{Analysis of the Final Version of the Halogen Branch}\label{sec:res_final_Version}
 
-This section contains the analysis of the final version of the halogen branch (Branch \ref{def:BE_PD_noCl} presented in Section \ref{sec:res_step4} above)(from now on called the BE-branch) and the original CTM3-branch (Branch \ref{def:origCTM3_PD}). A 6-month production run was made for both the BE-branch and the original CTM3-branch, both initiated from Stefanie Falk's restart file (\cite{StefaniePersonal}). 
+This section contains the analysis of the final version of the halogen branch (Branch \ref{def:BE_PD_noCl} presented in Section \ref{sec:res_step4} above)(from now on called the BE-branch), the original CTM3-branch (Branch \ref{def:origCTM3_PD}) and the observational data. A 6-month production run was made for both the BE-branch and the original CTM3-branch, both initiated from Stefanie Falk's restart file (\cite{StefaniePersonal}). The section is divided into two parts: an analysis of the BE-branch against the observational data (Section \ref{sec:res_twoPeriods}), and further analysis of the BE-branch, the original CTM3 and the observational data (Section \ref{sec:res_origBE}).
 
-\subsection{Analysis of the Two Periods February-April and April-June}
+\subsection{Analysis of the Two Periods February-April and April-June}\label{sec:res_twoPeriods}
 
 Figure \ref{fig:ozone_2001_step4} in the previous section contains the full time series of the ozone mixing ratio with the BE-branch, the original CTM3 branch and observational data from Alert, Barrow, Summit and Zeppelin. Figure \ref{fig:2p_step5} contains the same branches (except the test-branch in Figure \ref{fig:ozone_2001_step4}), although zoomed in on the February through June. The periods February 1st through April 24th (period 1) and April 24th through June 30th (period 2) are divided into two periods, as the BE-branch seems to follow different regimes with lower $\chem{O_3}$ mixing ratio in period 1 and higher mixing ratios in period 2. It is clear form this figure that the BE-branch produces lower ozone mixing ratios than the original CTM3-branch. Also, the measurements are generally higher than what's produced by the BE-branch. The exceptions are at the beginning of May at Alert,  and the end of April/beginning of May at Barrow.
 
 %\input{Chapter6_Results/images/ozone_2001_step5}
 \input{Chapter6_Results/images/ozone_stationComp_2001/ozone_2001_2periods_step5}
 
-\clearpage
+\medskip
 
-\subsection{Analysis of the Difference Between the Final BE-Branch and the Original CTM3} 
-
-Figure \ref{fig:joint_FebApr} and \ref{fig:joint_AprMay} contains distributions of the agreements between the original CTM3, the BE-branch and the observational data. They are divided into two periods to separate the BE-branch results before stabilization and after, respectively (before the 24th of April and after). 
+Figures \ref{fig:vert_ALT}-\ref{fig:vert_ZEP} contains the temporal evolution of ozone and halogen species in the model layers above Alert, Barrow, Zeppelin and Summit, respectively. It can be seen from all figures that there is a clear distinction between Period 1 and Period 2, with increased ozone mixing ratios in Period 2, also with altitude. 
 
 \medskip
 
-In Figures \ref{fig:BE_origPD_vmr_FebMarch} - \ref{fig:BE_origPD_vmr_AprJun}, the monthly mean mixing ratio (in ppb) from the first model layer of the BE-branch is subtracted from the first model layer of the CTM3-branch and the difference is shown globally and for the Arctic (above 68$^o$N) for the months February through June in 2001. In February (Figure \ref{fig:BE_origPD_vmr_FebMarch}), the BE-branch produces a higher 
+At Alert (Figure \ref{fig:vert_ALT}), the distinction between Period 1 and 2 considering ozone is an increase from approximately 0-8 ppb in Period 1 to 10-30 ppb in Period 2, with the highest levels found aloft. From the end of April (in Period 1) until the end of May (in Period 2), the \chem{HBr} mixing ratio is on average approximately 10-30 ppt, with a peak in the separation between the two period (around the 24th of April). This behaviour of the temporal evolution of \chem{HBr} can be seen in Figures \ref{fig:vert_BRW}-\ref{fig:vert_ZEP} as well. The other halogen species generally have a low mixing ratio in Period 1, and are virtually non-existent in Period 2. 
 
-\input{Chapter6_Results/images/Orig_BE_comp/jointplot_FebApr_O3_2001}
-\input{Chapter6_Results/images/Orig_BE_comp/jointplot_AprJune_O3_2001}
+\medskip
+
+The ozone mixing ratio at Barrow (in Figure \ref{fig:vert_BRW}) in Period 1 is approximately 6-20 ppb, and increases to about 20-30 ppb in Period 2. Unlike the \chem{HOBr} mixing ratio seen at Alert, there is some increase in the mixing ratio during Period 2, however less than what's seen in Period 1. This also applies to the \chem{HOBr} mixing ratio seen at Summit (Figure \ref{fig:vert_SUM}) and Zeppelin (Figure \ref{fig:vert_ZEP}). The temporal evolution of the mixing ratio in the other halogen species shows virtually nothing in Period2.
+
+\medskip
+
+At Summit (Figure \ref{fig:vert_SUM}), the ozone mixing ratio in Period 1 is low at the ground level (keep in mind that Summit station is located at 3238 m.a.s.l.). However, distinctly higher mixing ratios (30 - 40 ppb) can be seen aloft. In Period 2, the ground level ozone has increased a bit (up to about 15 ppb), but still with higher mixing ratios aloft. 
+
+\medskip
+
+Lastly, the ozone mixing ratio at Zeppelin (Figure \ref{fig:vert_ZEP}) is quite low during Period 1 (approximately 0-10 ppb), and increases abruptly in Period 2 (up to about 20-40 ppb). 
+
+
+\input{Chapter6_Results/images/Vert_StationComp_2001/vert_all_species_ALT}
+\input{Chapter6_Results/images/Vert_StationComp_2001/vert_all_species_BRW}
+\input{Chapter6_Results/images/Vert_StationComp_2001/vert_all_species_SUM}
+\input{Chapter6_Results/images/Vert_StationComp_2001/vert_all_species_ZEP}
+
+
+\clearpage
+
+\subsection{Analysis of the Difference Between the Final BE-Branch and the Original CTM3}\label{sec:res_origBE} 
+
+Figures \ref{fig:joint_FebApr_ALTSUM}- \ref{fig:joint_AprMay_ZEPBRW} contains distributions of the agreements between the original CTM3, the BE-branch and the observational data. They are divided into Period 1 and 2 to separate the BE-branch results before stabilization and after (before and after the 24th of April). The figures also show a distribution of the BE-branch- and Original CTM3-results as well as the distribution of the observed ozone. In addition, the Pearson correlation coefficient and corresponding p-value is shown\footnote{The Pearson correlation coefficient takes a values between $-1$ (exact linear negatively correlated relationship) and $1$ (exact linear positively correlated relationship). The p-value indicates the probability of an uncorrelated system producing datasets that have a Pearson correlation at least as extreme as the one computed from these datasets (statistically significant if $p<0.05$) (\cite{WILKS201123})}.
+
+\medskip
+
+Figure \ref{fig:joint_FebApr_ALTSUM} contains the distributions and correlations for Alert (ALT) and Summit (SUM) during Period 1. The resulting correlations between the model results and observation are poor and varies between being positively and negatively correlated. The highest correlation with observations is with the original CTM3-results at Alert (Pearson number $=0.16$, $p = 0.00011$) (lower right). Similarly, the correlations shown in Figure \ref{fig:joint_FebApr_ZEPBRW}, for Zeppelin (ZEP) and Barrow (BRW), are poor and varies between being positively and negatively correlated. Again, the highest correlation with observations is with the original CTM3-results at Zeppelin (Pearson number $=0.43$, $p = 9.81\times10^{-31}$) (upper right). 
+
+\medskip
+
+In Period 2, the distribution of the BE-branch and Original CTM3 against observations at Alert and Summit are shown in Figure \ref{fig:joint_AprMay_ALTSUM}. Again, the correlations are somewhat poor. The highest correlation with observations is with the BE-branch at Alert (Pearson number $=0.33$, $p = 7.8\times10^{-14}$) (lower left). However, at Zeppelin (in Figure \ref{fig:joint_AprMay_ZEPBRW}), the highest correlation is found between the observations and the Original CTM3 (Pearson number $=0.5$, $p = 1.7\times10^{-34}$) (upper right). 
+
+
+
+\input{Chapter6_Results/images/Orig_BE_comp/jointplot_FebApr_ALTSUM_O3_2001}
+
+
+\input{Chapter6_Results/images/Orig_BE_comp/jointplot_FebApr_ZEPBRW_O3_2001}
+
+\input{Chapter6_Results/images/Orig_BE_comp/jointplot_AprJune_ALTSUM_O3_2001}
+
+\input{Chapter6_Results/images/Orig_BE_comp/jointplot_AprJune_ZEPBRW_O3_2001}
+
+\medskip
+
+In Figures \ref{fig:BE_origPD_vmrperc_FebApr} - \ref{fig:BE_origPD_vmrperc_AprJune}, the monthly mean mixing ratio (in ppb) from the first model layer of the BE-branch is subtracted from the first model layer of the CTM3-branch and the difference is shown globally and for the Arctic (above 68$^o$N) for the months February through June in 2001.
+
+
 
 
 \input{Chapter6_Results/images/Orig_BE_comp/polar_VMRperc_FebApr_2001}
@@ -329,7 +374,7 @@ In Figures \ref{fig:BE_origPD_vmr_FebMarch} - \ref{fig:BE_origPD_vmr_AprJun}, th
 %\cite{Thomas2012} and \cite{Thomas2011} about the mechanism behind ODEs at Summit, Greenland. 
 
 %\section{Calculation of radiative forcing using PD- and PI model results}
-
+\clearpage
 \section{Radiative forcing}
 
 \input{Chapter6_Results/images/RF/BEOrig_RF_polar_FebApr_2001}
