@@ -323,8 +323,13 @@ Lastly, the ozone mixing ratio at Zeppelin (Figure \ref{fig:vert_ZEP}) is quite 
 
 \medskip
 
-Figure \ref{fig:ozone_2013} contains the available model results from the 2013 run as well as observations from the station with available data that year. 
+Figure \ref{fig:ozone_2013} contains the available model results from the 2013 run as well as observations from the station with available data that year. The model roughly manages to produce the same mixing ratios of ozone at Tiksi and Barrow, but seems to underestimate at Zeppelin, Villum and Summit. 
+
 \input{Chapter6_Results/images/ozone_stationComp_2013/ozone_2013}
+
+\medskip
+
+In Figure \ref{fig:ozonosonde2013}, ozonesonde measurements taken at Summit are compared against model results from the original CTM3 and the BE-branch averaged (over the whole of the Arctic, above 68$^o$N) mixing ratios of $\chem{O_3}$ in each model layer up to about 0 hPa. The BE-branch underestimation of the ozone mixing ratios seen at the ground level at Summit (in Figure \ref{fig:ozone_2013}) can be seen in this figure as well. The BE-branch produces lower mixing ratios than both the Original CTM3 and whats seen in the observations. The standard deviation of the BE-branch is also much higher in the lower layers, than that of the Original CTM3. The Original CTM3 produces mixing ratios more comparable to the observations up to approximately 300 hPa and increases constantly thereafter with a steep slope, diverging from the observations. Both model runs end up at approximately the same mixing ratio as the observations around 0 hPa.  
 \input{Chapter6_Results/images/ozone_stationComp_2013/OZONOSONDE_2013}
 
 \clearpage
@@ -391,7 +396,7 @@ In Figure \ref{fig:BE_origPD_vmrperc_AprJune}, the monthly mean difference in mi
 \clearpage
 \section{Radiative forcing}\label{sec:res_RF}
 
-The radiative forcing was calculated by running both the BE-branch and the Original CTM3 with a \acrlong{pd}-setup, and a \acrlong{pi}-setup (for the year 1850). The monthly averaged ozone concentration (in gm$^{-3}$) was converted to \acrlong{du} (in each model layer up to the model tropopause). The concentration in DU was then multiplied with a normalized RF-field (in mWm$^{-2}$DU$^{-1}$) (provided by \cite{MariannePersonal}). Equation \ref{eqn:RF} sums up the calculation.
+The radiative forcing was calculated by running both the BE-branch and the Original CTM3 in 2001 and 2013 with a \acrlong{pd}-setup, and a \acrlong{pi}-setup (for the year 1850).\footnote{\textbf{NOTE:} the BE-branch \acrshort{pd}- and \acrshort{pi}-runs were ran from different model setups. The Henry's law coefficient and photodissociation rates in the PD-run were set as in the final version (explained in Section \ref{sec:res_step4}) whereas the PI-run was set up with the values used in the previous version (\ref{sec:res_step3} with the high Henry's law constant). This became the solution as the model produced negative values of a radical (\texttt{ISOR1}) when the other setup was applied to the PD- and PI-branches. } The monthly averaged ozone concentration (in gm$^{-3}$) was converted to \acrlong{du} (in each model layer up to the model tropopause). The concentration in DU was then multiplied with a normalized RF-field (in mWm$^{-2}$DU$^{-1}$) (provided by \cite{MariannePersonal}). Equation \ref{eqn:RF} sums up the calculation.
 
 \begin{equation}
     RF_{\chem{O_3}} = (M_{PD} - M_{PI})*\text{netNRF}
@@ -402,18 +407,39 @@ In which $RF_{\chem{O_3}}$ is the \acrshort{rf} due to ozone, $M_{PD}$ and $M_{P
 
 \medskip
 
-\textbf{NOTE:} the BE-branch \acrshort{pd}- and \acrshort{pi}-runs were ran from different model setups. The Henry's law coefficient and photodissociation rates in the PD-run were set as in the final version (explained in Section \ref{sec:res_step4}) whereas the PI-run was set up with the values used in the previous version (\ref{sec:res_step3} with the high Henry's law constant). This became the solution as the model produced negative values of a radical (\texttt{ISOR1}) when the other setup was applied to the PD- and PI-branches. 
+Figures \ref{fig:vert_RF_2001}-\ref{fig:vert_RF_2013} display the averaged RF in each model layer (model layer 1-60) of the CTM3 using the BE-branch in the years 2001 and 2013, respectively. The RF is averaged over the whole of the Arctic (latitude above 68$^o$N), and above Zeppelin, Summit, Barrow and Alert. 
 
 \medskip
 
-Figures \ref{fig:BEorig_RF_global_FebApr_2001}-\ref{fig:BEorig_RF_global_AprJune_2001} contain the RF due to ozone in the whole tropospheric column calculated for the BE-branch (left columns) and the RF calculated by the Original CTM3 minus the RF by the BE-branch (right columns) in the Arctic\footnote{A figure containing the global RF produced by the BE-branch can be found in Appendix \ref{app:RF}, Figure \ref{fig:BE_RF_global_2001}, global and Arctic RF produced by the Original CTM3 can be found in Figures \ref{fig:origRF_global_2001}-\ref{fig:origRF_arctic_2001}, respectively}. 
+Figure \ref{fig:vert_RF_2001} Shows that in February, the RF is zero- to negative in the lower layers, with the column above Alert being most negative. In March through June, the RF is more or less positive throughout the column. In the lower layers, the positive RF is most prominent at Barrow and Alert. In June, the column shifts a bit more towards zero in the lower layers up to about 950 hPa, where it increases. 
+
+
+\medskip
+
+In 2013 (Figure \ref{fig:vert_RF_2013}) the RF in the lower layers (up to about 950 hPa) is negative, zero or only slightly positive (in April). Positive RF can be seen in the middle- to upper layers. 
+
+\input{Chapter6_Results/images/RF/RF_USE/vert_RF_2001_BE}
+\input{Chapter6_Results/images/RF/RF_USE/vert_RF_2013_BE}
+
+\medskip
+
+
+Figures \ref{fig:BEorig_RF_polar_FebApr_2001}-\ref{fig:BEorig_RF_polar_AprJune_2001} contain the RF due to ozone in 2001 throughout the whole tropospheric column calculated for the BE-branch (left columns) and the RF calculated by the Original CTM3 minus the RF by the BE-branch (right columns) in the Arctic. Figures \ref{fig:BEorig_RF_polar_FebApr_2013}-\ref{fig:BEorig_RF_polar_AprJune_2013} have the same content, but for the year 2013. \footnote{A figure containing the global RF produced by the BE-branch can be found in Appendix \ref{app:RF}, Figure \ref{fig:BE_RF_global_2001} for 2001 and Figure \ref{fig:BE_RF_global_2013} for 2013. Global RF produced by the Original CTM3 can be found in Figure \ref{fig:orig_RF_global_2001} for 2001 and \ref{fig:orig_RF_global_2013} for 2013}. 
 \medskip 
 
-Period 1 is shown in Figure \ref{fig:BEorig_RF_global_FebApr_2001}. The BE-branch ozone-induced RF (left columns) in February is quite homogeneous, and reads approximately $0-2.5\times10^{-5}$ Wm$^{-2}$ across the Arctic, and slightly higher over Svalbard and the Barents Sea. The difference in RF between the Original CTM3 and the BE-branch shows that the RF calculated by the BE-branch matches the one produced by the Original CTM3 around the poles. Through March, the BE-branch produces some negative RF north of Canada. The difference in RF between the Original CTM3 and the BE-branch produces zero RF over the Arctic ocean towards and over Greenland, but is otherwise positive. Through April, the BE-branch RF is zero or positive and the difference in RF between the Original CTM3 and the BE-branch is positive.
+Period 1 for 2001 is shown in Figure \ref{fig:BEorig_RF_polar_FebApr_2001}. The BE-branch ozone-induced RF (left columns) in February is quite homogeneous, and reads approximately $0.0-0.025$ Wm$^{-2}$ across the Arctic, and slightly higher over Svalbard and the Barents Sea. The difference in RF between the Original CTM3 and the BE-branch shows that the RF calculated by the BE-branch matches the one produced by the Original CTM3. Through March, the BE-branch produces some negative RF north of Canada. The difference in RF between the Original CTM3 and the BE-branch produces zero RF over the Arctic ocean towards and over Greenland, but is otherwise positive. Through April, the BE-branch RF is zero or positive and the difference in RF between the Original CTM3 and the BE-branch is positive.
 
 \medskip
 
-Throughout Period 2 (in Figure \ref{fig:BEorig_RF_global_AprJune_2001}), the BE-branch RF increases, but the difference in RF between the Original CTM3 and the BE-branch produces solely positive values, meaning that the RF produced by the Original CTM3 is higher.
+Throughout Period 2 in 2001 (Figure \ref{fig:BEorig_RF_polar_AprJune_2001}), the BE-branch RF increases, but the difference in RF between the Original CTM3 and the BE-branch produces solely positive values, meaning that the RF produced by the Original CTM3 is higher.
+
+\medskip
+
+The 2013 Period 1 is shown in Figure \ref{fig:BEorig_RF_polar_FebApr_2013}. The BE-branch RF is approximately $0.0-0.006$ Wm$^{-2}$ across the Arctic, and slightly higher over Svalbard and the Barents Sea. The difference between the BE-branch and the Original CTM3 is mostly negative across the Arctic, indicating that the BE-branch produces a higher RF. In March, the BE-branch has a minimum-RF (positive) north of Greenland and Svalbard, and becomes more positive southwards in all directions. The difference with the Original CTM3 is quite low. The BE-branch RF increases again in April, and is on average approximately $0.35$ Wm$^{-2}$ across the Arctis. The difference with the Original CTM3 is positive.
+
+\medskip
+
+Figure \ref{fig:BEorig_RF_polar_AprJune_2013} contains the 2013 RF for period 2. The BE-branch RF increases throughout the course of May and June, and reaches up to $4.2$ Wm$^{-2}$ over Greenland in June. The difference between the Original CTM3 and the BE-branch is negative in June, indicating that the BE-branch produces higher RF values than the  Original CTM3.
 
 \medskip
 
@@ -421,16 +447,11 @@ The averaged RF globally and over the Arctic, produced by the BE-branch and the 
 
 \medskip
 
-\input{Chapter6_Results/images/RF/BEOrig_RF_polar_FebApr_2001}
-\input{Chapter6_Results/images/RF/BEOrig_RF_polar_AprJune_2001}
+\input{Chapter6_Results/images/RF/RF_USE/BEOrig_RF_polar_FebApr_2001}
+\input{Chapter6_Results/images/RF/RF_USE/BEOrig_RF_polar_AprJune_2001}
+
+\input{Chapter6_Results/images/RF/RF_USE/BEOrig_RF_polar_FebApr_2013}
+\input{Chapter6_Results/images/RF/RF_USE/BEOrig_RF_polar_AprJune_2013}
 
 \input{Chapter6_Results/RF_table}
 
-Figures \ref{fig:vert_RF_FebApr_2001}-\ref{fig:vert_RF_AprJune_2001} display the averaged RF in each model layer (model layer 1-60) of the CTM3 using the BE-branch. The RF is averaged over the whole of the Arctic (latitude above 68$^o$N), above Zeppelin, Summit, Barrow and Alert. Figure \ref{fig:vert_RF_FebApr_2001} contains the results for Period 1. In February (left figure) the Arctic-averaged RF is negative up to approximately 720 hPa, where it turns positive. The RF over the stations turns positive a bit higher up, at about 650 hPa. In March (middle figure), the RF above Barrow and Summit is positive throughout the layers, Zeppelin and the Arctic a but less positive and above Alert, the RF is slightly negative until about 800 hPa. In April (right figure), all of the profiles produce positive RF throughout the layers, with the RF above Barrow and Summit being more higher than the others. 
-
-\medskip
-
-Figure \ref{fig:vert_RF_AprJune_2001} shows the averaged RF in the vertical for Period 2. In May (middle figure) the profiles extend from close to 0 Wm$^{-2}$ to about 0.04 Wm$^{-2}$ at Alert, which is the highest in this context. Similarly, in June (right figure) the RF is positive for all profiles throughout the model layers. 
-
-\input{Chapter6_Results/images/RF/vert_RF_FebApr_2001}
-\input{Chapter6_Results/images/RF/vert_RF_AprJune_2001}
