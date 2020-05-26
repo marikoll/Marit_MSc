@@ -136,13 +136,24 @@ Due to the noise appearing in the final version of the halogen chemistry impleme
 
 \subsection{Analysis of the Two Periods February-April and April-June}\label{sec:disc_twoPeriods}
 
-It seems from Figures \ref{fig:vert_ALT}-\ref{fig:vert_ZEP} that \chem{HBr} is the main halogen species controlling the ozone content. According to \cite{CAO}, \chem{HBr} will be the dominating species left after a BE.
+The temporal evolution of the ozone mixing ratio in Period 1 of 2001 produced by the BE-branch at the ground level \footnote{The model ground level Summit and Zeppelin are assumed to be at their approximate altitude in pressure}. (Figure \ref{fig:2p_step5}) shows that the BE-branch produces far too low ozone mixing ratios in this period. The background $\chem{O_3}$-mixing ratio in the Arctic winter (before polar sunrise) are typically around 30-40 ppb (\cite{Foster2001}), which is also seen from the observations at each of the stations. The BE-branch produces on average 0-10 ppb $\chem{O_3}$ at the different stations until the end of April. Seen in relation with Figures \ref{fig:vert_ALT}-\ref{fig:vert_ZEP}, which contain the vertical profiles ozone- and halogen species mixing ratios, it does seem to be higher reactive halogen-activity in Period 1. This is consistent with the low ozone mixing ratios, but seen as February is the first month of Period 1, it is not consistent with the fact that \acrshort{be}-induced \acrshort{ode}s need sunshine to occur. 
 
+\medskip
+
+Indications of the heterogeneous reactions (Reactions \ref{R7} and \ref{R:8})\footnote{The reactions providing the basis of the autocatalytical cycle causing the bromine explosion (\cite{Simpson2015})}\footnote{These reactions were only active for $\chem{X} = \chem{Br}$ in this branch} can be seen in Period 1 for all stations. As \chem{HOBr} and $\chem{Br_2}$, the product of Reactions \ref{R7} and \ref{R:8}, is seen mostly aloft, and only to a small extent at the ground level, it seems that the heterogeneous aerosol reaction (Reaction \ref{R:8}) is the most active. 
+
+Higher \chem{HBr}-mixing ratios are seen from around mid-March at all stations, which is when the other halogen-species generally disappear (with a few exceptions, that I will come back to). According to the box model experiments performed by \cite{CAO}, \chem{HBr} will be the dominating species left after a BE. The increased \chem{HBr}-mixing ratios are thus reasonable.  
+
+It seems from Figures \ref{fig:vert_ALT}-\ref{fig:vert_ZEP} that \chem{HBr} is the main halogen species controlling the ozone content. 
+
+Sammenligne med stasjonsdata! 
 
 \subsection{Analysis of the Difference Between the Final BE-Branch and the Original CTM3}\label{sec:disc_origBE}
 
 The correlations between the model results (BE-branch and the original CTM3) for the Periods 1 and 2 shown in Figures \ref{fig:joint_FebApr_ALTSUM}-\ref{fig:joint_AprMay_ZEPBRW} generally depicts poor agreement between both the models and the observational data. There are no correlations above 0.5, and the correlation coefficient varies between being negative and positive. Also the correlations between the Original CTM3 and the observational data appears to be slightly higher (and more significant, according to significance if $p<0.05$) for most of the stations. 
 
+
+Amund søvde - CTM3
 
 \section{Radiative Forcing}\label{sec:disc_RF}
 
@@ -151,7 +162,7 @@ The vertical profiles
 
 \section{Future work}
 
-The suggestions for future work are divided into three parts. First, the physical processes that are important for the halogen-induced \acrlong{ode}-s that were not taken into account deliberately, as it would have been too extensive for the scope of this thesis. Then, the processes that were implemented, but in some cases were simplified to a large extent. Lastly, the final BE-branch 
+The suggestions for future work are divided into three parts. First, the physical processes that are important for the halogen-induced \acrlong{ode}-s that were not taken into account deliberately, as it would have been too extensive for the scope of this thesis. Then, the processes that were implemented, but in some cases were simplified to a large extent. Lastly, there are some suggestions for analysis of the final BE-branch, and how the results could have been made better.
 
 \subsection{Physical Processes That Could Have Been Implemented}
 
@@ -164,25 +175,22 @@ Some specifics considering the nature of the \acrshort{ode}s and \acrlong{be}s w
 
 \subsection{Physical Processes That Could Were Implemented But Simplified}
 
-\medskip
-The implementation in Section \ref{sec:oceanic_emissions} does not take into consideration antropogenic emissions of organic halocarbons, seasonality in emissions or the difference in lifetime for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$. The implementation is a latitudinal fixed parameterization, and cannot thus not interchange with existing inventories in the model. It would have been better to use an NetCDF-based emission field. 
-\medskip
-In the implementation of the heterogeneous reactions over snow and ice (Section \ref{sec:tropchem_oslo}), the existence of sea ice is the only variable determining the occurrence of the reaction. To improve this, the age of the ice (multiyear ice or newly formed ice), snow cover and ph should be considered (e.g. \cite{Peterson2019}).
+Some processes were deliberately simplified to a large extent when implemented in the CTM3. Future work is advised to take into consideration the following: 
+
+\begin{itemize}
+    \item The implementation in Section \ref{sec:oceanic_emissions} does not take into consideration antropogenic emissions of organic halocarbons, seasonality in emissions or the difference in lifetime for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$. The implementation is a latitudinal fixed parameterization, and cannot thus not interchange with existing inventories in the model. It would have been better to use an NetCDF-based emission field. 
+    \item In the implementation of the heterogeneous reactions over snow and ice (Section \ref{sec:tropchem_oslo}), the existence of sea ice is the only variable determining the occurrence of the reaction. To improve this, the age of the ice (multiyear ice or newly formed ice), snow cover on the ice and pH of the ice should be considered (e.g. \cite{Peterson2019}).
+    \item The parameterization of the aerodynamic resistance $r_a$ in Sections \ref{sec:snow_ice_react} should have been calculated using values for the boundary layer conditions, wind speed and boundary layer height, that are in the CTM3 already, rather than prescribed values from \cite{CAO}. 
+\end{itemize}
 
 
+\subsection{The Final BE-Branch}
 
 
-\medskip
-
-The parameterization of the aerodynamic resistance $r_a$ in Sections \ref{sec:snow_ice_react} should have been calculated using values for the boundary layer conditions, wind speed and boundary layer height, that are in the CTM3 already, rather than prescribed values from \cite{CAO}. 
-
-\medskip
-
-Was not able to do a run to include Eureka. Ideally the whole 6-month period should have been included for the year 2013 to be able to get a robust picture of the comparison of model data against the observations. As I was pressed on time, I chose to prioritize the RF-calculations and comparison with ozonesone-data for this year. 
+The model should have been run for a full year rather than six months to obtain a better idea of the seasonal variability. I had run to all branches from the same restart file \footnote{Used in a study by \cite{Falk_2019}. The setup is explained in \ref{subsec:restart_files}}, which ideally should have been ran for a spin-up period of approximately a model month before being used. As this was not done, the January data were practically useless (as can be seen from \ref{fig:ozone_2001_step4}. The BE-branch is clearly affected by the lack of spin-up). Had the model been run for a full year, it would have been possible to include Antarctic observations (the Antarctic also experiences ODEs (\cite{Simpson2015})).
 
 \medskip
-
-The model should also have been run for a full year rather than six months to obtain a better idea of the seasonal variability. I had run to all branches from the same restart file \footnote{Used in a study by \cite{Falk_2019}. The setup is explained in \ref{subsec:restart_files}}, which ideally should have been ran for a spin-up period of approximately a model month before being used. As this was not done, the January data were practically useless (as can be seen from \ref{fig:ozone_2001_step4}. The BE-branch is clearly affected by the lack of spin-up). Had the model been run for a full year, it would have been possible to include Antarctic observations (the Antarctic also experiences ODEs (\cite{Simpson2015})).
+I was not able to do a run to include Eureka. Ideally the whole 6-month period should have been included for the year 2013 to be able to get a robust picture of the comparison of model data against the observations. As I was pressed on time, I chose to prioritize the RF-calculations and comparison with ozonesone-data for this year. As there are ozone observations available for this station, I suggest these could have been used for comparison in future work. 
 
 \medskip
 
