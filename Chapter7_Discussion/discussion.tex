@@ -151,19 +151,25 @@ The vertical profiles
 
 \section{Future work}
 
-The acidity of the reaction surface for the heterogeneous reactions are not considered, although it is highly dependent on pH. 
+The suggestions for future work are divided into three parts. First, the physical processes that are important for the halogen-induced \acrlong{ode}-s that were not taken into account deliberately, as it would have been too extensive for the scope of this thesis. Then, the processes that were implemented, but in some cases were simplified to a large extent. Lastly, the final BE-branch 
 
-\medskip
-Sea salt debromination increase from pre-industrial times to today due to enhanced particle acidity from present day emmissions are not considered here (\cite{Parella})
+\subsection{Physical Processes That Could Have Been Implemented}
+
+Some specifics considering the nature of the \acrshort{ode}s and \acrlong{be}s were not taken into account, but are advisable to look into for future work. This includes: 
+\begin{itemize}
+    \item The acidity of the reaction surface for the heterogeneous reactions were not considered, although the efficiency of these reactions are highly dependent on the pH of the reaction surface (\cite{KerriAPratt2013}).
+    \item \cite{Parella} suggested sea salt debromination increase from pre-industrial times to present-day due to enhanced particle acidity from present day emmissions. This was not considered in this implementation.
+    \item Antropogenic emissions of organic halocarbons as a source for reactive bromine was not taken into account, only the organic halocarbons originating from the ocean (explained in \ref{sec:oceanic_emissions}).  
+\end{itemize}
+
+\subsection{Physical Processes That Could Were Implemented But Simplified}
 
 \medskip
 The implementation in Section \ref{sec:oceanic_emissions} does not take into consideration antropogenic emissions of organic halocarbons, seasonality in emissions or the difference in lifetime for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$. The implementation is a latitudinal fixed parameterization, and cannot thus not interchange with existing inventories in the model. It would have been better to use an NetCDF-based emission field. 
 \medskip
 In the implementation of the heterogeneous reactions over snow and ice (Section \ref{sec:tropchem_oslo}), the existence of sea ice is the only variable determining the occurrence of the reaction. To improve this, the age of the ice (multiyear ice or newly formed ice), snow cover and ph should be considered (e.g. \cite{Peterson2019}).
 
-\medskip
 
-The model should also be verified for the Antarctic, which also experiences ODEs (\cite{Simpson2015}).
 
 
 \medskip
@@ -172,4 +178,12 @@ The parameterization of the aerodynamic resistance $r_a$ in Sections \ref{sec:sn
 
 \medskip
 
-Was not able to do a run to include Eureka. Ideally the whole 6-month period should have been included for the year 2013 to be able to get a robust picture of the comparison of model data against the observations. As I was pressed on time, I chose to prioritize the RF-calculations and comparison with ozonesone-data for this year.
+Was not able to do a run to include Eureka. Ideally the whole 6-month period should have been included for the year 2013 to be able to get a robust picture of the comparison of model data against the observations. As I was pressed on time, I chose to prioritize the RF-calculations and comparison with ozonesone-data for this year. 
+
+\medskip
+
+The model should also have been run for a full year rather than six months to obtain a better idea of the seasonal variability. I had run to all branches from the same restart file \footnote{Used in a study by \cite{Falk_2019}. The setup is explained in \ref{subsec:restart_files}}, which ideally should have been ran for a spin-up period of approximately a model month before being used. As this was not done, the January data were practically useless (as can be seen from \ref{fig:ozone_2001_step4}. The BE-branch is clearly affected by the lack of spin-up). Had the model been run for a full year, it would have been possible to include Antarctic observations (the Antarctic also experiences ODEs (\cite{Simpson2015})).
+
+\medskip
+
+The halogen-chemistry implementation was clearly not working perfectly, as the model experienced negative values of the \texttt{ISOR1}-radical by only slight changes in the wet deposition and photodissosiation explained in Sections \ref{sec:res_step4} and \ref{sec:res_final_Version}. Due to this, the presend-day and pre-industrial BE-branch were ran with different setups, which again affects the RF-calculation, providing unreliable results. Future work would be advised to find a stable solution that works for both setups. Moreover, the final version of the BE-branch did not include the heterogeneous Cl-chemistry, which it should have, as chlorine species most likely has an impact on the halogen-induced tropospheric ozone depletions (e.g. \cite{FinlaysonPitts2010}).
