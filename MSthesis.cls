@@ -41,7 +41,7 @@
 \makeglossaries
  
 \usepackage[labelfont=bf]{caption} % Gives bold figure X. 
- 
+\renewcommand{\labelitemii}{$\diamond$} 
 \usepackage{amsmath}
 
 %\let\oldref\ref

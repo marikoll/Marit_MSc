@@ -1,13 +1,16 @@
 \setcounter{chapter}{6}
 \chapter{Discussion}\label{chap:discussion}
 
+This chapter discusses the results seen in Chapter \ref{chap:results}. The chapter starts with a section concerning the development of the implementation of the halogen chemistry responsible for the \acrlong{ode} seen in the Arctic (Section \ref{sec:discussion_code_development}). The resulting implementation is called the BE (bromine explosion) branch, and is compared with observations and the Original CTM3 in Section \ref{sec:disc_final_Version}. Lastly, the ozone induced tropospheric RF calculated by using the BE-branch and the Original CTM3 is analysed. 
+
+
 \section{Code Development}\label{sec:discussion_code_development}
 
-The Oslo CTM3 is documented by \cite{SovdeManual} and the documentation in the code. The branches developed in this thesis were based on the work done by \cite{Susanne} in her master thesis from 2016. The process was slowed down by quite some time due to the lack of documentation in the new code and my ability to interpret it. Also, due to the change of super computers in January 2020, some problems arose concerning how to optimize the model runs in technical terms (see Section \ref{app:supercomputer}). This led to the decision to perform the model runs at \texttt{HFOUR}-resolution instead of \texttt{HTWO} and shorten the time of the spin-up and the model runs to three months (model time). 
+The Oslo CTM3 documentation consist of the CTM3 manual(\cite{SovdeManual}) and the inline code documentation. The branches developed in this thesis were based on the work done by \cite{Susanne} in her master thesis from 2016. Interpreting the new code was a challenge. The code was poorly documented, which caused the process to be slowed down with quite some time. Also, due to the change of super computers in January 2020, some problems arose concerning how to optimize the model runs in technical terms (see Section \ref{app:supercomputer}). This led to the decision to perform the model runs at \texttt{HFOUR}-resolution instead of \texttt{HTWO} and shorten the time of the spin-up and the model runs to three months (model time). 
 
 \medskip
 
-Throughout the developing section, results will be compared against some proxy measurements, which are: 
+Throughout the development section, results will be compared against three proxy measurements, which are: 
 
 \begin{itemize}
     \item Ozone measurements from EBAS for the stations with available data for 2001 (Alert, Barrow, Summit and Zeppelin) (see Figure \ref{tab:ebas_noaa_data_taken})
@@ -17,11 +20,11 @@ Throughout the developing section, results will be compared against some proxy m
 
 \subsection{A First Look}
 
-In Figure \ref{fig:CompObsOrigBE} (in Section \ref{sec:results_code_development}) the ozone observations at Alert, Barrow, Summit and Zeppelin were compared to model results using the original CTM3 branch (Branch \ref{def:origCTM3_PD}) and the bromine explosion branch (Branch \ref{def:BE_PD}). The latter produced far too low $\chem{O_3}$-concentrations even though the bromine content was too low to justify the low ozone-concentration (not shown here). In order to examine the reason why, a test where the different types of heterogeneous reactions were removed was performed. This is explained in the next section. 
+In Figure \ref{fig:CompObsOrigBE}, Section \ref{sec:results_code_development}, the ozone observations at Alert, Barrow, Summit and Zeppelin were compared to the model results using the original CTM3 branch (Branch \ref{def:origCTM3_PD}) and the bromine explosion branch (Branch \ref{def:BE_PD}). The latter produced far too low $\chem{O_3}$-concentrations even though the bromine content was too low to justify the low ozone-concentration (not shown here). In order to examine the reason why, a test where the different types of heterogeneous reactions were removed was performed. This is explained in the next section. 
 
 \subsection{Test: Removing Heterogeneous Reactions}
 
-Branch \ref{def:BE_PD_noAerosol}-\ref{def:BE_PD_noBr} were created as an attempt to see which process may have caused the problems in the initial BE-branch (Branch \ref{def:BE_PD}). The resulting modelled ozone along with ozone measurements are shown in Figure \ref{fig:test_RemoveHetReacts}. When the heterogeneous reactions over ice surfaces were removed, the resulting modelled ozone content became similar to what was produced originally (by Branch \ref{def:BE_PD}), indicating that the problem had to be elsewhere. The other three branches produced ozone with comparable mixing ratios as the observed ozone content. Branches \ref{def:BE_PD_noAerosol} and \ref{def:BE_PD_noBr} resembles each other concerning the ozone-concentration, whereas Branch \ref{def:BE_PD_noCl} deviates and shows more sign of having some ozone-depletion patterns (e.g. around the 9th of April at Zeppelin). 
+Branch \ref{def:BE_PD_noAerosol}-\ref{def:BE_PD_noBr} were created as an attempt to see which process may have caused the problems in the initial BE-branch (Branch \ref{def:BE_PD}). The resulting modelled ozone along with ozone measurements are shown in Figure \ref{fig:test_RemoveHetReacts}. When the heterogeneous reactions over ice surfaces were removed, the resulting modelled ozone content became similar to what was produced originally (by Branch \ref{def:BE_PD}), indicating that the problem had to be elsewhere. The other three branches produced ozone with comparable mixing ratios as what was observed. Branches \ref{def:BE_PD_noAerosol} and \ref{def:BE_PD_noBr} resembles each other concerning the ozone-concentration, whereas Branch \ref{def:BE_PD_noCl} deviates and shows more sign of having some ozone-depletion patterns (e.g. around the 9th of April at Zeppelin). 
 
 \medskip
 
@@ -29,7 +32,7 @@ The branch without heterogeneous chlorine reactions (Branch \ref{def:BE_PD_noCl}
 
 \medskip
 
-Figures \ref{fig:vertHBr_noCl}-\ref{fig:polarHBr_noCl} shows the \acrlong{vmr} in the vertical and the concentration in the Arctic at the first model layer, respectively. Compared to the measurements of filterable bromine, \chem{f-Br}, performed by \cite{barrie}, the concentration shown in Figure \ref{fig:polarHBr_noCl} is too low (see Figure \ref{fig:Barrie_1988} in the Appendix). The same applies for the \chem{BrO} \acrshort{vcd} over the lowermost $\sim 250$ m shown in Figure \ref{fig:polarBrO_noCl}. Compared to the \acrshort{maxdoas}-measurements performed by \cite{Peterson2015} (see Figure \ref{fig:Peterson_2015} in Appendix) these are about a factor of $10^7$ too low. These low concentrations were focused upon in the further development of the branch. 
+Figures \ref{fig:vertHBr_noCl}-\ref{fig:polarHBr_noCl} shows the \acrlong{vmr} in with altitude and the concentration in the Arctic at the first model layer, respectively. Compared to the measurements of filterable bromine, \chem{f-Br}, performed by \cite{barrie}, the concentration shown in Figure \ref{fig:polarHBr_noCl} is too low (see Figure \ref{fig:Barrie_1988} in the Appendix). The same applies to the \chem{BrO} \acrshort{vcd} over the lowermost $\sim 250$ m shown in Figure \ref{fig:polarBrO_noCl}. Compared to the \acrshort{maxdoas}-measurements performed by \cite{Peterson2015} (see Figure \ref{fig:Peterson_2015} in Appendix) these are about a factor of $10^7$ too low. These low concentrations were focused upon in the further development of the branch. 
 %This had to be seen in the context of the modelled bromine content as there generally was not enough bromine to create such low values of ozone. 
 
 
@@ -47,7 +50,7 @@ Figure \ref{fig:ozone_noCl_step2} contains the resulting ozone \acrshort{vmr} at
     \item Initializing the run with a restart file (spin-up) from the run above (\chem{HBr}-concentration hard-coded to 10 ppt)
 \end{itemize}
 
-The first two tests were performed for the purpose of investigating whether a forced high concentration of \chem{HBr} would have any effect on the content of reactive bromine species and therefore possibly the production of \acrshort{ode}s. From Figure \ref{fig:ozone_noCl_step2} it is clear that the concentration of ozone is affected, with especially the forced 10 ppt-run following the measured $\chem{O_3}$ to a larger extent than before. 
+The first two tests were performed for the purpose of investigating whether a forced high concentration of \chem{HBr} would have any effect on the content of reactive bromine species and therefore possibly the production of \acrshort{ode}. From Figure \ref{fig:ozone_noCl_step2} it is clear that the ozone \acrshort{vmr} is affected, with especially the forced 10 ppt-run obtaining observed $\chem{O_3}$ values to a larger extent than before. 
 
 \medskip
 
@@ -59,7 +62,7 @@ The \chem{HBr}- and \chem{HOBr}-concentrations are closely linked and anti-corre
 
 \medskip
 
-The \chem{BrO}-\acrshort{vcd} shown in Figure \ref{fig:polarBro_newRestart} is still about 6 orders of magnitude too low compared to what could be expected from Figure \ref{fig:Peterson_2015}. The areas of elevated \chem{BrO} are, however related to areas of elevated \chem{HOBr} in Figure \ref{fig:polarHOBr_newRestart}, indicating that Reaction \ref{R:7} is indeed working. The low content could then be related to the inefficient cycling of \chem{HOBr}. 
+The \chem{BrO}-\acrshort{vcd} shown in Figure \ref{fig:polarBro_newRestart} is still about 6 orders of magnitude too low compared to what could be expected from Figure \ref{fig:Peterson_2015}. The areas of elevated \chem{BrO} are, however, related to areas of elevated \chem{HOBr} in Figure \ref{fig:polarHOBr_newRestart}, indicating that Reaction \ref{R:7} is indeed working. The low content could then be related to the inefficient cycling of \chem{HOBr}. 
 
 
 \subsubsection{Hard-Coding Photodissociation and Adjusting the Henry'Law Coefficient}\label{sec:disc_step3}
@@ -67,13 +70,13 @@ The \chem{BrO}-\acrshort{vcd} shown in Figure \ref{fig:polarBro_newRestart} is s
 Figure \ref{fig:ozone_2001_step3} contains the modelled results of four new tests, as well as the observational data, the original CTM3 and the last test from the previous section initialized with a \chem{HBr}-concentration of 10 ppt. The new tests included: 
 
 \begin{itemize}
-    \item Hard-coded photodissociation rates (Hard-coded P) as it turned out the photolysis of the following reactions were in fact not working prior to this
+    \item Hard-coded photodissociation rates (Hard-coded P) as it turned out the photolysis of the following reactions were in fact not working prior to this\footnote{The rest of the tests contained these hard-coded rates. }
     \begin{itemize}
         \item $3\times10^{-4}$ s$^{-1}$ for Reaction \ref{R:18} (value from \cite{CAO})
         \item $0.014$ s$^{-1}$ for Reaction \ref{R:20}(value from \cite{CAO})
         \item $0.05\times10^{-8}$ s$^{-1}$ for Reaction \ref{R:12} (value from \cite{Papanastasiou2013}, Arctic spring dissociation rate, Figure 2, p. 3022)
     \end{itemize}
-    The rest of the tests contained this hard-coded rates. 
+    
     \item A new Henry's law coefficient, as it turned out the previous coefficient had the wrong unit. The low Henry coefficient refers to:
     \begin{itemize}
         \item \chem{HBr}: $7.2\cdot 10^{-1} [M/amt]$, $6100 K$ (Taken from: \cite{Chameides1992})
@@ -85,7 +88,7 @@ Figure \ref{fig:ozone_2001_step3} contains the modelled results of four new test
     \item The higher Henry's law coefficient was finally kept in the final version of the CTM3, and was therefore used in the \texttt{HTWO}-test
 \end{itemize}
 
-The resulting modelled ozone \acrshort{vmr} from these runs is lower than the previous tests, although with variations (as opposed to the first run using Branch \ref{def:BE_PD} in Figure \ref{fig:CompObsOrigBE}). It could be expected that these tests produced lower ozone-concentrations, as especially the photodissociation rates are a key point in the ozone depletion at the point of Arctic spring, causing halogens to become reactive. The change in the Henry's law coefficient was essential as the previous implementation was wrong, but the high- and low coefficient produce quite similar $\chem{O_3}$-\acrshort{vmr}. 
+The resulting modelled ozone \acrshort{vmr} (Figure \ref{fig:ozone_2001_step3}) from these runs is lower than the previous tests, although with variations (as opposed to the first run using Branch \ref{def:BE_PD} in Figure \ref{fig:CompObsOrigBE}). It could be expected that these tests produced lower ozone-concentrations, as especially the photodissociation rates are a key point in the ozone depletion at the point of Arctic spring, causing halogens to become reactive. The change in the Henry's law coefficient was essential as the previous implementation was wrong, but the high- and low coefficient produce quite similar $\chem{O_3}$-\acrshort{vmr}. 
 
 \medskip
 
@@ -101,7 +104,7 @@ There are indications of a possible relation between the high \chem{HOBr}-concen
 
 \subsection{Higher Henry's Law Coefficient and Higher Photodissociation of \chem{HOBr}}\label{sec:disc_step4}
 
-Originally, the Henry coefficient from the previous section was intended to be the one used in the final version. However, in order to perform the final runs in a way that would be reasonable to compare against the original version of the CTM3 as well as use in calculations of RF, the restart file provided from \cite{StefaniePersonal} (see Section \ref{subsec:restart_files}) was to be used for the 6 months runs at \texttt{HTWO} for all versions (Pre - industrial with original CTM3 version and \acrshort{be}-version, present - day with original CTM3 version and \acrshort{be}-version). The model crashed when running the final version of the \acrshort{be}-branch, obtaining negative values of \texttt{ISOR1} (a radical species) after 17 hours run time (i.e. not model time). After analyzing the results that the model was able to produce before crashing, I decided to attempt increasing the wet deposition of \chem{HBr} (increasing Henry's law coefficient) as well as increasing the photodissociation of \chem{HOBr}. The new Henry's law constant for the wet deposition of \chem{HBr} was taken from \cite{Sander99}: 
+Originally, the high Henry coefficient from the previous section was intended to be the one used in the final version (see Figure \ref{fig:ozone_2001_step3}). However, in order to perform the final runs in a way that would be reasonable to compare against the original version of the CTM3 as well as use in calculations of RF, the restart file provided from \cite{StefaniePersonal} (see Section \ref{subsec:restart_files}) was to be used for the 6 months runs at \texttt{HTWO} for all versions (Pre - industrial with original CTM3 version and \acrshort{be}-version, present - day with original CTM3 version and \acrshort{be}-version). The model crashed when running the final version of the \acrshort{be}-branch, obtaining negative values of \texttt{ISOR1} (a radical species) after 17 hours run time (i.e. not model time). After analyzing the results that the model was able to produce before crashing, I decided to attempt increasing the wet deposition of \chem{HBr} (increasing Henry's law coefficient) as well as increasing the photodissociation of \chem{HOBr}. The new Henry's law constant for the wet deposition of \chem{HBr} was taken from \cite{Sander99}: 
 
 \begin{itemize}
     \item $1.3\times10^9/K_\text{A} [M/atm]$, $10 000 K$ (Taken from: \cite{Brimblecombe1988TheSA})
@@ -123,7 +126,7 @@ The original version of the CTM3 was able produce the model runs as planned, bot
 \subsubsection{Analysis of the Final Branch}\label{sec:disc_finalBRanch}
 
 
-Figure \ref{fig:ozone_2001_step4} shows the resulting ozone mixing at the four different stations. The final version (green line) is the version that will be used for further analysis. The initial lower mixing ratios produced by the final version could be due to the need for spin up, as the restart file initializing the model contains a chemistry that differs from what I have implemented. Due to the need for spin-up, January has been left out of the following analysis, as it is assumed to be corrupted by different chemistry. I will come back to this in the later sections. The stabilization of the ozone \acrshort{vmr} around 10-20 ppb is a bit low at all stations. It is comparable to what was measured at Alert and Barrow, however with less oscillations. At Summit, the $\chem{O_3}$-\acrshort{vmr} is about 30 ppb too low throughout the time period.
+Figure \ref{fig:ozone_2001_step4} shows the resulting ozone mixing at the four different stations. The final version (green line) is the version that will be used for further analysis. The initial lower mixing ratios produced by the final version could be due to the need for spin up, as the restart file initializing the model contains a chemistry that differs from what I have implemented. Due to the need for spin-up, January has been left out of the following analysis, as it is assumed to be corrupted by different chemistry. The stabilization of the ozone \acrshort{vmr} around 10-20 ppb is a bit low at all stations. It is comparable to what was measured at Alert and Barrow, however with less oscillations. At Summit, the $\chem{O_3}$-\acrshort{vmr} is about 30 ppb too low throughout the time period.
 
 
 \medskip
@@ -136,7 +139,7 @@ Due to the noise appearing in the final version of the halogen chemistry impleme
 
 \subsection{Analysis of the Two Periods February-April and April-June}\label{sec:disc_twoPeriods}
 
-The temporal evolution of the ozone \acrshort{vmr} in Period 1 of 2001 produced by the BE-branch at the ground level \footnote{The model ground level Summit and Zeppelin are assumed to be at their approximate altitude in pressure} (Figure \ref{fig:2p_step5}) shows that the BE-branch produces far too low ozone \acrshort{vmr} in this period. The background $\chem{O_3}$-\acrshort{vmr} in the Arctic winter (before polar sunrise) are typically around 30-40 ppb (\cite{Foster2001}), which is also seen from the observations at each of the stations. The BE-branch produces on average 0-10 ppb $\chem{O_3}$ at the different stations until the end of April. Seen in relation with Figures \ref{fig:vert_ALT}-\ref{fig:vert_ZEP}, which contain the vertical profiles ozone- and halogen species mixing ratios, it does seem to be higher reactive halogen-activity in Period 1. This is consistent with the low ozone-\acrshort{vmr}, but seen as February is the first month of Period 1, it is not consistent with the fact that \acrshort{be}-induced \acrshort{ode}s need sunshine to occur. 
+The temporal evolution of the ozone \acrshort{vmr} in Period 1 of 2001 produced by the BE-branch at the ground level \footnote{The model ground level Summit and Zeppelin are assumed to be at their approximate altitude in pressure} (Figure \ref{fig:2p_step5}) shows that the BE-branch produces far too low ozone \acrshort{vmr} in this period. The background $\chem{O_3}$-\acrshort{vmr} in the Arctic winter (before polar sunrise) are typically around 30-40 ppb (\cite{Foster2001}), which can be seen from the observations at each of the stations. The BE-branch produces on average 0-10 ppb $\chem{O_3}$ at the different stations until the end of April. Seen in relation with Figures \ref{fig:vert_ALT}-\ref{fig:vert_ZEP}, which contain the vertical profiles ozone- and halogen species mixing ratios, it seems to be higher reactive halogen-activity in Period 1 than in Period 2. This is consistent with the low ozone-\acrshort{vmr}, but seen as February is the first month of Period 1, it is not consistent with the fact that \acrshort{be}-induced \acrshort{ode} need sunshine to occur. 
 
 \medskip
 
@@ -148,7 +151,7 @@ Higher \chem{HBr}-\acrshort{vmr} is seen from around mid-March at all stations, 
 
 \medskip
 
-In Period 2 of 2001, the ozone \acrshort{vmr} increases at the ground level of the stations (Figure \ref{fig:2p_step5}). At Alert, Barrow and, to a lesser extent, Zeppelin, the ozone \acrshort{vmr} is comparable to observations. At Summit, the observed ozone \acrshort{vmr} is about twice as much as whats produced by the BE-branch. Interestingly, \chem{BrCl} at Summit extends into Period 2, which is not seen at the other stations (in Figures \ref{fig:vert_ALT}-\ref{fig:vert_ZEP}). As the heterogeneous reactions with chlorine were disabled, this is not a product of Reaction \ref{R:8}. The \chem{BrCl} originates from aloft, and could therefore arise from the parameterized transport from the stratosphere.\footnote{The stratosphere was turned off for all the runs, but species originating from the stratosphere are set to climatological values a few kilometers above the tropopause (\cite{Sovde2012})} 
+In Period 2 of 2001, the ozone \acrshort{vmr} increases at the ground level of the stations (Figure \ref{fig:2p_step5}). At Alert, Barrow and, to a lesser extent, Zeppelin, the ozone \acrshort{vmr} is comparable to observations. At Summit, the observed ozone \acrshort{vmr} is about twice as much as produced by the BE-branch. Interestingly, \chem{BrCl} at Summit extends into Period 2, which is not seen at the other stations (in Figures \ref{fig:vert_ALT}-\ref{fig:vert_ZEP}). As the heterogeneous reactions with chlorine were disabled, this is not a product of Reaction \ref{R:8}. The \chem{BrCl} originates from aloft, and could therefore arise from the parameterized transport from the stratosphere.\footnote{The stratosphere was turned off for all the runs, but species originating from the stratosphere are set to climatological values a few kilometers above the tropopause (\cite{Sovde2012})} 
 
 \medskip
 
@@ -156,7 +159,7 @@ During Period 2, the \chem{HBr}-\acrshort{vmr} remains at values of about 10-30 
 
 \medskip
 
-Ozonesonde measurements (in ppb) from Summit in 2013  were compared against the BE-branch and Original CTM3 model output run for the same year in Figure \ref{fig:ozonosonde2013}. The underestimation of $\chem{O_3}$\acrshort{vmr} demonstrated by the BE-branch in the runs for 2001 (Figure \ref{fig:2p_step5}) can also be seen in this figure. The large standard deviations seen in the lower layers indicate that the results across the Arctic are highly variable, as opposed to what's seen from the Original CTM3 results. The large variations could in theory be due to \acrshort{ode}s occuring at different locations in the Arctic as this is an average over the whole area, in which case it would not be shown in the Original CTM3 results as it does not contain the halogen chemistry. As I don't have the full time-series for the BE-branch in 2013, this is very uncertain. However, even the errorbars do not reach the observed $\chem{O_3}$ mixing ratios whatsoever, which suggests that the BE-branch is depleting too much ozone either way.
+Ozonesonde measurements (in ppb) from Summit in 2013  were compared with the BE-branch and Original CTM3 model output run for the same year in Figure \ref{fig:ozonosonde2013}. The underestimation of $\chem{O_3}$\acrshort{vmr} demonstrated by the BE-branch in the runs for 2001 (Figure \ref{fig:2p_step5}) can also be seen in this figure. The large standard deviations seen in the lower layers indicate that the results across the Arctic are highly variable, as opposed to what's seen from the Original CTM3 results. The large variations could in theory be due to \acrshort{ode}s occuring at different locations in the Arctic as this is an average over the whole area, in which case it would not be shown in the Original CTM3 results as it does not contain the halogen chemistry. As I don't have the full time-series for the BE-branch in 2013, this is very uncertain. However, even the errorbars do not reach the observed $\chem{O_3}$ mixing ratios whatsoever, which suggests that the BE-branch is depleting too much ozone either way.
 
 
 \subsection{Analysis of the Difference Between the Final BE-Branch and the Original CTM3}\label{sec:disc_origBE}
@@ -169,14 +172,20 @@ Figures \ref{fig:BE_origPD_vmr_lev0_FebApr}-\ref{fig:BE_origPD_vmr_lev0_AprJun} 
 
 \section{Radiative Forcing}\label{sec:disc_RF}
 
-The vertical profiles shown in Figure \ref{fig:vert_RF_2001} for 2001 and Figure \ref{fig:vert_RF_2013} for 2013 expresses the estimated RF in each model layer up to above the polar \acrlong{bl}. 
+This section covers the estimated \acrlong{rf} due to tropospheric ozone for the BE-branch and the Original CTM3 in 2001 and 2013. As explained in Section \ref{sec:disc_step4}, the setup of the model for the present-day and pre-industrial BE-branch differ due to model instabilities occurring when the present-day high Henry's law and higher photodissociation of \chem{HOBr} were applied to the pre-industrial script and vice versa. Thus, the RF estimated from the BE-branch is not trustworthy, but is still conceptually analysed. When running the Original CTM3, the same setup was applied to both pre-industrial and present-day runs. 
 
+\medskip
 
-%0.40$\pm$0.20Wm \cite{IPCCchapter8}
+The vertical profiles shown in Figure \ref{fig:vert_RF_2001} for 2001 and Figure \ref{fig:vert_RF_2013} for 2013 expresses the estimated ozone induced RF in each model layer averaged over the Arctic, Zeppelin, Barrow, Summit and Alert. 
+
+\medskip
+
+The temporally (February to April) and globally averaged RF due to tropospheric ozone yielded by the BE-branch demonstrates large deviations between the 2001-run and the 2013-run. The 2001 RF of $-0.11\pm0.11$ Wm$^{-2}$ indicates global ozone-induced tropospheric cooling, which is not reasonable. The estimate from 2013 of $0.39\pm0.31$ Wm$^{-2}$ is closer to what was reported by the IPCC (\cite{IPCCchapter8}) of $0.40\pm0.20$ Wm$^{-2}$ (global annual average), but due to the large deviation, this is not to be trusted. The Original CTM3 yields 0.10 Wm$^{-2}$ lower than than the IPCC estimate, but seen as the estimated RF is only averaged over 5 months, it is natural that there is a difference. 
+
 
 \section{Future work}
 
-The suggestions for future work are divided into three parts. First, the physical processes that are important for the halogen-induced \acrlong{ode}-s that were not taken into account deliberately, as it would have been too extensive for the scope of this thesis. Then, the processes that were implemented, but in some cases were simplified to a large extent. Lastly, there are some suggestions for analysis of the final BE-branch, and how the results could have been made better.
+The suggestions for future work are divided into three parts. First, implementing physical processes important for the halogen-induced \acrlong{ode}, which were not taken into account deliberately, as it would have been too extensive for the scope of this thesis. Second, specifying processes that were implemented, but simplified to a large extent. Lastly, there are some suggestions for analysis of the final BE-branch, and how the results could have been improved.
 
 \subsection{Physical Processes That Could Have Been Implemented}
 
@@ -187,26 +196,26 @@ Some specifics considering the nature of the \acrshort{ode}s and \acrlong{be}s w
     \item Antropogenic emissions of organic halocarbons as a source for reactive bromine was not taken into account, only the organic halocarbons originating from the ocean (explained in \ref{sec:oceanic_emissions}).  
 \end{itemize}
 
-\subsection{Physical Processes That Could Were Implemented But Simplified}
+\subsection{Physical Processes That Were Implemented But Simplified}
 
 Some processes were deliberately simplified to a large extent when implemented in the CTM3. Future work is advised to take into consideration the following: 
 
 \begin{itemize}
-    \item The implementation in Section \ref{sec:oceanic_emissions} does not take into consideration antropogenic emissions of organic halocarbons, seasonality in emissions or the difference in lifetime for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$. The implementation is a latitudinal fixed parameterization, and cannot thus not interchange with existing inventories in the model. It would have been better to use an NetCDF-based emission field. 
+    \item The implementation in Section \ref{sec:oceanic_emissions} does not take into consideration antropogenic emissions of organic halocarbons, seasonality in emissions or the difference in lifetime for $\chem{CHBr_3}$ and $\chem{CH_2Br_2}$. The implementation is a latitudinal fixed parameterization, and thus cannot interchange with existing inventories in the model. It would have been better to use an NetCDF-based emission field. 
     \item In the implementation of the heterogeneous reactions over snow and ice (Section \ref{sec:tropchem_oslo}), the existence of sea ice is the only variable determining the occurrence of the reaction. To improve this, the age of the ice (multiyear ice or newly formed ice), snow cover on the ice and pH of the ice should be considered (e.g. \cite{Thomas2011}, \cite{Peterson2019}).
     \item The parameterization of the aerodynamic resistance $r_a$ in Sections \ref{sec:snow_ice_react} should have been calculated using values for the boundary layer conditions, wind speed and boundary layer height, that are in the CTM3 already, rather than prescribed values from \cite{CAO}. 
-    \item In order to calculate the deposition rate constant of \chem{HOBr} onto snow-and ice surfaces, the parameterization of this constant when implemented was the same as was used by the box-model experiment by \cite{CAO}. Thus, the deposition rate was constant according to what I used as $\beta$, $L_{mix}$ and $v_d$ (see Section \ref{sec:snow_ice_react}). The mixing layer height,$L_{mix}$, and thereby the deposition velocity, $v_d$, should at least be possible to calculate from the CTM3. 
+    \item In order to calculate the deposition rate constant of \chem{HOBr} onto snow-and ice surfaces, the parameterization of this constant when implemented was the same as used by the box-model experiment by \cite{CAO}. Thus, the deposition rate was constant according to what I used as $\beta$, $L_{mix}$ and $v_d$ (see Section \ref{sec:snow_ice_react}). The mixing layer height, $L_{mix}$, and thereby the deposition velocity, $v_d$, should at least be possible to calculate from the CTM3. 
 \end{itemize}
 
 
 \subsection{The Final BE-Branch}
 
 
-The model should have been run for a full year rather than six months to obtain a better idea of the seasonal variability. I had run to all branches from the same restart file \footnote{Used in a study by \cite{Falk_2019}. The setup is explained in \ref{subsec:restart_files}}, which ideally should have been ran for a spin-up period of approximately a model month before being used. As this was not done, the January data were practically useless (as can be seen from \ref{fig:ozone_2001_step4}. The BE-branch is clearly affected by the lack of spin-up). Had the model been run for a full year, it would have been possible to include Antarctic observations (the Antarctic also experiences ODEs (\cite{Simpson2015})).
+The model should have been run for a full year rather than six months to obtain a better idea of the seasonal variability. To have the best possible comparison basis, the same restart file had to be used for all the branches.\footnote{Used in a study by \cite{Falk_2019}. The setup is explained in \ref{subsec:restart_files}} Ideally, the runs should have had a spin-up period of approximately a model month before being used. As this was not done, the January data were practically useless (as can be seen from \ref{fig:ozone_2001_step4}. The BE-branch is clearly affected by the lack of spin-up). Had the model been run for a full year, it would have been possible to include Antarctic observations (the Antarctic also experiences ODEs (\cite{Simpson2015})).
 
 \medskip
-I was not able to do a run to include Eureka. Ideally the whole 6-month period should have been included for the year 2013 to be able to get a robust picture of the comparison of model data against the observations. As I was pressed on time, I chose to prioritize the RF-calculations and comparison with ozonesone-data for this year. As there are ozone observations available for this station, I suggest these could have been used for comparison in future work. 
+I was not able to do a run to include the observational data from Eureka. Ideally the whole 6-month period should have been included for the year 2013 to be able to get a robust picture of the comparison of model data against the observations. Due to lack of time, I chose to prioritize the RF-calculations and comparison with ozonesone-data for this year. As there are ozone observations available for this station, I suggest these could have been used for comparison in future work. 
 
 \medskip
 
-The halogen-chemistry implementation was clearly not working perfectly, as the model experienced negative values of the \texttt{ISOR1}-radical by only slight changes in the wet deposition and photodissosiation explained in Sections \ref{sec:res_step4} and \ref{sec:res_final_Version}. Due to this, the presend-day and pre-industrial BE-branch were ran with different setups, which again affects the RF-calculation, providing unreliable results. Future work would be advised to find a stable solution that works for both setups. Moreover, the final version of the BE-branch did not include the heterogeneous Cl-chemistry, which it should have, as chlorine species most likely has an impact on the halogen-induced tropospheric ozone depletions (e.g. \cite{FinlaysonPitts2010}).
+The halogen-chemistry implementation was clearly not working perfectly, as the model experienced negative values of the \texttt{ISOR1}-radical by only slight changes in the wet deposition and photodissosiation explained in Sections \ref{sec:res_step4} and \ref{sec:res_final_Version}. Due to this, the present-day and pre-industrial BE-branch were ran with different setups, which again affects the RF-calculation, providing unreliable results. Future work would be advised to find a stable solution that works for both setups. Moreover, the final version of the BE-branch did not include the heterogeneous Cl-chemistry, which it should have, as chlorine species most likely has an impact on the halogen-induced tropospheric ozone depletions (e.g. \cite{FinlaysonPitts2010}).
