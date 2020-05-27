@@ -5,7 +5,7 @@ The Oslo CTM3 was altered for the purpose of reproducing the observed \acrshort{
 
 \section{Setup of The Model}
 
-A degraded resolution was used for the runs in the CTM3. In the \texttt{Makefile} it is possible to degrade the horizontal resolution by combining several grid-boxes into one. The setting used for running the model was \texttt{HWINDOW=HFOUR}, i.e. a combination of four native boxes and thus a $4.5^o \times 4.5^o$ resolution (Illustrated in Figure \ref{fig:res_map}). In the vertical, 60 layers were used. The setup of the \texttt{Makefile} is explained more in Appendix \ref{subsubsec:makefile}. 
+A degraded resolution was used for the runs in the CTM3. In the \texttt{Makefile} it is possible to degrade the horizontal resolution by combining several grid-boxes into one. The setting used for running the model was \texttt{HWINDOW=HFOUR}, i.e. a combination of four native boxes and thus a $4.5^o \times 4.5^o$ resolution (Illustrated in Figure \ref{fig:res_map} in Appendix \ref{app:CTM3}). In the vertical, 60 layers were used. The setup of the \texttt{Makefile} is explained more in Appendix \ref{subsubsec:makefile}. 
 
 \medskip
 
@@ -14,9 +14,6 @@ The stratosphere was turned off in all the branches in order to save CPU time an
 \medskip
 
 Pre-industrial runs were performed both with the original- and altered CTM3. To perform PI-runs, the methane field was scaled down to PI-values. This process is explained in Appendix \ref{app:PI_run}.
-
-\input{Chapter5_CTM3setup/images/resolution_map}
-
 
 \medskip
 
