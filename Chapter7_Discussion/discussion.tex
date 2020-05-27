@@ -18,8 +18,6 @@ Throughout the development section, results will be compared against three proxy
     \item \chem{BrO}-\acrlong{vcd} measurements from Barrow (see Figure \ref{fig:Peterson_2015} taken from \cite{Peterson2015})
 \end{itemize}
 
-\subsection{A First Look}
-
 In Figure \ref{fig:CompObsOrigBE}, Section \ref{sec:results_code_development}, the ozone observations at Alert, Barrow, Summit and Zeppelin were compared to the model results using the original CTM3 branch (Branch \ref{def:origCTM3_PD}) and the bromine explosion branch (Branch \ref{def:BE_PD}). The latter produced far too low $\chem{O_3}$-concentrations even though the bromine content was too low to justify the low ozone-concentration (not shown here). In order to examine the reason why, a test where the different types of heterogeneous reactions were removed was performed. This is explained in the next section. 
 
 \subsection{Test: Removing Heterogeneous Reactions}
@@ -181,7 +179,7 @@ The vertical profiles shown in Figure \ref{fig:vert_RF_2001} for 2001 and Figure
 
 \medskip
 
-Differences between the BE-branch and the Original CTM3 in monthly averaged RF in the first model layer are shown for the year 2001 (Figures \ref{fig:BEorig_RF_polar_FebApr_2001}-\ref{fig:BEorig_RF_polar_AprJune_2001}) and 2013 (Figures \ref{fig:BEorig_RF_polar_FebApr_2013}-\ref{fig:BEorig_RF_polar_AprJune_2013}). In 2001, the Original CTM3 produces higher RF than the BE-branch, which was expected, as the ozone \acrshort{vmr} at the ground level in the Arctic seen in Figures \ref{fig:BE_origPD_vmr_lev0_FebApr}-\ref{fig:BE_origPD_vmr_lev0_AprJune} consistently showed higher values produced by the Original CTM3. It is also in agreement with the effects \cite{Sherwen2017} found after implementing halogen chemistry, which was a reduction in the ozone-induced RF. In 2013, however, the BE-branch produces ozone-induced RF-values comparable to the Original CTM3, and the difference between the two is relatively small. 
+Differences between the BE-branch and the Original CTM3 in monthly averaged RF in the first model layer are shown for the year 2001 (Figures \ref{fig:BEorig_RF_polar_FebApr_2001}-\ref{fig:BEorig_RF_polar_AprJune_2001}) and 2013 (Figures \ref{fig:BEorig_RF_polar_FebApr_2013}-\ref{fig:BEorig_RF_polar_AprJune_2013}). In 2001, the Original CTM3 produces higher RF than the BE-branch, which was expected, as the ozone \acrshort{vmr} at the ground level in the Arctic seen in Figures \ref{fig:BE_origPD_vmr_lev0_FebApr}-\ref{fig:BE_origPD_vmr_lev0_AprJun} consistently showed higher values produced by the Original CTM3. It is also in agreement with the effects \cite{Sherwen2017} found after implementing halogen chemistry, which was a reduction in the ozone-induced RF. In 2013, however, the BE-branch produces ozone-induced RF-values comparable to the Original CTM3, and the difference between the two is relatively small. 
 
 \medskip
 

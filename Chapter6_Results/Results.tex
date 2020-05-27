@@ -13,7 +13,7 @@ Figure \ref{fig:CompObsOrigBE} shows results in terms of $\chem{O_3}$-concentrat
 
 \medskip
 
-To verify the results, the measurements of $\chem{O_3}$ and \chem{HBr} available were used (see Appendix \ref{app:ebas_noaa_data}), as well as \chem{BrO} measurements from literature for comparison. Ozone was used as a proxy as it the implementation aimed for reproducibility of the ODEs seen in measurements. The \chem{HBr} measurements should in theory correspond to elevated concentrations after an ODE according to the box-model results by \cite{CAO}. Finally, \chem{BrO}-concentrations should be anti-correlated with the depletion of ozone (\cite{barrie}). 
+To verify the results, the measurements of $\chem{O_3}$ and \chem{HBr} available were used (see Appendix \ref{app:ebas_noaa_data}), as well as \chem{BrO} measurements from literature for comparison. Ozone observations were used to estimate the reproducibility of the ODEs in the model. The \chem{HBr} measurements should in theory correspond to elevated concentrations after an ODE according to the box-model results by \cite{CAO}. Finally, \chem{BrO}-concentrations should be anti-correlated with the depletion of ozone (\cite{barrie}). 
 
 \medskip
 
@@ -96,11 +96,11 @@ This section concerns the development of Branch \ref{def:BE_PD_noCl} with interm
 
 \subsubsection{Initializing Branch \ref{def:BE_PD_noCl} With a Higher \chem{HBr} Concentration}\label{sec:res_step2}
 
-In order to boost the concentration of \chem{HBr}, the concentration was hard-coded to 30 ppt ($= 8.059\cdot10^8 \text{molecules}cm^{-3}$ at $273.15 K$) and 10 ppt ($= 2.69\cdot10^8 \text{molecules}cm^{-3}$ at $273.15 K$), respectively, in the first sub-timestep of \texttt{pchemc\_ij.f90}. Further, a run initialized with a restart file from the 10 ppt run was performed in which the hard-coded concentration of \chem{HBr} was removed.
+As the halogen implementation led to low concentrations of the reactive halogen components (not shown here) an attempt was made to boost the concentration of \chem{HBr} to observed values. The thought behind this was to find out whether the halogen-chemistry did not work all together, or if the problem was that there was not enough reactive halogens initially. The concentration was thus hard-coded to 30 ppt ($= 8.059\cdot10^8 \text{molecules}cm^{-3}$ at $273.15 K$) and 10 ppt ($= 2.69\cdot10^8 \text{molecules}cm^{-3}$ at $273.15 K$), respectively, in the first sub-timestep of \texttt{pchemc\_ij.f90}. Further, a run initialized with a restart file from the 10 ppt run was performed in which the hard-coded concentration of \chem{HBr} was removed.
 
 \medskip
 
-Figure \ref{fig:ozone_noCl_step2} contains results from different attempts to boost the \chem{HBr}-concentration, to see the effect on ozone depletion. The first test, in which the concentration of \chem{HBr} was constantly boosted by hard-coding to maintain 30 ppt (green line), results in mixing ratios of $\chem{O_3}$ comparable to the original CTM3-branch (blue line). In the second test, the \chem{HBr}-concentration was hard-coded to 10 ppt (light green line), which results in concentrations more comparable to the measurements. Lastly, the test in which the run was initiated with a restart file from the previous hard-coded test (\chem{HBr} concentration of 10 ppt) (yellow line) also maintains concentrations comparable in magnitude with the observations. All these tests were ran for a short amount of time (2 weeks to a month, model time)
+Figure \ref{fig:ozone_noCl_step2} contains results from different attempts to initialize \chem{HBr} approximately correct values according to observations, to see the effect on ozone depletion. The first test, in which the concentration of \chem{HBr} was constantly boosted by hard-coding to maintain 30 ppt (green line), results in mixing ratios of $\chem{O_3}$ comparable to the original CTM3-branch (blue line). In the second test, the \chem{HBr}-concentration was hard-coded to 10 ppt (light green line), which results in concentrations more comparable to the measurements. Lastly, the test in which the run was initiated with a restart file from the previous hard-coded test (\chem{HBr} concentration of 10 ppt) (yellow line) also maintains concentrations comparable in magnitude with the observations. All these tests were ran for a short amount of time (2 weeks to a month, model time)
 
 \input{Chapter6_Results/images/ozone_stationComp_2001/ozone_noCl_step2}
 
@@ -108,11 +108,9 @@ Figure \ref{fig:ozone_noCl_step2} contains results from different attempts to bo
 
 Figure \ref{fig:vertHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) contains the resulting \chem{HBr}-column above Alert, Barrow, Summit and Zeppelin up to approximately $600$ hPa. The \acrshort{vmr} is on the order of $25 - 250$ ppt maximum. The higher concentrations appear to be constrained to the lower layers of the troposphere to various extents. In the lowest layer, Figure \ref{fig:polarHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) shows that the concentrations are on the order of $7.5\times10^{-7} - 1.5\times10^{-6}$gm$^{-3}$. Seen in relation with Figure \ref{fig:polarHOBr_newRestart}, \ref{fig:polarHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) is anti-correlated. 
 
-
-
 \medskip
 
-The polar \chem{BrO}-column depicted in Figure \ref{fig:polarBro_newRestart} shows a \acrshort{vcd} on the order of $10^7 \text{molecules }$ cm$^{-2}$. 
+The polar modelled \chem{BrO}-column depicted in Figure \ref{fig:polarBro_newRestart} shows a \acrshort{vcd} on the order of $10^7 \text{molecules }$ cm$^{-2}$. 
 
 \clearpage
 \subsubsection{Hard-Coding Photodissociation and Adjusting the Henry'Law Coefficient}\label{sec:res_step3}
@@ -145,14 +143,14 @@ In the subsequent tests, the hard-coded photodissociation rates were included. T
 
 
 \begin{itemize}
-    \item \chem{HBr}: $7.2\cdot 10^{-1} [M/amt]$, $6100 K$ (Taken from: \cite{Chameides1992})
+    \item \chem{HBr}: $7.2\cdot 10^{-1} [M/atm]$, $6100 K$ (Taken from: \cite{Chameides1992})
     \item \chem{HCl}: $1.9\cdot10^1 [M/atm]$, $600 K$ (Taken from: \cite{dean1999})
 \end{itemize}
 
 The New H- high test was performed with:  
 
 \begin{itemize}
-    \item \chem{HBr}: $2.5 \cdot 10^{1} [M/amt]$, $370 K$ (Taken from: \cite{dean1999})
+    \item \chem{HBr}: $2.5 \cdot 10^{1} [M/atm]$, $370 K$ (Taken from: \cite{dean1999})
     \item \chem{HCl}: $1.9\cdot10^1 [M/atm]$, $600 K$ (Taken from: \cite{dean1999})
 \end{itemize}
 
@@ -329,7 +327,7 @@ Figure \ref{fig:ozone_2013} in Appendix \ref{app:final_version} contains the ava
 
 \medskip
 
-In Figure \ref{fig:ozonosonde2013}, ozonesonde measurements taken at Summit are compared with model results from the original CTM3 and the BE-branch averaged $\chem{O_3}$ \acrshort{vmr} (over the whole of the Arctic, above 68$^o$N) in each model layer up to about 0 hPa. The BE-branch $\chem{O_3}$\acrshort{vmr} at the ground level from March 7th to April 4th is about 2-3 ppb, 9-10 ppb from April 11th to April 25th, and 2-3 ppb again for the rest of the period. From the observation, the ozone-\acrshort{vmr} at the lowest level is about 50 ppb constantly throughout the period\footnote{This can also be seen from the ground-level measurements at Summit in Figure \ref{fig:ozone_2013} in Appendix \ref{app:final_version}}. The Original CTM3 produces about 20 ppb at the ground level throughout the time period. The BE-branch also displays large standard deviations in the atmospheric layers below 200-300 hPa. The standard deviations decreases with altitude, and at about 50 hPa, the BE-branch- and Original CTM3 profiles coincide. The Original CTM3 produces mixing ratios more comparable to the observations up to approximately 300 hPa, and increases constantly thereafter with a steep slope, diverging from the observations. Both model runs end up at approximately the same mixing ratios as the observations around 0 hPa.  
+In Figure \ref{fig:ozonosonde2013}, ozonesonde measurements taken at Summit are compared with model results from the original CTM3 and the BE-branch averaged $\chem{O_3}$ \acrshort{vmr} (over the whole of the Arctic, above 68$^o$N) in each model layer. The BE-branch $\chem{O_3}$\acrshort{vmr} at the ground level from March 7th to April 4th is about 2-3 ppb, 9-10 ppb from April 11th to April 25th, and 2-3 ppb again for the rest of the period. From the observation, the ozone-\acrshort{vmr} at the lowest level is about 50 ppb constantly throughout the period\footnote{This can also be seen from the ground-level measurements at Summit in Figure \ref{fig:ozone_2013} in Appendix \ref{app:final_version}}. The Original CTM3 produces about 20 ppb at the ground level throughout the time period. The BE-branch also displays large standard deviations in the atmospheric layers below 200-300 hPa. The standard deviations decreases with altitude, and at about 50 hPa, the BE-branch- and Original CTM3 profiles coincide. The Original CTM3 produces mixing ratios more comparable to the observations up to approximately 300 hPa, and increases constantly thereafter with a steep slope, diverging from the observations. Both model runs end up at approximately the same mixing ratios as the observations at the highest point.  
 
 
 \input{Chapter6_Results/images/ozone_stationComp_2013/OZONOSONDE_2013}

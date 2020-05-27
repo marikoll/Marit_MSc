@@ -44,6 +44,11 @@
 \renewcommand{\labelitemii}{$\diamond$} 
 \usepackage{amsmath}
 
+\usepackage{textcomp} % to use \textperthousand                                                     
+\usepackage{siunitx}  
+\DeclareSIUnit\permille{\text{\textperthousand}}
+
+
 %\let\oldref\ref
 %\renewcommand{\ref}[1]{(\oldref{#1})}
 
