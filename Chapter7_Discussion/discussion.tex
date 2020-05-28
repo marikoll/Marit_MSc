@@ -1,12 +1,12 @@
 \setcounter{chapter}{6}
 \chapter{Discussion}\label{chap:discussion}
 
-This chapter discusses the results seen in Chapter \ref{chap:results}. The chapter starts with a section concerning the development of the implementation of the halogen chemistry responsible for the \acrfull{ode} seen in the Arctic (Section \ref{sec:discussion_code_development}). The resulting implementation is called the BE (bromine explosion) branch, and is compared with observations and the Original CTM3 in Section \ref{sec:disc_final_Version}. Lastly, the ozone induced tropospheric \acrfull{rf} calculated by using the BE-branch and the Original CTM3 is analysed. 
+This chapter discusses the results seen in Chapter \ref{chap:results}. The chapter starts with a section concerning the development of the implementation of the halogen chemistry responsible for the \acrfull{ode} seen in the Arctic (Section \ref{sec:discussion_code_development}). The resulting implementation is called the BE (bromine explosion) branch, and is compared with observations and the Original CTM3 in Section \ref{sec:disc_final_Version}. Lastly, the ozone induced tropospheric \acrfull{rf} calculated by using the BE-branch and the Original CTM3 is analysed in Section \ref{sec:res_RF}.
 
 
 \section{Code Development}\label{sec:discussion_code_development}
 
-The Oslo CTM3 documentation consist of the CTM3 manual(\cite{SovdeManual}) and the inline code documentation. The branches developed in this thesis were based on the work done by \cite{Susanne} in her master thesis from 2016. Interpreting the new code was a challenge. The code was poorly documented, which caused the process to be slowed down with quite some time. Also, due to the change of super computers in January 2020, some problems arose concerning how to optimize the model runs in technical terms (see Section \ref{app:supercomputer}). This led to the decision to perform the model runs at \texttt{HFOUR}-resolution instead of \texttt{HTWO} and shorten the time of the spin-up and the model runs to three months (model time). 
+The Oslo CTM3 documentation consist of the CTM3 manual(\cite{SovdeManual}) and the inline code documentation. The branches developed in this thesis were based on the work done by \cite{Susanne} in her master thesis from 2016. Interpreting the new code was a challenge. The code was poorly documented, which caused the process to be slowed down with quite some time. Also, due to the change of super computers in January 2020, some problems arose concerning how to optimize the model runs in technical terms (see Section \ref{app:supercomputer}). This led to the decision to perform the test runs at \texttt{HFOUR}-resolution instead of \texttt{HTWO} and shorten the time of the spin-up and the model runs to three months (model time). 
 
 \medskip
 
@@ -154,6 +154,10 @@ In Period 2 of 2001, the ozone \acrshort{vmr} increases at the ground level of t
 \medskip
 
 During Period 2, the \chem{HBr}-\acrshort{vmr} remains at values of about 10-30 ppt at all stations before it seems to be transported from the column above the station (it could also have been oxidized by Reaction \ref{rqn:oh_hbr}, but as there is no sign of that in the \chem{Br} column, it seems unlikely). Following the decline in \chem{HBr}, there is an increase in $\chem{O_3}$ towards the end of June at all stations. 
+
+\medskip
+
+The \chem{BrO} \acrshort{vcd}s up to 250 meters above the stations are shown in Figure \ref{fig:BrO_VCD_2001}. The elevated \acrshort{vcd}s can only be seen in Period 1. As \chem{BrO} is the product of ozone depletion (via Reaction \ref{R:2}) this points to that there is little to no ozone depletion occurring in Period 2. 
 
 \medskip
 

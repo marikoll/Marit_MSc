@@ -1,12 +1,12 @@
 \setcounter{chapter}{2} 
 \chapter{Theoretical Background: Processes Implemented in the CTM3}\label{Chap:CTM3theory_ocean_hetReact}
 
-Some of the processes that are implemented in the Oslo CTM3 requires some further explanation. This chapter covers the theory behind the implementation of emissions of organic halogen species and the heterogeneous reaction surfaces. These processes are essential to achieve the \acrfull{be} episodes causing the \acrfull{ode}s in the polar tropospheric boundary layer (theory covered in Chapter \ref{ch:theoretical_back}).
+Some of the processes that are implemented in the Oslo CTM3 requires some further explanation. This chapter covers the theory behind the implementation of emissions of organic halogen species and the heterogeneous reaction surfaces. These processes are essential to achieve the \acrfull{be} episodes causing the \acrfull{ode} in the polar tropospheric boundary layer (theory covered in Chapter \ref{ch:theoretical_back}).
 
 \section{Oceanic Emissions of Halocarbons}\label{sec:oceanic_emissions}
 
 
-The ocean is a natural source of gaseous halocarbons, which are precursors for the reactive \chem{Br}-species that are essential for the bromine explosion to occur (\cite{Schmidt} and references therein)(theory covered in Section \ref{sec:halogen_sources}). Methyl halides ($\chem{CH_3X}$) and polyhalogenated species ($\chem{CHBr_3}$, $\chem{CH_2Br_2}$) are released from the ocean. Methyl halides (particularly $\chem{CH_3Br}$) may also be emitted by biomass burning (\cite{SeinfeldSpyros}). 
+The ocean is a natural source of gaseous halocarbons, which are precursors for the reactive \chem{Br}-species that are essential for the \acrshort{be}-events to occur (\cite{Schmidt} and references therein)(theory covered in Section \ref{sec:halogen_sources}). Methyl halides ($\chem{CH_3X}$) and polyhalogenated species ($\chem{CHBr_3}$, $\chem{CH_2Br_2}$) are released from the ocean. Methyl halides (particularly $\chem{CH_3Br}$) may also be emitted by biomass burning (\cite{SeinfeldSpyros}). 
 
 \medskip
 
@@ -54,7 +54,7 @@ This is used in the scaling factor, $f$:
 \end{equation*}
 
 
-Emissions are then found according to their latitudinal band, and whether the grid box is located over ocean or the coast (for more information about the actual implementation, see Section \ref{sec:tropchem_oslo}). If the location is above 50 $^o$ North over ocean, for example, the emission is taken to be $0.05\times10^{-13}$ kgm$^{-2}$s$^{-1}\times f$. (The conversion to molecules cm$^{-3}$s$^{-1}$ can be seen in Section \ref{sec:tropchem_oslo}). 
+Emissions are then found according to their latitudinal band, and whether the grid box is located over ocean or the coast. If the location is above 50 $^o$ North over ocean, for example, the emission is taken to be $0.05\times10^{-13}$ kgm$^{-2}$s$^{-1}\times f$.\footnote{The conversion to molecules cm$^{-3}$s$^{-1}$ and more information about the actual implementation can be found in Section \ref{sec:tropchem_oslo}} 
 
 
 \subsection{Emission Inventory}
@@ -106,7 +106,7 @@ The rate coefficients are given in Table \ref{tab:2b_and_3b_reactions} in Arrhen
     \label{eq:2b_rate_coeff}
 \end{equation}
 
-In which $A$ is the Arrhenius-factor, $E/R$ is the temperature dependence (activation temperature) and $T$ is the temperature. 
+In which $A$ is the Arrhenius-factor, $E/R$ is the temperature dependence (activation temperature) and $T$ is the temperature in Kelvin. 
 
 \subsection{3-Body Reactions}\label{sec:3body_reactions}
 
@@ -141,7 +141,7 @@ The rate coefficients for 3-body reactions can be pressure dependent, and theref
     \label{eq:3b_low_pressure}
 \end{equation}
 
-In which $k_0^{300}$ is an estimate of the low-pressure limiting rate constant at 300 K and $n$ is the estimated temperature dependence at the low-pressure limit (for more information, see \cite{JPL}). The low pressure rate constants is of third order and has units $cm^6\text{molecule}^{-1}s^{-1}$ (\cite{AtmModFund}).
+In which $k_0^{300}$ is an estimate of the low-pressure limiting rate constant at 300 K and $n$ is the estimated temperature dependence at the low-pressure limit (for more information, see \cite{JPL}). The low pressure rate constants is of third order and has units $cm^6\text{molecules}^{-1}s^{-1}$ (\cite{AtmModFund}).
 
 \medskip
 
@@ -152,7 +152,7 @@ Similarly, there exists a high-pressure limit:
     \label{eq:3b_high_pressure}
 \end{equation}
 
-In which $k_\infty^{300}$ is an estimate of the high-pressure limiting rate constant at 300 K and $m$ is the estimated temperature dependence at the high-pressure limit (for more information, see \cite{JPL}). The high-pressure rate constant is of second order and has units $cm^3\text{molecule}^{-1}s^{-1}$ (\cite{AtmModFund}).
+In which $k_\infty^{300}$ is an estimate of the high-pressure limiting rate constant at 300 K and $m$ is the estimated temperature dependence at the high-pressure limit (for more information, see \cite{JPL}). The high-pressure rate constant is of second order and has units $cm^3\text{molecules}^{-1}s^{-1}$ (\cite{AtmModFund}).
 
 
 \subsection{Photochemical Reactions}\label{sec:pchem_reactions}
@@ -285,7 +285,6 @@ $L_{mix}$ denotes the typical stable boundary layer height which may, in Polar r
 $\beta$ is the ratio of the total reactive surface (induced by the structure of snow/ice surfaces) to a flat area. Thus, for a completely flat surface, $\beta$ equals 1. 
 
 \input{Chapter3_Theory_ocean_hetReact/cao_constants}
-
 
 
 \section{Wet Deposition and Henry's Law}\label{sec:wet_dep_henrys_law}
