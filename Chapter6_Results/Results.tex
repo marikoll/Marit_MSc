@@ -17,7 +17,7 @@ To verify the results, the measurements of $\chem{O_3}$ and \chem{HBr} available
 
 \medskip
 
-The results from the development are presented with an ozone-plot to compare the different tests done in the the same test-step. Following the ozone-figure, there will be a presentation of the \acrlong{vmr} of \chem{HBr}, the concentration of \chem{HBr} (comparable with e.g. \cite{barrie} and EBAS-measurements) \acrlong{vcd} of \chem{BrO} (according to e.g. \cite{Peterson2015} and \cite{Simpson2017}).
+The results from the development are presented with an ozone-plot to compare the different tests done in the the same test-step. Following the ozone-figure, there will be a presentation of the \acrfull{vmr} of \chem{HBr}, the concentration of \chem{HBr} (comparable with e.g. \cite{barrie} and EBAS-measurements) \acrfull{vcd} of \chem{BrO} (according to e.g. \cite{Peterson2015} and \cite{Simpson2017}).
 
 \medskip
 
@@ -27,25 +27,26 @@ Branch \ref{def:BE_PD} produces very low concentrations of $\chem{O_3}$, as can 
 
 
 
-\subsection{Test: Removing Heterogeneous Reactions}
+\subsection{Test: Removing Heterogeneous Reactions}\label{subsec:res_remove_het_reacts}
 
-Figure \ref{fig:test_RemoveHetReacts} shows results in terms of $\chem{O_3}$-concentration from attempting to turn off different heterogeneous reactions, namely snow/ice reactions (described in Section \ref{sec:snow_ice_react}), heterogeneous reactions over aerosol surfaces (described in Section \ref{sec:aerosol_react}) as well as heterogeneous reactions involving chlorine and bromine, respectively. The runs were initiated with the same restart file (spin-up) as Branch \ref{def:BE_PD}. For this purpose, four new branches were created (for a full overview of the branches, see Table \ref{tab:branches}). These were:
+Figure \ref{fig:test_RemoveHetReacts} shows results in terms of $\chem{O_3}$-concentration from attempting to turn off different heterogeneous reactions, namely snow/ice reactions \footnote{Reaction \ref{R:7} for $X= \chem{Br} \text{ and } \chem{Cl}$. Reaction \ref{R:8} is still active.}\footnote{Heterogeneous reactions over snow/ice are described in Section \ref{sec:snow_ice_react}}, heterogeneous reactions over aerosol surfaces \footnote{Reaction \ref{R:8} for $X= \chem{Br} \text{ and } \chem{Cl}$. Reaction \ref{R:7} is still active}\footnote{Heterogeneous reactions over snow/ice are described in Section \ref{sec:aerosol_react}}, heterogeneous reactions involving chlorine \footnote{Reaction \ref{R:8} and \ref{R:7} deactivated for $\chem{X} = \chem{Cl}$. Reaction \ref{R:8} and \ref{R:7} are still active with $\chem{X} = \chem{Br}$.} and heterogeneous reactions involving bromine\footnote{Reaction \ref{R:8} and \ref{R:7} deactivated for $\chem{X} = \chem{Br}$. Reaction \ref{R:8} and \ref{R:7} are still active with $\chem{X} = \chem{Cl}$.}. The runs were initiated with the same restart file (spin-up) as Branch \ref{def:BE_PD}. For this purpose, four new branches were created (for a full overview of the branches, see Table \ref{tab:branches}). These were:
 
 \begin{mydef}\label{def:BE_PD_noAerosol}
-    \texttt{marikoll\_bromine\_explosion\_noHetAerosol}: Branch \ref{def:BE_PD} without heterogeneous aerosol reactions (Reaction \ref{R:8}). 
+    \texttt{marikoll\_bromine\_explosion\_noHetAerosol}: Branch \ref{def:BE_PD} without heterogeneous aerosol reactions. 
 \end{mydef}
 
 \begin{mydef}\label{def:BE_PD_noIce}
-    \texttt{marikoll\_bromine\_explosion\_noSnowIce}: Branch \ref{def:BE_PD} without heterogeneous reactions over ice surfaces (called \texttt{noSnowIce} by mistake) (Reaction \ref{R:7}).
+    \texttt{marikoll\_bromine\_explosion\_noSnowIce}: Branch \ref{def:BE_PD} without heterogeneous reactions over ice surfaces.
 \end{mydef}
 
 \begin{mydef}\label{def:BE_PD_noCl}
-    \texttt{marikoll\_bromine\_explosion\_noHetChlorine}: Branch \ref{def:BE_PD} without heterogeneous reactions involving chlorine (Reaction \ref{R:8} and \ref{R:7} with $\chem{X} = \chem{Cl}$).
+    \texttt{marikoll\_bromine\_explosion\_noHetChlorine}: Branch \ref{def:BE_PD} without heterogeneous reactions involving chlorine.
 \end{mydef}
 
 \begin{mydef}\label{def:BE_PD_noBr}
-    \texttt{marikoll\_bromine\_explosion\_noHetBromine}: Branch \ref{def:BE_PD} without heterogeneous reactions involving bromine (Reaction \ref{R:8} and \ref{R:7} with $\chem{X} = \chem{Br}$).
+    \texttt{marikoll\_bromine\_explosion\_noHetBromine}: Branch \ref{def:BE_PD} without heterogeneous reactions involving bromine.
 \end{mydef}
+
 
 
 \input{Chapter6_Results/branches}
@@ -61,33 +62,6 @@ Figure \ref{fig:vertHBr_noCl} (see Appendix \ref{app:CTM3_dev}) shows the vertic
 \medskip
 
 In Figure \ref{fig:polarBrO_noCl} (see Appendix \ref{app:CTM3_dev}), the vertical column density for the lowermost $\sim$ 250 m is plotted. The column density is on the order $10^{6}$ molecules cm$^{-2}$
-
-%In the vertical, the corresponding $\chem{Br_y}$ concentrations to Figure \ref{fig:test_RemoveHetReacts} are shown in Figures \ref{fig:vert_noAer_bry_2001}-\ref{fig:vert_noBr_bry_2001} for the four new branches, Branch \ref{def:BE_PD_noAerosol}-\ref{def:BE_PD_noBr}, respectively (The $\chem{Br_y}$-family is explained in Section \ref{sec:halogen_families_BryClxCly}). 
-
-
-
-%\input{Chapter6_Results/images/vertical_noAerosol_2001_bry}
-
-%\input{Chapter6_Results/images/vertical_noSnowIce_2001_bry}
-
-%\input{Chapter6_Results/images/vertical_noCl_2001_bry}
-
-%\input{Chapter6_Results/images/vertical_noBr_2001_bry}
-
-
-
-
-%\textbf{NOTE:} after these tests, a mistake in the scaling of $\chem{Cl_x}$ was discovered. \chem{BrCl} had mistakenly been scaled with this family, which led to disappearance of all \chem{Cl}-species. The subsequent tests were fixed for this.
-
-%\subsection{Integrating $\chem{Cl_y}$ in Branch \ref{def:BE_PD}}
-
-%Figure \ref{fig:test_ClyInt} contains the result in terms of $\chem{O_3}$ concentration where an integration of the $\chem{Cl_y}$-family was added to the initial BE-branch (Branch \ref{def:BE_PD}) This integration was not handled prior to the previous model runs (the chemical families are listed in Section \ref{sec:halogen_families_BryClxCly}). 
-
-%\medskip
-
-%As the inclusion of $\chem{ClONO2}$ (Reaction \ref{R:clono2}) function purely as a sink to the $\chem{ClO}$, this reaction was also removed altogether to see if this would help the low chlorine levels. 
-
-%\input{Chapter6_Results/images/ozone_2001_newClyIntegration}
 
 
 \subsection{Development of Branch \ref{def:BE_PD_noCl}: Without Heterogeneous Chlorine Reactions}\label{sec:res_noHetCl}
@@ -112,7 +86,6 @@ Figure \ref{fig:vertHBr_newRestart} (see Appendix \ref{app:CTM3_dev}) contains t
 
 The polar modelled \chem{BrO}-column depicted in Figure \ref{fig:polarBro_newRestart} shows a \acrshort{vcd} on the order of $10^7 \text{molecules }$ cm$^{-2}$. 
 
-\clearpage
 \subsubsection{Hard-Coding Photodissociation and Adjusting the Henry'Law Coefficient}\label{sec:res_step3}
 
 Figure \ref{fig:ozone_2001_step3} contains the modelled results from four tests, whereas the original CTM3-run and the New Restart run was maintained from the previous section. Firstly, the Hard-coded P test was performed by hard-coding the photodissociation rates in \texttt{pchemc\_ij.f90}. In addition to this, two reactions were added in an attempt to better cycle the \chem{HOBr} and \chem{HBr} to avoid the anti-correlation seen in Figures \ref{fig:polarHBr_newRestart}-\ref{fig:polarHOBr_newRestart}:  
@@ -136,8 +109,6 @@ The hard-coded photodissociation rates had not previously calculated for Reactio
     \item $0.05\times10^{-8}$ s$^{-1}$ for Reaction \ref{R:12} (value from \cite{Papanastasiou2013}, Arctic spring dissociation rate, Figure 2, p. 3022)
 \end{itemize}
 
-
-%Testen viser bedring, men \chem{HBr} er fortsatt altfor høy- for treig våtavsetning? 
 
 In the subsequent tests, the hard-coded photodissociation rates were included. These were concerning the Henry-coefficient (see Section \ref{sec:wet_dep_henrys_law}) which was initially implemented with the wrong units. The New H - low test was performed with: 
 
@@ -172,6 +143,8 @@ Figure \ref{fig:vertHBr_HTWO_step3} (see Appendix \ref{app:CTM3_dev}) contains t
 \medskip
 
 The \chem{BrO} \acrshort{vcd} is shown in Figure \ref{fig:polarBrO_HTWO_step3}. The  \acrshort{vcd} now has a maximum of about $3\times10^8$ molecules cm$^{-2}$. 
+
+\clearpage
 
 \subsubsection{Higher Henry's Law Coefficient and Higher Photodissociation of \chem{HOBr}}\label{sec:res_step4}
 
@@ -281,11 +254,11 @@ In Figure \ref{fig:polarBrO_step4}, the resulting  \chem{BrO}-\acrshort{vcd} is 
 
 \section{Analysis of the Final Version of the Halogen Branch}\label{sec:res_final_Version}
 
-This section contains the analysis of the final version of the halogen branch (Branch \ref{def:BE_PD_noCl} presented in Section \ref{sec:res_step4} above, from now on called the BE-branch), the original CTM3-branch (Branch \ref{def:origCTM3_PD}) and the observational data. A 6-month production run was made for both the BE-branch and the original CTM3-branch, both initiated from the restart file used in  (\cite{Falk_2019}). The section is divided into two parts: an analysis of the BE-branch against the observational data (Section \ref{sec:res_twoPeriods}), and further analysis of the BE-branch, the original CTM3 and the observational data (Section \ref{sec:res_origBE}).
+This section contains the analysis of the final version of the halogen branch (Branch \ref{def:BE_PD_noCl} presented in Section \ref{sec:res_step4} above, from now on called the BE-branch), the original CTM3-branch (Branch \ref{def:origCTM3_PD}) and the observational data (\cite{EBAS}). A 6-month production run was made for both the BE-branch and the original CTM3-branch, both initiated from the restart file used in  (\cite{Falk_2019}). The section is divided into two parts: an analysis of the BE-branch against the observational data (Section \ref{sec:res_twoPeriods}), and further analysis of the BE-branch, the original CTM3 and the observational data (Section \ref{sec:res_origBE}).
 
 \medskip
 
-A run with the same setup as above was also performed for the year 2013. However, only data every seventh day from April 3rd-May 30th was extracted and converted. The monthly data was also extracted to be used in the \acrlong{rf}-analysis below (Section \ref{sec:res_RF}). 
+A run with the same setup as for the 2001-run was also performed for the year 2013. However, only data every seventh day from April 3rd-May 30th was extracted and converted. The monthly data was also extracted to be used in the \acrfull{rf}-analysis below (Section \ref{sec:res_RF}). 
 
 \subsection{Analysis of the Two Periods February-April and April-June}\label{sec:res_twoPeriods}
 
@@ -296,7 +269,7 @@ Figure \ref{fig:ozone_2001_step4} in the previous section contains the full time
 
 \medskip
 
-Figures \ref{fig:vert_ALT}-\ref{fig:vert_ZEP} contains the temporal evolution of ozone and halogen species in the model layers above Alert, Barrow, Zeppelin and Summit, respectively. It can be seen from all figures that there is a clear distinction between Period 1 and Period 2, with increased ozone \acrshort{vmr} in Period 2, also with altitude. 
+Figures \ref{fig:vert_ALT}-\ref{fig:vert_ZEP} contains the temporal evolution of ozone and halogen species in the model layers above Alert, Barrow, Zeppelin and Summit, respectively. It can be seen in all figures that there is a clear distinction between Period 1 and Period 2, with increased ozone \acrshort{vmr} in Period 2, also with altitude. Note that the scale for \chem{BrO} has been adjusted to a maximum amount of $1.0\times10^{-12}$ mol mol$^{-1}$ in order to better see incidents of elevated \chem{BrO} mixing ratios.
 
 \medskip
 
@@ -308,7 +281,7 @@ The ozone \acrshort{vmr} at Barrow (in Figure \ref{fig:vert_BRW}) in Period 1 is
 
 \medskip
 
-At Summit (Figure \ref{fig:vert_SUM}), the ozone \acrshort{vmr} in Period 1 is low at the ground level (keep in mind that Summit station is located at 3238 m.a.s.l.). However, distinctly higher mixing ratios (30 - 40 ppb) can be seen aloft. In Period 2, the ground level ozone has increased a bit (up to about 15 ppb), but still with higher mixing ratios aloft. Unlike the other stations, \chem{BrCl} from aloft extends into Period 2, but disappears mid-May.
+At Summit (Figure \ref{fig:vert_SUM}), the ozone \acrshort{vmr} in Period 1 is low at the ground level (keep in mind that Summit station is located at 3238 m.a.s.l.). However, distinctly higher mixing ratios (30 - 40 ppb) can be seen aloft. In Period 2, the ground level ozone has increased a bit (up to about 15 ppb), but still with higher mixing ratios aloft. Unlike the other stations, \chem{BrCl} from aloft extends into Period 2. Along with \chem{BrCl}, there are also some elevated mixing ratios of \chem{HOBr} and \chem{BrO} in Period 2. These species disappear mid-May.
 
 \medskip
 
@@ -324,7 +297,7 @@ Lastly, the ozone \acrshort{vmr} at Zeppelin (Figure \ref{fig:vert_ZEP}) is quit
 
 \medskip
 
-The \chem{BrO} \acrshort{vcd}s for the four stations in the lowermost 250 m are shown in Figure \ref{fig:BrO_VCD_2001}. 
+The \chem{BrO} \acrshort{vcd}s for the four stations in the lowermost 250 m are shown in Figure \ref{fig:BrO_VCD_2001}. The highest \acrshort{vcd}s are found in Period 1, and in Period 2 there's only a small peak at the beginning of Period 2 at Barrow. The highest \acrshort{vcd}s are found at Zeppelin, with up to $1.0\times10^{10}$ molecules cm$^{-2}$ mid-February.
 
 \medskip
 
@@ -333,7 +306,7 @@ Figure \ref{fig:ozone_2013} in Appendix \ref{app:final_version} contains the ava
 
 \medskip
 
-In Figure \ref{fig:ozonosonde2013}, ozonesonde measurements taken at Summit are compared with model results from the original CTM3 and the BE-branch averaged $\chem{O_3}$ \acrshort{vmr} (over the whole of the Arctic, above 68$^o$N) in each model layer. The BE-branch $\chem{O_3}$\acrshort{vmr} at the ground level from March 7th to April 4th is about 2-3 ppb, 9-10 ppb from April 11th to April 25th, and 2-3 ppb again for the rest of the period. From the observation, the ozone-\acrshort{vmr} at the lowest level is about 50 ppb constantly throughout the period\footnote{This can also be seen from the ground-level measurements at Summit in Figure \ref{fig:ozone_2013} in Appendix \ref{app:final_version}}. The Original CTM3 produces about 20 ppb at the ground level throughout the time period. The BE-branch also displays large standard deviations in the atmospheric layers below 200-300 hPa. The standard deviations decreases with altitude, and at about 50 hPa, the BE-branch- and Original CTM3 profiles coincide. The Original CTM3 produces mixing ratios more comparable to the observations up to approximately 300 hPa, and increases constantly thereafter with a steep slope, diverging from the observations. Both model runs end up at approximately the same mixing ratios as the observations at the highest point.  
+In Figure \ref{fig:ozonosonde2013}, ozonesonde measurements taken at Summit are compared with model results from the original CTM3 and the BE-branch averaged $\chem{O_3}$ \acrshort{vmr} (over the whole of the Arctic, above 68$^o$N) in each model layer up to 300 hPa. The BE-branch $\chem{O_3}$\acrshort{vmr} is consistently lower than the observations and the Original CTM3-results. From the observation, the ozone-\acrshort{vmr} at the lowest level is about 50 ppb constantly throughout the period\footnote{This can also be seen from the ground-level measurements at Summit in Figure \ref{fig:ozone_2013} in Appendix \ref{app:final_version}}. The Original CTM3 produces about 20 ppb at the ground level throughout the time period. The BE-branch also displays large variations concerning the standard deviations, with errorbars extending towards a $\chem{O_3}$ \acrshort{vmr} of zero in the lowermost part of the troposphere. 
 
 
 \input{Chapter6_Results/images/ozone_stationComp_2013/OZONOSONDE_2013}
@@ -344,7 +317,7 @@ In Figure \ref{fig:ozonosonde2013}, ozonesonde measurements taken at Summit are 
 
 \subsection{Analysis of the Difference Between the Final BE-Branch and the Original CTM3}\label{sec:res_origBE} 
 
-Figures \ref{fig:joint_FebApr_ALTSUM}- \ref{fig:joint_AprMay_ZEPBRW} contains distributions of the agreements between the original CTM3, the BE-branch and the observational data. They are divided into Period 1 and 2 to separate the BE-branch results before stabilization and after (before and after the 24th of April). The figures also show a distribution of the BE-branch- and Original CTM3-results as well as the distribution of the observed ozone. In addition, the Pearson correlation coefficient and corresponding p-value is shown\footnote{The Pearson correlation coefficient takes a values between $-1$ (exact linear negatively correlated relationship) and $1$ (exact linear positively correlated relationship). The p-value indicates the probability of an uncorrelated system producing datasets that have a Pearson correlation at least as extreme as the one computed from these datasets (statistically significant if $p<0.05$) (\cite{WILKS201123})}.
+Figures \ref{fig:joint_FebApr_ALTSUM}- \ref{fig:joint_AprMay_ZEPBRW} contain distributions of the agreements between the original CTM3, the BE-branch and the observational data. They are divided into Period 1 and 2 to separate the BE-branch results before stabilization and after (before and after the 24th of April). The figures also show a distribution of the BE-branch- and Original CTM3-results as well as the distribution of the observed ozone. In addition, the Pearson correlation coefficient and corresponding p-value is shown\footnote{The Pearson correlation coefficient takes a values between $-1$ (exact linear negatively correlated relationship) and $1$ (exact linear positively correlated relationship). The p-value indicates the probability of an uncorrelated system producing datasets that have a Pearson correlation at least as extreme as the one computed from these datasets (statistically significant if $p<0.05$) (\cite{WILKS201123})}.
 
 \medskip
 
@@ -368,7 +341,7 @@ In Period 2, the distribution of the BE-branch and Original CTM3 against observa
 \medskip
 \medskip
 
-Figures \ref{fig:BE_origPD_vmrperc_FebApr} - \ref{fig:BE_origPD_vmrperc_AprJune} shows the monthly mean \acrshort{vmr} (in ppb) in the first model layer in the Arctic (above 68$^o$N) produced by the BE-branch, the Original CTM3 and the difference between the two for Period 1 (February-April) and Period 2 (April-June) in 2001. \footnote{For global figures, see Appendix \ref{app:final_version}. Figures \ref{fig:BE_origPD_vmr_lev0_FebApr}-\ref{fig:BE_origPD_vmr_lev0_AprJun} contains the global difference (Original CTM3 - BE-branch) in \acrshort{vmr}, and Figures \ref{fig:BE_origPD_percent_FebApr}-\ref{fig:BE_origPD_percent_AprJun} contains the percentage difference.} Figure \ref{fig:BE_origPD_vmrperc_FebApr} shows that the Original CTM3 generally produces higher mixing ratios than the BE-branch. The BE-branch $\chem{O_3}$-\acrshort{vmr} is about 4 ppb in February and increases slightly through March and April. The continued temporal evolution in Period 2 (Figure \ref{fig:BE_origPD_vmrperc_AprJune}) shows an increase in the ozone \acrshort{vmr} to 10-14 ppb in May-June. The Original CTM3 produces about twice as much $\chem{O_3}$
+Figures \ref{fig:BE_origPD_vmrperc_FebApr} - \ref{fig:BE_origPD_vmrperc_AprJune} show the monthly mean \acrshort{vmr} (in ppb) in the first model layer in the Arctic (above 68$^o$N) produced by the BE-branch, the Original CTM3 and the difference between the two for Period 1 (February-April) and Period 2 (April-June) in 2001. \footnote{For global figures, see Appendix \ref{app:final_version}. Figures \ref{fig:BE_origPD_vmr_lev0_FebApr}-\ref{fig:BE_origPD_vmr_lev0_AprJun} contains the global difference (Original CTM3 - BE-branch) in \acrshort{vmr}, and Figures \ref{fig:BE_origPD_percent_FebApr}-\ref{fig:BE_origPD_percent_AprJun} contains the percentage difference.} Figure \ref{fig:BE_origPD_vmrperc_FebApr} shows that the Original CTM3 generally produces higher mixing ratios than the BE-branch. The BE-branch $\chem{O_3}$-\acrshort{vmr} is about 4 ppb in February and increases slightly through March and April. The continued temporal evolution in Period 2 (Figure \ref{fig:BE_origPD_vmrperc_AprJune}) shows an increase in the ozone \acrshort{vmr} to 10-14 ppb in May-June. The Original CTM3 produces about twice as much $\chem{O_3}$
 
 
 \input{Chapter6_Results/images/Orig_BE_comp/polar_VMRperc_FebApr_2001}
@@ -398,7 +371,7 @@ Figures \ref{fig:BE_origPD_vmrperc_FebApr} - \ref{fig:BE_origPD_vmrperc_AprJune}
 \clearpage
 \section{Radiative forcing}\label{sec:res_RF}
 
-The radiative forcing was calculated by running both the BE-branch and the Original CTM3 in 2001 and 2013 with a \acrlong{pd}-setup, and a \acrlong{pi}-setup (for the year 1850).\footnote{\textbf{NOTE:} the BE-branch \acrshort{pd}- and \acrshort{pi}-runs were ran from different model setups. The Henry's law coefficient and photodissociation rates in the PD-run were set as in the final version (explained in Section \ref{sec:res_step4}) whereas the PI-run was set up with the values used in the previous version (\ref{sec:res_step3} with the high Henry's law constant). This became the solution as the model produced negative values of a radical (\texttt{ISOR1}) when the other setup was applied to the PD- and PI-branches. } The monthly averaged ozone concentration (in gm$^{-3}$) was converted to \acrlong{du} (in each model layer up to the model tropopause). The concentration in DU was then multiplied with a normalized RF-field (in mWm$^{-2}$DU$^{-1}$) (provided by \cite{MariannePersonal}). Equation \ref{eqn:RF} sums up the calculation.
+The radiative forcing was calculated by running both the BE-branch and the Original CTM3 in 2001 and 2013 with a \acrfull{pd}-setup, and a \acrfull{pi}-setup (for the year 1850).\footnote{\textbf{NOTE:} the BE-branch \acrshort{pd}- and \acrshort{pi}-runs were ran from different model setups. The Henry's law coefficient and photodissociation rates in the PD-run were set as in the final version (explained in Section \ref{sec:res_step4}) whereas the PI-run was set up with the values used in the previous version (\ref{sec:res_step3} with the high Henry's law constant). This became the solution as the model produced negative values of a radical (\texttt{ISOR1}) when the other setup was applied to the PD- and PI-branches. } The monthly averaged ozone concentration (in gm$^{-3}$) was converted to \acrfull{du} (in each model layer up to the model tropopause). The concentration in DU was then multiplied with a normalized RF-field (in mWm$^{-2}$DU$^{-1}$) (provided by \cite{MariannePersonal}). Equation \ref{eqn:RF} sums up the calculation.
 
 \begin{equation}
     RF_{\chem{O_3}} = (M_{PD} - M_{PI})*\text{netNRF}
@@ -413,7 +386,7 @@ Figures \ref{fig:vert_RF_2001}-\ref{fig:vert_RF_2013} display the averaged RF in
 
 \medskip
 
-Figure \ref{fig:vert_RF_2001} Shows that in February, the RF is zero- to negative in the lower layers, with the column above Alert being most negative. In March through June, the RF is more or less positive throughout the column. In the lower layers, the positive RF is most prominent at Barrow and Summit. At these stations, the lower 100 hPa of the column experiences ozone induced RF of 0-0.005 Wm$^{-2}$ in May. In June, the column shifts a bit more towards zero in the lower layers up to about 950 hPa, where it increases. The highest warming is found in June at approximately 650 hPa above Zeppelin, Alert and the Arctic averaged. The RF in this layer is estimated as 0.015 Wm$^{-2}$. 
+Figure \ref{fig:vert_RF_2001} shows that in February, the RF is zero- to negative in the lower layers, with the column above Alert being most negative. In March through June, the RF is more or less positive throughout the column. In the lower layers, the positive RF is most prominent at Barrow and Summit. At these stations, the lower 100 hPa of the column experiences ozone induced RF of 0-0.005 Wm$^{-2}$ in May. In June, the column shifts a bit more towards zero in the lower layers up to about 950 hPa, where it increases. The highest warming is found in June at approximately 650 hPa above Zeppelin, Alert and the Arctic averaged. The RF in this layer is estimated as 0.015 Wm$^{-2}$. 
 
 
 \medskip
@@ -429,11 +402,11 @@ In 2013 (Figure \ref{fig:vert_RF_2013}) the RF in the lower layers (up to about 
 Figures \ref{fig:BEorig_RF_polar_FebApr_2001}-\ref{fig:BEorig_RF_polar_AprJune_2001} contain the RF due to ozone in 2001 throughout the whole tropospheric column calculated for the BE-branch (left columns) and the RF calculated by the Original CTM3 minus the RF by the BE-branch (right columns) in the Arctic. Figures \ref{fig:BEorig_RF_polar_FebApr_2013}-\ref{fig:BEorig_RF_polar_AprJune_2013} have the same content, but for the year 2013. \footnote{A figure containing the global RF produced by the BE-branch can be found in Appendix \ref{app:RF}, Figure \ref{fig:BE_RF_global_2001} for 2001 and Figure \ref{fig:BE_RF_global_2013} for 2013. Global RF produced by the Original CTM3 can be found in Figure \ref{fig:orig_RF_global_2001} for 2001 and \ref{fig:orig_RF_global_2013} for 2013}. 
 \medskip 
 
-Period 1 for 2001 is shown in Figure \ref{fig:BEorig_RF_polar_FebApr_2001}. The BE-branch ozone-induced RF (left columns) in February is quite homogeneous, and reads approximately $0.0-0.025$ Wm$^{-2}$ across the Arctic, and slightly higher over Svalbard and the Barents Sea. The difference in RF between the Original CTM3 and the BE-branch shows that the RF calculated by the BE-branch matches the one produced by the Original CTM3. Through March, the BE-branch produces some negative RF north of Canada. The difference in RF between the Original CTM3 and the BE-branch produces zero RF over the Arctic ocean towards and over Greenland, but is otherwise positive. Through April, the BE-branch RF is zero or positive and the difference in RF between the Original CTM3 and the BE-branch is positive.
+Period 1 for 2001 is shown in Figure \ref{fig:BEorig_RF_polar_FebApr_2001}. The BE-branch ozone-induced RF (left columns) in February is quite homogeneous, and reads approximately $0.0-0.025$ Wm$^{-2}$ across the Arctic, and slightly higher over Svalbard and the Barents Sea. The difference in RF between the Original CTM3 and the BE-branch shows that the RF calculated by the BE-branch matches the one produced by the Original CTM3. Through March, the BE-branch produces some negative RF north of Canada. The difference in RF between the Original CTM3 and the BE-branch results in zero RF over the Arctic ocean towards and over Greenland, but is otherwise positive. Through April, the BE-branch RF is zero or positive and the difference in RF between the Original CTM3 and the BE-branch is positive.
 
 \medskip
 
-Throughout Period 2 in 2001 (Figure \ref{fig:BEorig_RF_polar_AprJune_2001}), the BE-branch RF increases, but the difference in RF between the Original CTM3 and the BE-branch produces solely positive values, meaning that the RF produced by the Original CTM3 is higher.
+Throughout Period 2 in 2001 (Figure \ref{fig:BEorig_RF_polar_AprJune_2001}), the BE-branch RF increases, but the difference in RF between the Original CTM3 and the BE-branch produces solely positive values, meaning that the RF produced by the BE-branch is lower than that of the Original CTM3.
 
 \medskip
 
@@ -445,7 +418,7 @@ Figure \ref{fig:BEorig_RF_polar_AprJune_2013} contains the 2013 RF for period 2.
 
 \medskip
 
-The averaged RF globally and over the Arctic, produced by the BE-branch and the Original CTM and the difference between them for the whole period, Period 1 and Period 2 for 2001 and 2013 is shown in Table \ref{tab:RF_results}. In 2001, large variations are exhibited considering whether the BE-branch the whole atmosphere is taken into account, or just the Arctic. Globally the BE-branch may produce negative RF (the whole time period and Period 2), but in the Arctic, the RF is always negative. Also, averaged over the Arctic and globally, the Original CTM3 produces a higher RF, which can be seen from the difference between the two branches. In 2013, the BE-branch produces higher RF-values than the Original CTM3 for all the periods. The BE-branch also have larger standard deviations than the Original CTM3. The temporally (February to April) and globally averaged RF due to tropospheric ozone increases estimated by the BE-branch is $-0.11\pm0.11$ Wm$^{-2}$ in 2001 and $0.39\pm0.31$ Wm$^{-2}$ in 2013. The Original CTM3 estimation yields  $0.31\pm0.24$ Wm$^{-2}$ in 2001 and $0.30\pm0.24$ Wm$^{-2}$ in 2013
+The averaged RF globally and over the Arctic, produced by the BE-branch and the Original CTM and the difference between them for the whole period, Period 1 and Period 2 for 2001 and 2013 is shown in Table \ref{tab:RF_results}. In 2001, large variations are exhibited whether the BE-branch considers the whole atmosphere or just the Arctic. Globally the BE-branch may produce negative RF (the whole time period and Period 2), but in the Arctic, the RF is always negative. Also, averaged over the Arctic and globally, the Original CTM3 produces a higher RF, which can be seen from the difference between the two branches. In 2013, the BE-branch produces higher RF-values than the Original CTM3 for all the periods. The BE-branch also have larger standard deviations than the Original CTM3. The temporally (February to April) and globally averaged RF due to tropospheric ozone increases estimated by the BE-branch is $-0.11\pm0.11$ Wm$^{-2}$ in 2001 and $0.39\pm0.31$ Wm$^{-2}$ in 2013. The Original CTM3 estimation yields  $0.31\pm0.24$ Wm$^{-2}$ in 2001 and $0.30\pm0.24$ Wm$^{-2}$ in 2013.
 
 
 \input{Chapter6_Results/images/RF/RF_USE/BEOrig_RF_polar_FebApr_2001}
